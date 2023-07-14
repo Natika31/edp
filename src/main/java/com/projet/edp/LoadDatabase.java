@@ -19,9 +19,7 @@ public class LoadDatabase {
 
 		return args -> {
 			log.info("clean database ");repository.deleteAll();
-
-			log.info("Preloading " + repository.save(new File("/home/", "test.pdf")));
-			log.info("Preloading " + repository.save(new File("/home/", "test.jpg")));
+			log.info("Preloading " + repository.save(new File("/home/", "Dans mon île","pdf")));
 		};
 	}
 

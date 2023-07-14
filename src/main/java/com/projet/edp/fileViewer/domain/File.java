@@ -28,7 +28,7 @@ public class File implements Serializable {
 	public File() {
 	}
 	
-	public File(String file_path, String file_name) {
+	public File(String file_path, String file_name, String file_format) {
 		this.file_path = file_path;
 		this.file_name = file_name;
 	}
