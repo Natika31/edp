@@ -20,10 +20,11 @@ public class LoadDatabase {
 	private static final Logger log = LoggerFactory.getLogger(LoadDatabase.class);
 
 	@Bean
-	CommandLineRunner initDatabase(FileDAO repository) {
+	CommandLineRunner initDatabase(FileDAO fileDao) {
 
 		return args -> {
-			log.info("clean database ");repository.deleteAll();
+			log.info("clean database ");
+			fileDao.deleteAll();
 			MyFile file = new MyFile();
 			file.setFile_name("Dans mon île");
 			file.setFile_path("/home/");
@@ -36,7 +37,7 @@ public class LoadDatabase {
 			
 			file.setFile_content(arr);
  
-			log.info("Preloading " + repository.save(file));
+			log.info("Preloading " + fileDao.save(file));
 
 		};
 	}

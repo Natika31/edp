@@ -11,23 +11,23 @@ import org.springframework.web.bind.annotation.*;
 public class FileController {
 
 	@Autowired
-	FileDAO fileRepository;
+	FileDAO fileDao;
 	
 	
 
 	public FileController(FileDAO fileRepository) {
-		this.fileRepository = fileRepository;
+		this.fileDao = fileRepository;
 	}
 
 	@PostMapping
 	public String create(@RequestBody MyFile file) {
-		fileRepository.save(file);
+		fileDao.save(file);
 		return "File is created";
 	}
 	
 	@GetMapping("/api/file")
 	public Optional<MyFile>getFileById(@RequestParam Long file_id) {
-		Optional<MyFile> file = fileRepository.findById(file_id);
+		Optional<MyFile> file = fileDao.findById(file_id);
 		return file;
 	}
 
