@@ -2,9 +2,9 @@ package com.projet.edp.fileViewer.dao;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import com.projet.edp.fileViewer.domain.File;
+import com.projet.edp.fileViewer.domain.MyFile;
 
-public interface FileDAO extends JpaRepository<File, Long> {
+public interface FileDAO extends JpaRepository<MyFile, Long> {
 	
 
 }

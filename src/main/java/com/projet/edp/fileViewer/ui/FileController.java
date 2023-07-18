@@ -1,8 +1,7 @@
 package com.projet.edp.fileViewer.ui;
 
 import com.projet.edp.fileViewer.dao.FileDAO;
-import com.projet.edp.fileViewer.domain.File;
-import java.util.List;
+import com.projet.edp.fileViewer.domain.MyFile;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,14 +20,14 @@ public class FileController {
 	}
 
 	@PostMapping
-	public String create(@RequestBody File file) {
+	public String create(@RequestBody MyFile file) {
 		fileRepository.save(file);
 		return "File is created";
 	}
 	
 	@GetMapping("/api/file")
-	public Optional<File>getFileById(@RequestParam Long file_id) {
-		Optional<File> file = fileRepository.findById(file_id);
+	public Optional<MyFile>getFileById(@RequestParam Long file_id) {
+		Optional<MyFile> file = fileRepository.findById(file_id);
 		return file;
 	}
 
