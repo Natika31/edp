@@ -1,34 +1,31 @@
 package com.projet.edp.fileViewer.ui;
 
-import com.projet.edp.fileViewer.dao.FileDAO;
+import com.projet.edp.fileViewer.service.FileServiceImpl;
 import com.projet.edp.fileViewer.domain.MyFile;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 public class FileController {
 
 	@Autowired
-	FileDAO fileDao;
+	FileServiceImpl fileServiceImpl;
 	
-	
-
-	public FileController(FileDAO fileRepository) {
-		this.fileDao = fileRepository;
+	public FileController(FileServiceImpl fileServiceImpl) {
+		this.fileServiceImpl = fileServiceImpl;
 	}
 
 	@PostMapping
 	public String create(@RequestBody MyFile file) {
-		fileDao.save(file);
+		fileServiceImpl.save(file);
 		return "File is created";
 	}
 	
 	@GetMapping("/api/file")
-	public Optional<MyFile>getFileById(@RequestParam Long file_id) {
-		Optional<MyFile> file = fileDao.findById(file_id);
-		return file;
+	public ResponseEntity<MyFile> getFileById(@RequestParam Long file_id) {
+		return ResponseEntity.ok(fileServiceImpl.findFileById(file_id).get());
 	}
 
 }

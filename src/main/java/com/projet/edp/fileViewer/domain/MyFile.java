@@ -24,13 +24,13 @@ public class MyFile implements Serializable {
 
 	@Column(name = "file_path")
 	private String file_path;
-	
+
 	@Column(name = "file_name")
 	private String file_name;	
-	
+
 	@Column(name = "file_format")
 	private String file_format;
-	
+
 	@Lob
 	@JdbcTypeCode(Types.VARBINARY)
 	@Column(name = "file_content")
@@ -38,7 +38,7 @@ public class MyFile implements Serializable {
 
 	public MyFile() {
 	}
-	
+
 	public MyFile(String file_path, String file_name, String file_format, byte[] file_content) {
 		super();
 		this.file_path = file_path;
@@ -51,7 +51,9 @@ public class MyFile implements Serializable {
 		return file_id;
 	}
 
-
+	public void setFile_id(Long file_id) {
+		this.file_id = file_id;		
+	}
 
 	public String getFile_path() {
 		return file_path;
@@ -114,6 +116,7 @@ public class MyFile implements Serializable {
 				+ file_format + ", file_content=" + Arrays.toString(file_content) + "]";
 	}
 
-	
+
+
 
 }
