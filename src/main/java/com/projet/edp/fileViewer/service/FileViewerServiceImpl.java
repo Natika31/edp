@@ -10,7 +10,7 @@ import com.projet.edp.fileViewer.dao.FileDAO;
 import com.projet.edp.fileViewer.domain.MyFile;
 
 @Service
-public class FileServiceImpl implements FileService{
+public class FileViewerServiceImpl implements FileViewerService{
 
 	@Autowired
 	FileDAO fileDAO;
