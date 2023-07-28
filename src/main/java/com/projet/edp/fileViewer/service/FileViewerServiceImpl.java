@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.projet.edp.exceptions.BusinessResourceException;
+import com.projet.edp.fileViewer.dao.FileContentDAO;
 import com.projet.edp.fileViewer.dao.FileDAO;
 import com.projet.edp.fileViewer.domain.MyFile;
 
@@ -14,7 +15,10 @@ public class FileViewerServiceImpl implements FileViewerService{
 
 	@Autowired
 	FileDAO fileDAO;
-
+	
+	@Autowired
+	FileContentDAO fileContentDAO;
+	
 	@Override
 	public Optional<MyFile> findFileById(Long file_id)throws BusinessResourceException{
 		Optional<MyFile> itemFound =  fileDAO.findById(file_id);
@@ -25,8 +29,14 @@ public class FileViewerServiceImpl implements FileViewerService{
 	}
 
 	@Override
-	public void save(MyFile file) throws BusinessResourceException{
+	public void save(MyFile file) throws BusinessResourceException {
+		fileContentDAO.save(file.getFile_content());
 		fileDAO.save(file);	
 	}
 
+	@Override
+	public void deleteAll() {
+		fileDAO.deleteAll();
+	}
+	
 }

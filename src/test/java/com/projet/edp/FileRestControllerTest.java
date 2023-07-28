@@ -6,9 +6,6 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-
-import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Optional;
@@ -20,41 +17,33 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.web.servlet.MockMvc;
 
 import com.projet.edp.fileViewer.domain.MyFile;
-import com.projet.edp.fileViewer.service.FileServiceImpl;
-import com.projet.edp.fileViewer.ui.FileController;
+import com.projet.edp.fileViewer.service.FileViewerService;
+import com.projet.edp.fileViewer.ui.FileViewerController;
 
-@WebMvcTest(FileController.class)
+@WebMvcTest(FileViewerController.class)
 class FileRestControllerTest {
 	
 	  @Autowired
 	  private MockMvc mockMvc;
 	  
 	  @MockBean
-	  private FileServiceImpl service;
+	  private FileViewerService service;
 
 	@Test
-	void test() throws Exception {
+	void GivenSelectedFile_whenRequestGETFileIdEquals1_thenGetStoredFileIdEquals1() throws Exception {
 		
-		Optional<MyFile> selectedItem = createTestSelectedItem(1L,"/home/","Dans mon île", "pdf", "C:/Users/Natacha/Documents/cnam/GLG204 - 2023/DANS MON ILE.pdf");
-		
+
+		Optional<MyFile> selectedItem = saveFile("/home/","Dans mon île", "pdf", "C:/Users/Natacha/Documents/cnam/GLG204 - 2023/DANS MON ILE.pdf");
 		when(service.findFileById(1L)).thenReturn(selectedItem);
 		this.mockMvc.perform(get("/api/file?file_id=1")).andDo(print()).andExpect(status().isOk())
-		.andExpect(content().string(containsString("\"file_id\":1,\"file_path\":\"/home/\",\"file_name\":")));
+		.andExpect(content().string(containsString("\"file_id\":1,\"file_destination_path\":\"/home/\",\"file_name\":\"Dans mon Ã®le\",\"file_format\":\"pdf\",\"file_origin_location\":\"C:/Users/Natacha/Documents/cnam/GLG204 - 2023/DANS MON ILE.pdf\",\"file_content\":{\"file_content_id\":1,\"binary_content\":")));
 
 	}
 
-	private Optional<MyFile> createTestSelectedItem(Long file_id, String file_path, String file_name, String file_format, String file_content_location) throws FileNotFoundException, IOException {
-		MyFile selectedItem = new MyFile();
-		selectedItem.setFile_id(file_id);
-		selectedItem.setFile_name(file_name);
-		selectedItem.setFile_path(file_path);
-		selectedItem.setFile_format(file_format);
-		File pdffile = new File(file_content_location);
-		FileInputStream fis = new FileInputStream(pdffile);
-		byte[] arr = new byte[(int)pdffile.length()];
-		fis.read(arr);
-		fis.close();
-		selectedItem.setFile_content(arr);
+	private Optional<MyFile> saveFile(String file_path, String file_name, String file_format, String file_content_location) throws FileNotFoundException, IOException {
+		MyFile selectedItem = new MyFile(file_path, file_name, file_format, file_content_location);
+		selectedItem.setFile_id(1L);
+		selectedItem.getFile_content().setFile_content_id(1L);
 		return Optional.of(selectedItem);
 	}
 }

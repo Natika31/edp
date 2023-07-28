@@ -3,11 +3,11 @@
  */
 package com.projet.edp.fileViewer.domain;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.io.Serializable;
-import java.sql.Types;
-import java.util.Arrays;
-import java.util.Objects;
-import org.hibernate.annotations.JdbcTypeCode;
 import jakarta.persistence.*;
 
 
@@ -22,8 +22,8 @@ public class MyFile implements Serializable {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long file_id;
 
-	@Column(name = "file_path")
-	private String file_path;
+	@Column(name = "file_destination_path")
+	private String file_destination_path;
 
 	@Column(name = "file_name")
 	private String file_name;	
@@ -31,20 +31,24 @@ public class MyFile implements Serializable {
 	@Column(name = "file_format")
 	private String file_format;
 
-	@Lob
-	@JdbcTypeCode(Types.VARBINARY)
-	@Column(name = "file_content")
-	private byte[] file_content;
+	//TODO: "file_origin_location" comment dire simplement "chemin dans le dique dur du fichier à uploader"? 
+	@Column(name = "file_origin_location")
+	private String file_origin_location;
+
+	@OneToOne
+	@JoinColumn(name = "file_content_fk", nullable=false)
+	private FileContent file_content;
 
 	public MyFile() {
 	}
 
-	public MyFile(String file_path, String file_name, String file_format, byte[] file_content) {
+	public MyFile(String file_destination_path, String file_name, String file_format, String file_origin_location)throws FileNotFoundException, IOException {
 		super();
-		this.file_path = file_path;
+		this.file_destination_path = file_destination_path;
 		this.file_name = file_name;
 		this.file_format = file_format;
-		this.file_content = file_content;
+		this.file_origin_location = file_origin_location;
+		this.setFile_content(file_origin_location);
 	}
 
 	public Long getFile_id() {
@@ -52,15 +56,15 @@ public class MyFile implements Serializable {
 	}
 
 	public void setFile_id(Long file_id) {
-		this.file_id = file_id;		
+		this.file_id = file_id;
 	}
 
-	public String getFile_path() {
-		return file_path;
+	public String getFile_destination_path() {
+		return file_destination_path;
 	}
 
-	public void setFile_path(String file_path) {
-		this.file_path = file_path;
+	public void setFile_destination_path(String file_destination_path) {
+		this.file_destination_path = file_destination_path;
 	}
 
 	public String getFile_name() {
@@ -79,43 +83,35 @@ public class MyFile implements Serializable {
 		this.file_format = file_format;
 	}
 
-	public byte[] getFile_content() {
+	public String getFile_origin_location() {
+		return file_origin_location;
+	}
+
+	public void setFile_origin_location(String file_origin_location) {
+		this.file_origin_location = file_origin_location;
+	}
+
+	public FileContent getFile_content() {
 		return file_content;
 	}
 
-	public void setFile_content(byte[] file_content) {
-		this.file_content = file_content;
-	}
-
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + Arrays.hashCode(file_content);
-		result = prime * result + Objects.hash(file_format, file_id, file_name, file_path);
-		return result;
-	}
-
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		MyFile other = (MyFile) obj;
-		return Arrays.equals(file_content, other.file_content) && Objects.equals(file_format, other.file_format)
-				&& Objects.equals(file_id, other.file_id) && Objects.equals(file_name, other.file_name)
-				&& Objects.equals(file_path, other.file_path);
+	public void setFile_content(String file_origin_location)throws FileNotFoundException, IOException  {
+		//manips pour récupérer le contenu binaire du fichier à uploader
+		File PDFfile = new File(file_origin_location);
+		FileInputStream fileInputStream = new FileInputStream(PDFfile);
+		byte[] binaryArray = new byte[(int)PDFfile.length()];
+		fileInputStream.read(binaryArray);
+		fileInputStream.close();
+		//TODO: est-ce qu'on peut faire les ci-dessus manip ici (dans le setter) ?
+		this.file_content = new FileContent(binaryArray);
 	}
 
 	@Override
 	public String toString() {
-		return "File [file_id=" + file_id + ", file_path=" + file_path + ", file_name=" + file_name + ", file_format="
-				+ file_format + ", file_content=" + Arrays.toString(file_content) + "]";
+		return "MyFile [file_id=" + file_id + ", file_destination_path=" + file_destination_path + ", file_name="
+				+ file_name + ", file_format=" + file_format + ", file_origin_location=" + file_origin_location
+				+ ", file_content=" + file_content + "]";
 	}
-
 
 
 

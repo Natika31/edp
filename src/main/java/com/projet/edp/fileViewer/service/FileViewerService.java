@@ -9,4 +9,6 @@ public interface FileViewerService {
 	public Optional<MyFile> findFileById(Long file_id) throws BusinessResourceException;
 	
 	public void save(MyFile file) throws BusinessResourceException;
+
+	void deleteAll();
 }
