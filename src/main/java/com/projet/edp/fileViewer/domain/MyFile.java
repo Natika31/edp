@@ -3,8 +3,6 @@
  */
 package com.projet.edp.fileViewer.domain;
 
-import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.Serializable;
@@ -31,9 +29,8 @@ public class MyFile implements Serializable {
 	@Column(name = "file_format")
 	private String file_format;
 
-	//TODO: "file_origin_location" comment dire simplement "chemin dans le dique dur du fichier à uploader"? 
-	@Column(name = "file_origin_location")
-	private String file_origin_location;
+	@Column(name = "file_origin_path")
+	private String file_origin_path;
 
 	@OneToOne
 	@JoinColumn(name = "file_content_fk", nullable=false)
@@ -42,13 +39,13 @@ public class MyFile implements Serializable {
 	public MyFile() {
 	}
 
-	public MyFile(String file_destination_path, String file_name, String file_format, String file_origin_location)throws FileNotFoundException, IOException {
+	public MyFile(String file_destination_path, String file_name, String file_format, String file_origin_path, FileContent fileContent)throws FileNotFoundException, IOException {
 		super();
 		this.file_destination_path = file_destination_path;
 		this.file_name = file_name;
 		this.file_format = file_format;
-		this.file_origin_location = file_origin_location;
-		this.setFile_content(file_origin_location);
+		this.file_origin_path = file_origin_path;
+		this.file_content = fileContent;
 	}
 
 	public Long getFile_id() {
@@ -83,33 +80,26 @@ public class MyFile implements Serializable {
 		this.file_format = file_format;
 	}
 
-	public String getFile_origin_location() {
-		return file_origin_location;
+	public String getFile_origin_path() {
+		return file_origin_path;
 	}
 
-	public void setFile_origin_location(String file_origin_location) {
-		this.file_origin_location = file_origin_location;
+	public void setFile_origin_path(String file_origin_path) {
+		this.file_origin_path = file_origin_path;
 	}
 
 	public FileContent getFile_content() {
 		return file_content;
 	}
 
-	public void setFile_content(String file_origin_location)throws FileNotFoundException, IOException  {
-		//manips pour récupérer le contenu binaire du fichier à uploader
-		File PDFfile = new File(file_origin_location);
-		FileInputStream fileInputStream = new FileInputStream(PDFfile);
-		byte[] binaryArray = new byte[(int)PDFfile.length()];
-		fileInputStream.read(binaryArray);
-		fileInputStream.close();
-		//TODO: est-ce qu'on peut faire les ci-dessus manip ici (dans le setter) ?
-		this.file_content = new FileContent(binaryArray);
+	public void setFile_content(FileContent file_content) {
+		this.file_content = file_content;
 	}
 
 	@Override
 	public String toString() {
 		return "MyFile [file_id=" + file_id + ", file_destination_path=" + file_destination_path + ", file_name="
-				+ file_name + ", file_format=" + file_format + ", file_origin_location=" + file_origin_location
+				+ file_name + ", file_format=" + file_format + ", file_origin_path=" + file_origin_path
 				+ ", file_content=" + file_content + "]";
 	}
 

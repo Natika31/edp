@@ -1,6 +1,6 @@
 package com.projet.edp.fileViewer.ui;
 
-import com.projet.edp.fileViewer.service.FileViewerService;
+import com.projet.edp.fileViewer.service.FileService;
 import com.projet.edp.fileViewer.domain.MyFile;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,21 +11,21 @@ import org.springframework.web.bind.annotation.*;
 public class FileViewerController {
 
 	@Autowired
-	FileViewerService fileViewerService;
+	FileService fileService;
 	
-	public FileViewerController(FileViewerService fileViewerService) {
-		this.fileViewerService = fileViewerService;
+	public FileViewerController(FileService fileService) {
+		this.fileService = fileService;
 	}
 
 	@PostMapping("/api/file/save")
 	public String create(@RequestBody MyFile file) {
-		fileViewerService.save(file);
+		fileService.save(file);
 		return "File is created";
 	}
 	
 	@GetMapping("/api/file")
 	public ResponseEntity<MyFile> getFileById(@RequestParam Long file_id) {
-		return ResponseEntity.ok(fileViewerService.findFileById(file_id).get());
+		return ResponseEntity.ok(fileService.findFileById(file_id).get());
 	}
 
 }
