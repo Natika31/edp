@@ -5,6 +5,7 @@ import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -37,16 +38,16 @@ class FileRestControllerTest {
 	@Test
 	void GivenSelectedFile_whenRequestGETFileIdEquals1_thenGetStoredFileIdEquals1() throws Exception {
 		
-
 		Optional<MyFile> selectedItem = createFile("/home/","Dans mon île", "pdf", "C:/Users/Natacha/Documents/cnam/GLG204 - 2023/DANS MON ILE.pdf");
 		when(fileService.findFileById(1L)).thenReturn(selectedItem);
 		this.mockMvc.perform(get("/api/file?file_id=1")).andDo(print()).andExpect(status().isOk())
-		.andExpect(content().string(containsString("\"file_id\":1,\"file_destination_path\":\"/home/\",\"file_name\":\"Dans mon Ã®le\",\"file_format\":\"pdf\",\"file_origin_path\":\"C:/Users/Natacha/Documents/cnam/GLG204 - 2023/DANS MON ILE.pdf\",\"file_content\":{\"file_content_id\":1,\"binary_content\":")));
+		.andExpect(content().string(containsString("\"file_id\":1,\"file_destination_path\":\"/home/\",\"file_name\":\"Dans mon Ã®le\",\"file_format\":\"pdf\",\"file_origin_path\":\"C:/Users/Natacha/Documents/cnam/GLG204 - 2023/DANS MON ILE.pdf\",\"file_content\":{\"file_content_id\":1,\"binary_content\":")))
+		.andExpect(jsonPath("$.file_content.binary_content").isNotEmpty());
 
 	}
 
 	private Optional<MyFile> createFile(String file_path, String file_name, String file_format, String file_origin_path) throws FileNotFoundException, IOException {
-		byte[] binaryArray = fileContentService.convertInputFileToBinaryArray(file_origin_path);
+		byte[] binaryArray = fileContentService.convertInputFileToBinaryArray(file_origin_path);			
 		FileContent fileContent = new FileContent(binaryArray);
 		fileContent.setFile_content_id(1L);
 		MyFile selectedItem = new MyFile(file_path, file_name, file_format, file_origin_path, fileContent);
