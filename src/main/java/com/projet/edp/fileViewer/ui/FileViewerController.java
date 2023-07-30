@@ -1,11 +1,19 @@
 package com.projet.edp.fileViewer.ui;
 
-import com.projet.edp.fileViewer.service.FileService;
-import com.projet.edp.fileViewer.domain.MyFile;
-
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.projet.edp.fileViewer.domain.MyFile;
+import com.projet.edp.fileViewer.dto.FileDTO;
+import com.projet.edp.fileViewer.service.FileContentService;
+import com.projet.edp.fileViewer.service.FileService;
 
 @RestController
 public class FileViewerController {
@@ -13,19 +21,34 @@ public class FileViewerController {
 	@Autowired
 	FileService fileService;
 	
+	@Autowired
+	FileContentService fileContentService;
+	
+	@Autowired
+	private ModelMapper modelMapper;
+	
+	
+	
 	public FileViewerController(FileService fileService) {
 		this.fileService = fileService;
 	}
 
 	@PostMapping("/api/file/save")
-	public String create(@RequestBody MyFile file) {
-		fileService.save(file);
-		return "File is created";
+	public ResponseEntity<FileDTO> create(@RequestBody FileDTO fileDTO) {
+		MyFile postRequest = modelMapper.map(fileDTO, MyFile.class);
+		MyFile file = fileService.save(postRequest);
+		
+		FileDTO postResponse = modelMapper.map(file, FileDTO.class);
+		
+		return new ResponseEntity<FileDTO>(postResponse, HttpStatus.CREATED);
 	}
 	
 	@GetMapping("/api/file")
-	public ResponseEntity<MyFile> getFileById(@RequestParam Long file_id) {
-		return ResponseEntity.ok(fileService.findFileById(file_id).get());
+	public ResponseEntity<FileDTO> getFileById(@RequestParam Long file_id) {
+		MyFile file = fileService.findFileById(file_id).get();
+		FileDTO fileDTO = this.modelMapper.map(file, FileDTO.class);
+		return ResponseEntity.ok(fileDTO);
+
 	}
 
 }

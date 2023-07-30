@@ -24,8 +24,8 @@ public class FileServiceImpl implements FileService{
 	}
 
 	@Override
-	public void save(MyFile file) throws BusinessResourceException {
-		fileDAO.save(file);	
+	public MyFile save(MyFile file) throws BusinessResourceException {
+		return fileDAO.save(file);	
 	}
 
 	@Override

@@ -8,7 +8,7 @@ public interface FileService {
 
 	public Optional<MyFile> findFileById(Long file_id) throws BusinessResourceException;
 	
-	public void save(MyFile file) throws BusinessResourceException;
+	public MyFile save(MyFile file) throws BusinessResourceException;
 
 	void deleteAll();
 	
