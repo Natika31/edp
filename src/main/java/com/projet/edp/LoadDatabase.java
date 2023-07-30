@@ -25,8 +25,7 @@ public class LoadDatabase {
 			FileContent fileContent = new FileContent(binaryArray);
 			fileContentService.save(fileContent);
 			MyFile selectedItem = new MyFile("/home/","Dans mon île", "pdf", "C:/Users/Natacha/Documents/cnam/GLG204 - 2023/DANS MON ILE.pdf", fileContent);
-			fileService.save(selectedItem);
-			log.info("Preloading " + selectedItem );
+			log.info("Preloading " + fileService.save(selectedItem) );
 		};
 	}
 
