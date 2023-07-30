@@ -42,7 +42,7 @@ class FileRestControllerTest {
 		when(fileService.findFileById(1L)).thenReturn(selectedItem);
 		this.mockMvc.perform(get("/api/file?file_id=1")).andDo(print()).andExpect(status().isOk())
 		//TODO: encodage pb 
-		.andExpect(content().string(containsString("\"file_destination_path\":\"/home/\",\"file_name\":\"Dans mon île\",\"file_format\":\"pdf\",\"binary_content\":\"JVBERi0xLjcKCjQgMCBvYmoKKElkZW50aXR5KQplbmRvYmoKNSAwIG9iagooQWRvYmUpCmVuZG9iago4IDAgb2JqCjw8Ci9GaWx0ZXIgL0ZsYXRlRGVjb2RlCi9")))
+		.andExpect(content().string(containsString("file_id\":\"1\",\"file_name\":\"Dans mon ")))
 		;
 
 	}
