@@ -1,4 +1,4 @@
-package com.projet.edp;
+package com.projet.edp.directoryViewerTest;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
