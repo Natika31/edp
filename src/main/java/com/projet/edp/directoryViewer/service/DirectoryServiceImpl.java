@@ -4,7 +4,6 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import com.projet.edp.directoryViewer.dao.DirectoryDAO;
 import com.projet.edp.directoryViewer.domain.Directory;
 import com.projet.edp.exceptions.BusinessResourceException;
@@ -25,8 +24,13 @@ public class DirectoryServiceImpl implements DirectoryService {
 	}
 
 	@Override
-	public void save(Directory directory) throws BusinessResourceException {
-		directoryDAO.save(directory);
+	public Directory save(Directory directory) throws BusinessResourceException {
+		return directoryDAO.save(directory);
+	}
+
+	@Override
+	public void deleteAll() {
+		directoryDAO.deleteAll();
 	}
 
 }

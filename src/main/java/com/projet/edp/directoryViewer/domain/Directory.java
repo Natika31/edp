@@ -21,12 +21,12 @@ public class Directory implements Serializable {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long directory_id;
 
-	@Column(name = "directory_path")
-	private String directory_path;
+	@Column(name = "directory_local_path")
+	private String directory_local_path;
 
 	@Column(name = "directory_name")
 	private String directory_name;
-	
+
 	@OneToMany
 	private List<MyFile> children;
 
@@ -35,9 +35,9 @@ public class Directory implements Serializable {
 		// TODO Auto-generated constructor stub
 	}
 
-	public Directory(String directory_path, String directory_name) {
+	public Directory(String directory_local_path, String directory_name) {
 		super();
-		this.directory_path = directory_path;
+		this.directory_local_path = directory_local_path;
 		this.directory_name = directory_name;
 		this.children = new ArrayList<>();
 	}
@@ -50,12 +50,12 @@ public class Directory implements Serializable {
 		this.directory_id = directory_id;
 	}
 
-	public String getDirectory_path() {
-		return directory_path;
+	public String getDirectory_local_path() {
+		return directory_local_path;
 	}
 
-	public void setDirectory_path(String directory_path) {
-		this.directory_path = directory_path;
+	public void setDirectory_local_path(String directory_local_path) {
+		this.directory_local_path = directory_local_path;
 	}
 
 	public String getDirectory_name() {
@@ -73,38 +73,19 @@ public class Directory implements Serializable {
 	public void addChildren(MyFile file) {
 		this.children.add(file);
 	}
-	
+
 	public void removeChildren(MyFile file) {
 		this.children.remove(file);
 	}
 
-	@Override
-	public int hashCode() {
-		return Objects.hash(children, directory_id, directory_name, directory_path);
-	}
-
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Directory other = (Directory) obj;
-		return Objects.equals(children, other.children) && Objects.equals(directory_id, other.directory_id)
-				&& Objects.equals(directory_name, other.directory_name)
-				&& Objects.equals(directory_path, other.directory_path);
+	public void setChildren(List<MyFile> children) {
+		this.children = children;
 	}
 
 	@Override
 	public String toString() {
-		return "Directory [directory_id=" + directory_id + ", directory_path=" + directory_path + ", directory_name="
+		return "Directory [directory_id=" + directory_id + ", directory_path=" + directory_local_path + ", directory_name="
 				+ directory_name + ", children=" + children + "]";
 	}
-
-
-
-
 
 }
