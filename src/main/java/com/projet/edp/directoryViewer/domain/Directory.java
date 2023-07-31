@@ -50,6 +50,7 @@ public class Directory implements Serializable {
 		this.directory_id = directory_id;
 	}
 
+	//TODO: to generate from file name 
 	public String getDirectory_local_path() {
 		return directory_local_path;
 	}

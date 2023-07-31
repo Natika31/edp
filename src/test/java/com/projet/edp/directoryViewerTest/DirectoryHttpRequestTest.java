@@ -12,7 +12,6 @@ import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
 class DirectoryHttpRequestTest {
 
-
 	@Value(value="${local.server.port}")
 	private int port;
 
@@ -22,13 +21,13 @@ class DirectoryHttpRequestTest {
 	@Test
 	public void getEmptyDirectoryShouldReturnDirectoryIdLocalPathNamAndZeroChildren() throws Exception {
 		assertThat(this.restTemplate.getForObject("http://localhost:" + port + "/api/directory?directory_id=1",
-				String.class)).contains("directory_id\":1,\"directory_local_path\":\"/home/\",\"directory_name\":\"Henri Salvador\",\"children\":[]");
+				String.class)).contains("directory_id\":\"1\",\"directory_local_path\":\"/home/\",\"directory_name\":\"home\",\"childrenDTO\":[]");
 	}
 	
 	@Test
 	public void getNonEmptyDirectoryShouldReturnDirectoryIdLocalPathNameAndChildren() throws Exception {
 		assertThat(this.restTemplate.getForObject("http://localhost:" + port + "/api/directory?directory_id=2",
-				String.class)).contains("directory_id\":2,\"directory_local_path\":\"/home/\",\"directory_name\":\"Henri Salvador\",\"children\":[{\"file_id\":\"1\",\"file_name\":\"Dans mon île\",\"binary_content\":\"JVBERi0xLjcKCjQgMCBvYmoKKElkZW50aXR5KQplbmRvYmoKNSAwIG9iagooQWRvYmUpC");
+				String.class)).contains("directory_id\":\"2\",\"directory_local_path\":\"/home/\",\"directory_name\":\"home\",\"childrenDTO\":[{\"file_id\":\"1\",\"file_name\":\"Dans mon île\",\"binary_content\":\"JVBERi0xLjcKCjQgMCBvYmoKKElkZW50aXR5KQplbmRvYmoKNSAwIG9iagooQWRvYmUpC");
 	}
 
 }

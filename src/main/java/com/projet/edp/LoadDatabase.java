@@ -35,10 +35,10 @@ public class LoadDatabase {
 			//save the new file
 			log.info("Preloading " + fileService.save(selectedFile) );
 			//Create a new empty directory and save it
-			Directory selectedEmptyDirectory = new Directory("/home/", "Henri Salvador");
+			Directory selectedEmptyDirectory = new Directory("/home/", "home");
 			log.info("Preloading " + directoryService.save(selectedEmptyDirectory));
 			//Create a directory containing one file and save it
-			Directory selectedDirectory = new Directory("/home/", "Henri Salvador");
+			Directory selectedDirectory = new Directory("/home/", "home");
 			selectedDirectory.addChildren(selectedFile);
 			log.info("Preloading " + directoryService.save(selectedDirectory));
 		};
