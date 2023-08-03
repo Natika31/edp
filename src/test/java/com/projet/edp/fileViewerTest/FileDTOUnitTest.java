@@ -1,4 +1,4 @@
-package com.projet.edp;
+package com.projet.edp.fileViewerTest;
 
 import static org.junit.jupiter.api.Assertions.*;
 
