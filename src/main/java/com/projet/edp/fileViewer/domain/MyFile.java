@@ -56,6 +56,7 @@ public class MyFile implements Serializable {
 		this.file_id = file_id;
 	}
 
+	//TODO: to generate from file name 
 	public String getFile_destination_path() {
 		return file_destination_path;
 	}
