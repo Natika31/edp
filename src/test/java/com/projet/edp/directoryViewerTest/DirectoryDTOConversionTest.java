@@ -7,12 +7,12 @@ import java.io.IOException;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import com.projet.edp.LoadDatabase;
-import com.projet.edp.directoryViewer.domain.Directory;
-import com.projet.edp.directoryViewer.dto.DirectoryDTO;
-import com.projet.edp.directoryViewer.dto.DirectoryDTOConversion;
-import com.projet.edp.fileViewer.domain.FileContent;
-import com.projet.edp.fileViewer.domain.MyFile;
-import com.projet.edp.fileViewer.dto.FileDTO;
+import com.projet.edp.fileTree.domain.Directory;
+import com.projet.edp.fileTree.domain.FileContent;
+import com.projet.edp.fileTree.domain.MyFile;
+import com.projet.edp.fileTree.dto.DirectoryDTO;
+import com.projet.edp.fileTree.dto.DirectoryDTOConversion;
+import com.projet.edp.fileTree.dto.FileDTO;
 
 class DirectoryDTOConversionTest {
 

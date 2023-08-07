@@ -1,8 +1,9 @@
-package com.projet.edp.directoryViewer.service;
+package com.projet.edp.fileTree.service;
 
 import java.util.Optional;
-import com.projet.edp.directoryViewer.domain.Directory;
+
 import com.projet.edp.exceptions.BusinessResourceException;
+import com.projet.edp.fileTree.domain.Directory;
 
 public interface DirectoryService {
 		

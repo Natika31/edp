@@ -1,4 +1,4 @@
-package com.projet.edp.fileViewer.ui;
+package com.projet.edp.fileTree.ui;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,10 +10,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.projet.edp.fileViewer.domain.MyFile;
-import com.projet.edp.fileViewer.dto.FileDTO;
-import com.projet.edp.fileViewer.service.FileContentService;
-import com.projet.edp.fileViewer.service.FileService;
+import com.projet.edp.fileTree.domain.MyFile;
+import com.projet.edp.fileTree.dto.FileDTO;
+import com.projet.edp.fileTree.service.FileContentService;
+import com.projet.edp.fileTree.service.FileService;
 
 @RestController
 public class FileViewerController {

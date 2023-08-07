@@ -1,10 +1,10 @@
-package com.projet.edp.directoryViewer.dto;
+package com.projet.edp.fileTree.dto;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 
-import com.projet.edp.directoryViewer.domain.Directory;
+import com.projet.edp.fileTree.domain.Directory;
 
 
 public class DirectoryDTOConversion {

@@ -1,10 +1,10 @@
-package com.projet.edp.directoryViewer.domain;
+package com.projet.edp.fileTree.domain;
 
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-import com.projet.edp.fileViewer.domain.MyFile;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;

@@ -5,9 +5,9 @@ import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.Test;
 import org.modelmapper.ModelMapper;
 
-import com.projet.edp.fileViewer.domain.FileContent;
-import com.projet.edp.fileViewer.domain.MyFile;
-import com.projet.edp.fileViewer.dto.FileDTO;
+import com.projet.edp.fileTree.domain.FileContent;
+import com.projet.edp.fileTree.domain.MyFile;
+import com.projet.edp.fileTree.dto.FileDTO;
 
 class FileDTOUnitTest {
 

@@ -1,8 +1,8 @@
-package com.projet.edp.fileViewer.dao;
+package com.projet.edp.fileTree.dao;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import com.projet.edp.fileViewer.domain.FileContent;
+import com.projet.edp.fileTree.domain.FileContent;
 
 public interface FileContentDAO extends JpaRepository<FileContent, Long> {
 	

@@ -1,4 +1,4 @@
-package com.projet.edp.fileViewer.dto;
+package com.projet.edp.fileTree.dto;
 
 public class FileDTO {
 	

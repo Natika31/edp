@@ -1,12 +1,12 @@
-package com.projet.edp.fileViewer.service;
+package com.projet.edp.fileTree.service;
 
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.projet.edp.exceptions.BusinessResourceException;
-import com.projet.edp.fileViewer.dao.FileDAO;
-import com.projet.edp.fileViewer.domain.MyFile;
+import com.projet.edp.fileTree.dao.FileDAO;
+import com.projet.edp.fileTree.domain.MyFile;
 
 @Service
 public class FileServiceImpl implements FileService{

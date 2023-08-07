@@ -16,11 +16,11 @@ import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.web.servlet.MockMvc;
 
-import com.projet.edp.fileViewer.domain.FileContent;
-import com.projet.edp.fileViewer.domain.MyFile;
-import com.projet.edp.fileViewer.service.FileContentService;
-import com.projet.edp.fileViewer.service.FileService;
-import com.projet.edp.fileViewer.ui.FileViewerController;
+import com.projet.edp.fileTree.domain.FileContent;
+import com.projet.edp.fileTree.domain.MyFile;
+import com.projet.edp.fileTree.service.FileContentService;
+import com.projet.edp.fileTree.service.FileService;
+import com.projet.edp.fileTree.ui.FileViewerController;
 
 @WebMvcTest(FileViewerController.class)
 class FileRestControllerTest {

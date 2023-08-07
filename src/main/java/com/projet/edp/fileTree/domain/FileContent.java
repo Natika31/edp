@@ -1,4 +1,4 @@
-package com.projet.edp.fileViewer.domain;
+package com.projet.edp.fileTree.domain;
 
 import java.io.Serializable;
 import java.sql.Types;

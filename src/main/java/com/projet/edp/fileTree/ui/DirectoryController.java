@@ -1,4 +1,4 @@
-package com.projet.edp.directoryViewer.ui;
+package com.projet.edp.fileTree.ui;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -8,10 +8,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import com.projet.edp.directoryViewer.domain.Directory;
-import com.projet.edp.directoryViewer.dto.DirectoryDTO;
-import com.projet.edp.directoryViewer.dto.DirectoryDTOConversion;
-import com.projet.edp.directoryViewer.service.DirectoryService;
+
+import com.projet.edp.fileTree.domain.Directory;
+import com.projet.edp.fileTree.dto.DirectoryDTO;
+import com.projet.edp.fileTree.dto.DirectoryDTOConversion;
+import com.projet.edp.fileTree.service.DirectoryService;
 
 
 @RestController

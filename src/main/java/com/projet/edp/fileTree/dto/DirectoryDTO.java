@@ -1,8 +1,7 @@
-package com.projet.edp.directoryViewer.dto;
+package com.projet.edp.fileTree.dto;
 
 import java.util.ArrayList;
 import java.util.List;
-import com.projet.edp.fileViewer.dto.FileDTO;
 
 public class DirectoryDTO {
 

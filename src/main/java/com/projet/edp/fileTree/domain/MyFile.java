@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.projet.edp.fileViewer.domain;
+package com.projet.edp.fileTree.domain;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
