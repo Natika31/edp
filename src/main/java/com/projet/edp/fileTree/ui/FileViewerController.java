@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-
 import com.projet.edp.fileTree.domain.MyFile;
 import com.projet.edp.fileTree.dto.FileDTO;
 import com.projet.edp.fileTree.service.FileContentService;
@@ -26,8 +25,6 @@ public class FileViewerController {
 	
 	@Autowired
 	private ModelMapper modelMapper;
-	
-	
 	
 	public FileViewerController(FileService fileService) {
 		this.fileService = fileService;
