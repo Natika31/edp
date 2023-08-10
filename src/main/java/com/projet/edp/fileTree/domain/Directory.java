@@ -6,29 +6,26 @@ import java.util.List;
 import java.util.Objects;
 
 import jakarta.persistence.Column;
+import jakarta.persistence.DiscriminatorValue;
 import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.PrimaryKeyJoinColumn;
 import jakarta.persistence.Table;
 
 @Entity
+@DiscriminatorValue(value = "D")
+@PrimaryKeyJoinColumn(name = "directory_id")
 @Table(name = "directory")
-public class Directory implements Serializable {
-
-	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	private Long directory_id;
+public class Directory extends FileTreeItem implements Serializable {
 
 	@Column(name = "directory_local_path")
 	private String directory_local_path;
-
+	
 	@Column(name = "directory_name")
 	private String directory_name;
 
 	@OneToMany
-	private List<MyFile> children;
+	private List<FileTreeItem> children;
 
 	public Directory() {
 		super();
@@ -41,16 +38,7 @@ public class Directory implements Serializable {
 		this.directory_name = directory_name;
 		this.children = new ArrayList<>();
 	}
-
-	public Long getDirectory_id() {
-		return directory_id;
-	}
-
-	public void setDirectory_id(Long directory_id) {
-		this.directory_id = directory_id;
-	}
-
-	//TODO: to generate from file name 
+	
 	public String getDirectory_local_path() {
 		return directory_local_path;
 	}
@@ -67,25 +55,25 @@ public class Directory implements Serializable {
 		this.directory_name = directory_name;
 	}
 
-	public List<MyFile> getChildren() {
+	public List<FileTreeItem> getChildren() {
 		return children;
 	}
 
-	public void addChildren(MyFile file) {
-		this.children.add(file);
+	public void addChildren(FileTreeItem item) {
+		this.children.add(item);
 	}
 
-	public void removeChildren(MyFile file) {
-		this.children.remove(file);
+	public void removeChildren(FileTreeItem item) {
+		this.children.remove(item);
 	}
 
-	public void setChildren(List<MyFile> children) {
+	public void setChildren(List<FileTreeItem> children) {
 		this.children = children;
 	}
 
 	@Override
 	public String toString() {
-		return "Directory [directory_id=" + directory_id + ", directory_path=" + directory_local_path + ", directory_name="
+		return "Directory [item_id=" + super.getItem_id() + ", directory_local_path=" + directory_local_path + ", directory_name="
 				+ directory_name + ", children=" + children + "]";
 	}
 

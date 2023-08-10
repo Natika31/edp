@@ -13,16 +13,14 @@ import jakarta.persistence.*;
  * 
  */
 @Entity
+@DiscriminatorValue(value = "F")
+@PrimaryKeyJoinColumn(name = "file_id")
 @Table(name = "file")
-public class MyFile implements Serializable {
+public class MyFile extends FileTreeItem implements Serializable {
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	private Long file_id;
-
-	@Column(name = "file_destination_path")
-	private String file_destination_path;
-
+	@Column(name = "file_local_path")
+	private String file_local_path;
+	
 	@Column(name = "file_name")
 	private String file_name;	
 
@@ -39,36 +37,28 @@ public class MyFile implements Serializable {
 	public MyFile() {
 	}
 
-	public MyFile(String file_destination_path, String file_name, String file_format, String file_origin_path, FileContent fileContent)throws FileNotFoundException, IOException {
+	public MyFile(String file_local_path, String file_name, String file_format, String file_origin_path, FileContent fileContent)throws FileNotFoundException, IOException {
 		super();
-		this.file_destination_path = file_destination_path;
+		this.file_local_path = file_local_path;
 		this.file_name = file_name;
 		this.file_format = file_format;
 		this.file_origin_path = file_origin_path;
 		this.file_content = fileContent;
 	}
 
-	public Long getFile_id() {
-		return file_id;
-	}
-
-	public void setFile_id(Long file_id) {
-		this.file_id = file_id;
-	}
-
 	//TODO: to generate from file name 
-	public String getFile_destination_path() {
-		return file_destination_path;
+	public String getFile_file_local_path() {
+		return file_local_path;
 	}
 
-	public void setFile_destination_path(String file_destination_path) {
-		this.file_destination_path = file_destination_path;
+	public void setFile_local_path(String file_local_path) {
+		this.file_local_path = file_local_path;
 	}
 
 	public String getFile_name() {
 		return file_name;
 	}
-
+	
 	public void setFile_name(String file_name) {
 		this.file_name = file_name;
 	}
@@ -99,11 +89,8 @@ public class MyFile implements Serializable {
 
 	@Override
 	public String toString() {
-		return "MyFile [file_id=" + file_id + ", file_destination_path=" + file_destination_path + ", file_name="
-				+ file_name + ", file_format=" + file_format + ", file_origin_path=" + file_origin_path
-				+ ", file_content=" + file_content + "]";
+		return "MyFile [item_id=" + super.getItem_id() + ", file_local_path=" + file_local_path + ", file_name=" + file_name + ", file_format="
+				+ file_format + ", file_origin_path=" + file_origin_path + ", file_content=" + file_content + "]";
 	}
-
-
 
 }
