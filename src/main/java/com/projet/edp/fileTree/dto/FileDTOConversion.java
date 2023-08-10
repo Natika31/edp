@@ -3,7 +3,6 @@ package com.projet.edp.fileTree.dto;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
-import com.projet.edp.fileTree.domain.Directory;
 import com.projet.edp.fileTree.domain.MyFile;
 
 
