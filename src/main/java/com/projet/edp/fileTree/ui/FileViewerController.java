@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import com.projet.edp.fileTree.domain.MyFile;
 import com.projet.edp.fileTree.dto.FileDTO;
+import com.projet.edp.fileTree.dto.FileDTOConversion;
 import com.projet.edp.fileTree.service.FileContentService;
 import com.projet.edp.fileTree.service.FileService;
 
@@ -22,30 +23,27 @@ public class FileViewerController {
 	
 	@Autowired
 	FileContentService fileContentService;
-	
-	@Autowired
-	private ModelMapper modelMapper;
+
+	FileDTOConversion fileDTOConversion;
 	
 	public FileViewerController(FileService fileService) {
 		this.fileService = fileService;
+		this.fileDTOConversion =  new FileDTOConversion();
 	}
 
 	@PostMapping("/api/file/save")
 	public ResponseEntity<FileDTO> create(@RequestBody FileDTO fileDTO) {
-		MyFile postRequest = modelMapper.map(fileDTO, MyFile.class);
+		MyFile postRequest = fileDTOConversion.convertDTOtoEntities(fileDTO);
 		MyFile file = fileService.save(postRequest);
-		
-		FileDTO postResponse = modelMapper.map(file, FileDTO.class);
-		
+		FileDTO postResponse = fileDTOConversion.convertEntityToDTO(file);
 		return new ResponseEntity<FileDTO>(postResponse, HttpStatus.CREATED);
 	}
 	
 	@GetMapping("/api/file")
 	public ResponseEntity<FileDTO> getFileById(@RequestParam Long file_id) {
 		MyFile file = fileService.findFileById(file_id).get();
-		FileDTO fileDTO = this.modelMapper.map(file, FileDTO.class);
+		FileDTO fileDTO = fileDTOConversion.convertEntityToDTO(file);
 		return ResponseEntity.ok(fileDTO);
-
 	}
 
 }
