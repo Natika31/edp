@@ -22,7 +22,7 @@ class FileHttpRequestTest {
 	@Test
 	public void viewOneFileShouldReturnFileData() throws Exception {
 		assertThat(this.restTemplate.getForObject("http://localhost:" + port + "/api/file?file_id=1",
-				String.class)).contains("file_id\":\"1\",\"file_name\":\"Dans mon île\",\"binary_content\":\"JVBERi0xLjcKCjQgMCBvYmoKKElkZW50aXR5KQplbmRvYmoKNSAwIG9iagooQWRvYmUpCmVuZG9iago4IDAgb2JqCjw8Ci9GaWx0ZXIgL0ZsYXRlRGVjb2RlCi9");
+				String.class)).contains("item_id\":\"1\",\"item_name\":\"Dans mon ile\",\"item_local_path\":\"/home/henri_salvador/dans_mon_ile.pdf\",\"file_format\":\"pdf\",\"file_origin_path\":\"C:/Users/Natacha/Documents/cnam/GLG204 - 2023/DANS MON ILE.pdf\",\"binary_content\":\"JVBERi0xLjcKCjQgMCBvYmoKKElkZW50aXR5KQplbmRvYmoKNSAwIG9iagooQWRvYmUpCmVuZG9iago4IDAgb2JqCjw8Ci9GaWx0ZXIgL0ZsYXRlRGVjb2RlCi9");
 	}
 
 }

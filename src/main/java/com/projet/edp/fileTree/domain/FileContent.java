@@ -1,5 +1,9 @@
 package com.projet.edp.fileTree.domain;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.io.Serializable;
 import java.sql.Types;
 import java.util.Arrays;
@@ -28,35 +32,37 @@ public class FileContent implements Serializable {
 
 	public FileContent() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 	
-
 	public FileContent(byte[] binary_content) {
 		super();
 		this.binary_content = binary_content;
 	}
 
-
 	public Long getFile_content_id() {
 		return file_content_id;
 	}
-
 
 	public void setFile_content_id(Long file_content_id) {
 		this.file_content_id = file_content_id;
 	}
 
-
 	public byte[] getBinary_content() {
 		return binary_content;
 	}
 
-
 	public void setBinary_content(byte[] binary_content) {
 		this.binary_content = binary_content;
 	}
-
+	
+	public byte[] convertInputFileToBinaryArray(String file_origin_path) throws FileNotFoundException, IOException {
+		File PDFfile = new File(file_origin_path);
+		FileInputStream fileInputStream = new FileInputStream(PDFfile);
+		byte[] binaryArray = new byte[(int)PDFfile.length()];
+		fileInputStream.read(binaryArray);
+		fileInputStream.close();
+		return binaryArray;
+	}
 
 	@Override
 	public int hashCode() {
@@ -66,7 +72,6 @@ public class FileContent implements Serializable {
 		result = prime * result + Objects.hash(file_content_id);
 		return result;
 	}
-
 
 	@Override
 	public boolean equals(Object obj) {
@@ -87,8 +92,5 @@ public class FileContent implements Serializable {
 		return "FileContent [file_content_id=" + file_content_id + ", binary_content=" + Arrays.toString(binary_content)
 				+ "]";
 	}
-	
-	
-
-	
+		
 }

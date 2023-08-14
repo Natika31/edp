@@ -13,16 +13,10 @@ import jakarta.persistence.*;
  * 
  */
 @Entity
-@DiscriminatorValue(value = "F")
+@DiscriminatorValue(value = "FILE")
 @PrimaryKeyJoinColumn(name = "file_id")
 @Table(name = "file")
-public class MyFile extends FileTreeItem implements Serializable {
-
-	@Column(name = "file_local_path")
-	private String file_local_path;
-	
-	@Column(name = "file_name")
-	private String file_name;	
+public class MyFile extends TreeItem implements Serializable {
 
 	@Column(name = "file_format")
 	private String file_format;
@@ -34,33 +28,18 @@ public class MyFile extends FileTreeItem implements Serializable {
 	@JoinColumn(name = "file_content_fk", nullable=false)
 	private FileContent file_content;
 
+	private String item_type;
+
 	public MyFile() {
+		this.setItem_type(this.getClass().toString());
 	}
 
-	public MyFile(String file_local_path, String file_name, String file_format, String file_origin_path, FileContent fileContent)throws FileNotFoundException, IOException {
-		super();
-		this.file_local_path = file_local_path;
-		this.file_name = file_name;
+	public MyFile(String item_name, String item_local_path, String file_format, String file_origin_path, FileContent fileContent)throws FileNotFoundException, IOException {
+		super(item_name, item_local_path);
 		this.file_format = file_format;
 		this.file_origin_path = file_origin_path;
 		this.file_content = fileContent;
-	}
-
-	//TODO: to generate from file name 
-	public String getFile_file_local_path() {
-		return file_local_path;
-	}
-
-	public void setFile_local_path(String file_local_path) {
-		this.file_local_path = file_local_path;
-	}
-
-	public String getFile_name() {
-		return file_name;
-	}
-	
-	public void setFile_name(String file_name) {
-		this.file_name = file_name;
+		this.setItem_type(this.getClass().toString());
 	}
 
 	public String getFile_format() {
@@ -87,10 +66,18 @@ public class MyFile extends FileTreeItem implements Serializable {
 		this.file_content = file_content;
 	}
 
+	public String getItem_type() {
+		return item_type;
+	}
+
+	public void setItem_type(String item_type) {
+		this.item_type = item_type;
+	}
+
 	@Override
 	public String toString() {
-		return "MyFile [item_id=" + super.getItem_id() + ", file_local_path=" + file_local_path + ", file_name=" + file_name + ", file_format="
-				+ file_format + ", file_origin_path=" + file_origin_path + ", file_content=" + file_content + "]";
+		return "MyFile [item_id=" + super.getItem_id() + ", file_format="
+				+ file_format + ", file_origin_path=" + file_origin_path + ", item_type=" + item_type + ", file_content=" + file_content + "]";
 	}
 
 }

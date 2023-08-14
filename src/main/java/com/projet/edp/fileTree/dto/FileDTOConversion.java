@@ -5,7 +5,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import com.projet.edp.fileTree.domain.MyFile;
 
-
 public class FileDTOConversion {
 	
 	@Autowired
@@ -25,5 +24,6 @@ public class FileDTOConversion {
 	public MyFile convertDTOtoEntities(FileDTO fileDTO) {
 		MyFile file = modelMapper.map(fileDTO, MyFile.class);
 		return file;
-	}
+	}	
+	
 }
