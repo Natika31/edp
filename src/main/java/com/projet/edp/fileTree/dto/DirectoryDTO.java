@@ -3,67 +3,68 @@ package com.projet.edp.fileTree.dto;
 import java.util.ArrayList;
 import java.util.List;
 
-public class DirectoryDTO {
+public class DirectoryDTO
+{
 
-	private String directory_id;
+	private String item_id;
 
-	private String directory_local_path;
+	private String item_local_path;
 
-	private String directory_name;
+	private String item_name;
 
-	private List<FileDTO> childrenDTO;
+	private List<TreeItemDTO> children;
 
 	public DirectoryDTO() {
 		super();
-		// TODO Auto-generated constructor stub
+		this.children = new ArrayList<TreeItemDTO>();
 	}
 
 	public DirectoryDTO(String directory_id, String directory_local_path, String directory_name) {
 		super();
-		this.directory_id = directory_id;
-		this.directory_local_path = directory_local_path;
-		this.directory_name = directory_name;
-		this.childrenDTO = new ArrayList<FileDTO>();
+		this.item_id = directory_id;
+		this.item_local_path = directory_local_path;
+		this.item_name = directory_name;
+		this.children = new ArrayList<TreeItemDTO>();
 	}
 
-	public String getDirectory_id() {
-		return directory_id;
+	public String getItem_id() {
+		return item_id;
 	}
 
-	public void setDirectory_id(String directory_id) {
-		this.directory_id = directory_id;
+	public void setItem_id(String item_id) {
+		this.item_id = item_id;
 	}
 
-	public String getDirectory_local_path() {
-		return directory_local_path;
+	public String getItem_local_path() {
+		return item_local_path;
 	}
 
-	public void setDirectory_local_path(String directory_local_path) {
-		this.directory_local_path = directory_local_path;
+	public void setItem_local_path(String item_local_path) {
+		this.item_local_path = item_local_path;
 	}
 
-	public String getDirectory_name() {
-		return directory_name;
+	public String getItem_name() {
+		return item_name;
 	}
 
-	public void setDirectory_name(String directory_name) {
-		this.directory_name = directory_name;
+	public void setItem_name(String item_name) {
+		this.item_name = item_name;
 	}
 
-	public List<FileDTO> getChildrenDTO() {
-		return childrenDTO;
+	public List<TreeItemDTO> getChildren() {
+		return children;
 	}
 
-	public void setChildren(List<FileDTO> childrenDTO) {
-		this.childrenDTO = childrenDTO;
+	public void setChildren(List<TreeItemDTO> children) {
+		this.children = children;
 	}
 
-	public void addChildrenDTO(FileDTO myFileDTO) {
-		this.childrenDTO.add(myFileDTO);		
+	public void addChildrenDTO(TreeItemDTO itemDTO) {
+		this.children.add(itemDTO);		
 	}
 
-	public void removeChildrenDTO(FileDTO myFileDTO) {
-		this.childrenDTO.remove(myFileDTO);		
+	public void removeChildrenDTO(TreeItemDTO itemDTO) {
+		this.children.remove(itemDTO);		
 	}
 
 }

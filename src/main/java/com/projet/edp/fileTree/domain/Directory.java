@@ -3,9 +3,6 @@ package com.projet.edp.fileTree.domain;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
-
-import jakarta.persistence.Column;
 import jakarta.persistence.DiscriminatorValue;
 import jakarta.persistence.Entity;
 import jakarta.persistence.OneToMany;
@@ -13,68 +10,57 @@ import jakarta.persistence.PrimaryKeyJoinColumn;
 import jakarta.persistence.Table;
 
 @Entity
-@DiscriminatorValue(value = "D")
+@DiscriminatorValue(value = "DIRECTORY")
 @PrimaryKeyJoinColumn(name = "directory_id")
 @Table(name = "directory")
-public class Directory extends FileTreeItem implements Serializable {
-
-	@Column(name = "directory_local_path")
-	private String directory_local_path;
-	
-	@Column(name = "directory_name")
-	private String directory_name;
+public class Directory extends TreeItem implements Serializable {
 
 	@OneToMany
-	private List<FileTreeItem> children;
+	private List<TreeItem> children;
 
+	private String item_type;
+	
 	public Directory() {
 		super();
-		// TODO Auto-generated constructor stub
+		this.children = new ArrayList<>();
+		this.setItem_type(this.getClass().toString());
 	}
 
-	public Directory(String directory_local_path, String directory_name) {
-		super();
-		this.directory_local_path = directory_local_path;
-		this.directory_name = directory_name;
+	public Directory(String item_name, String item_local_path) {
+		super(item_name,item_local_path);
 		this.children = new ArrayList<>();
+		this.setItem_type(this.getClass().toString());
 	}
 	
-	public String getDirectory_local_path() {
-		return directory_local_path;
+	public String getItem_type() {
+		return item_type;
 	}
 
-	public void setDirectory_local_path(String directory_local_path) {
-		this.directory_local_path = directory_local_path;
+	public void setItem_type(String item_type) {
+		this.item_type = item_type;
 	}
 
-	public String getDirectory_name() {
-		return directory_name;
-	}
-
-	public void setDirectory_name(String directory_name) {
-		this.directory_name = directory_name;
-	}
-
-	public List<FileTreeItem> getChildren() {
+	
+	public List<TreeItem> getChildren() {
 		return children;
 	}
 
-	public void addChildren(FileTreeItem item) {
+	public void addChildren(TreeItem item) {
 		this.children.add(item);
 	}
 
-	public void removeChildren(FileTreeItem item) {
+	public void removeChildren(TreeItem item) {
 		this.children.remove(item);
 	}
 
-	public void setChildren(List<FileTreeItem> children) {
+	public void setChildren(List<TreeItem> children) {
 		this.children = children;
 	}
 
 	@Override
 	public String toString() {
-		return "Directory [item_id=" + super.getItem_id() + ", directory_local_path=" + directory_local_path + ", directory_name="
-				+ directory_name + ", children=" + children + "]";
+		return "Directory [item_id=" + super.getItem_id() + ", directory_local_path=" + super.getItem_local_path() + ", directory_name="
+				+ super.getItem_name() + ", item_type=" + item_type + ", children=" + children + "]";
 	}
 
 }
