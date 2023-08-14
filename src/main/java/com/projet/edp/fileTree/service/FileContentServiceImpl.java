@@ -13,8 +13,8 @@ public class FileContentServiceImpl implements FileContentService{
 	FileContentDAO fileContentDAO;
 
 	@Override
-	public void save(FileContent fileContent) throws BusinessResourceException {
-		fileContentDAO.save(fileContent);		
+	public FileContent save(FileContent fileContent) throws BusinessResourceException {
+		return fileContentDAO.save(fileContent);		
 	}
 
 }
