@@ -20,6 +20,7 @@ public class Directory extends TreeItem implements Serializable {
 
 	private String item_type;
 	
+
 	public Directory() {
 		super();
 		this.children = new ArrayList<>();
