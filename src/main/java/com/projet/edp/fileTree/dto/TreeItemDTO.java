@@ -11,9 +11,10 @@ public class TreeItemDTO {
 
 	private String item_name;
 	
+	private String item_type;
+	
 	private List<TreeItemDTO> children;
 
-	private String item_type;
 
 	public TreeItemDTO() {
 		super();
