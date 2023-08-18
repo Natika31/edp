@@ -12,13 +12,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.web.servlet.MockMvc;
-
 import com.projet.edp.fileTree.domain.Directory;
 import com.projet.edp.fileTree.domain.FileContent;
 import com.projet.edp.fileTree.domain.MyFile;
 import com.projet.edp.fileTree.domain.TreeItem;
 import com.projet.edp.fileTree.service.FileTreeService;
-import com.projet.edp.fileTree.ui.DirectoryController;
 import com.projet.edp.fileTree.ui.FileTreeController;
 
 @WebMvcTest(FileTreeController.class)

@@ -7,19 +7,12 @@ import java.util.ArrayList;
 import java.util.List;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
-
 import com.projet.edp.fileTree.domain.Directory;
 import com.projet.edp.fileTree.domain.FileContent;
 import com.projet.edp.fileTree.domain.TreeItem;
 import com.projet.edp.fileTree.domain.MyFile;
-import com.projet.edp.fileTree.dto.DirectoryDTO;
-import com.projet.edp.fileTree.dto.DirectoryDTOConversion;
-import com.projet.edp.fileTree.dto.FileDTO;
-import com.projet.edp.fileTree.dto.FileDTOConversion;
 import com.projet.edp.fileTree.dto.TreeItemDTO;
 import com.projet.edp.fileTree.dto.TreeDTOConversion;
-import com.projet.edp.fileTree.service.FileContentService;
-import com.projet.edp.fileTree.service.FileContentServiceImpl;
 
 class TreeDTOConversionTest {
 
@@ -29,8 +22,6 @@ class TreeDTOConversionTest {
 	static void setup() {
 		treeItemDTOConversion = new TreeDTOConversion();
 	}
-
-	private Directory dItem1;
 
 	@Test
 	void test_GivenFileItem_WhenConvertEntityToDTO_ThenReturnFileItemDTO() throws FileNotFoundException, IOException  {

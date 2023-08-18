@@ -48,10 +48,10 @@ class FileDTOConversionTest {
 		MyFile file = fileDTOConversion.convertDTOtoEntities(fileDTO);
 
 		assertNotNull(fileDTO.getItem_id());
-		assertEquals(fileDTO.getItem_id(), fileDTO.getItem_id());
+		assertEquals(file.getItem_id(), fileDTO.getItem_id());
 		assertNotNull(fileDTO.getItem_name());
-		assertEquals(fileDTO.getItem_name(), fileDTO.getItem_name());
-		assertEquals(fileDTO.getFile_format(), fileDTO.getFile_format());
-		assertArrayEquals(fileDTO.getBinary_content(), fileDTO.getBinary_content());
+		assertEquals(file.getItem_name(), fileDTO.getItem_name());
+		assertEquals(file.getFile_format(), fileDTO.getFile_format());
+		assertArrayEquals(file.getFile_content().getBinary_content(), fileDTO.getBinary_content());
 	}
 }
