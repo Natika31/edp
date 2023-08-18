@@ -32,10 +32,6 @@ class TreeDTOConversionTest {
 
 	private Directory dItem1;
 
-	//fileTreeItem => fileTreeItemDTO
-	//getItemById
-
-
 	@Test
 	void test_GivenFileItem_WhenConvertEntityToDTO_ThenReturnFileItemDTO() throws FileNotFoundException, IOException  {
 		//Given a file item
@@ -54,7 +50,7 @@ class TreeDTOConversionTest {
 		assertNotNull(itemDTO.getItem_name());
 		assertEquals(fItem.getItem_name(), itemDTO.getItem_name());
 		assertEquals(fItem.getItem_local_path(), itemDTO.getItem_local_path());
-		assertEquals(fItem.getClass().toString(), itemDTO.getItem_type());
+		assertEquals("file",itemDTO.getItem_type());
 	}
 
 	@Test
@@ -72,7 +68,7 @@ class TreeDTOConversionTest {
 		assertNotNull(dItemDTO.getItem_name());
 		assertEquals(dItem.getItem_name(), dItemDTO.getItem_name());
 		assertEquals(dItem.getItem_local_path(), dItemDTO.getItem_local_path());
-		assertEquals(dItem.getClass().toString(), dItemDTO.getItem_type());
+		assertEquals("folder", dItemDTO.getItem_type());
 		assertEquals(((Directory) dItem).getChildren().size(), dItemDTO.getChildren().size());
 
 	}
@@ -100,7 +96,7 @@ class TreeDTOConversionTest {
 		assertNotNull(itemDTO.getItem_name());
 		assertEquals(dItem.getItem_name(), itemDTO.getItem_name());
 		assertEquals(dItem.getItem_local_path(), itemDTO.getItem_local_path());
-		assertEquals(dItem.getClass().toString(), itemDTO.getItem_type());
+		assertEquals("folder", itemDTO.getItem_type());
 		assertEquals(((Directory) dItem).getChildren().size(), itemDTO.getChildren().size());
 		assertNotNull(itemDTO.getChildren().get(0).getItem_id());
 		assertEquals(((Directory) dItem).getChildren().get(0).getItem_id(), Long.valueOf(itemDTO.getChildren().get(0).getItem_id()));
@@ -212,7 +208,7 @@ class TreeDTOConversionTest {
 		assertNotNull(parentDir.getItem_name());
 		assertEquals(parentDir.getItem_name(), itemDTO.getItem_name());
 		assertEquals(parentDir.getItem_local_path(), itemDTO.getItem_local_path());
-		assertEquals(parentDir.getItem_type(), itemDTO.getItem_type());
+		assertEquals("folder", itemDTO.getItem_type());
 
 		//directory child 1
 		assertNotNull(itemDTO.getChildren().get(0).getItem_id());

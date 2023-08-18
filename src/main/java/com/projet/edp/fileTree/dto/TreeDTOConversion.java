@@ -11,6 +11,10 @@ import com.projet.edp.fileTree.domain.MyFile;
 
 public class TreeDTOConversion {
 
+	private static final String DIRECTORY_TYPE = "folder";
+	
+	private static final String FILE_TYPE = "file";
+	
 	@Autowired
 	private ModelMapper modelMapper;
 
@@ -21,6 +25,11 @@ public class TreeDTOConversion {
 	@Bean
 	public TreeItemDTO convertEntityToDTO(TreeItem item) {
 		TreeItemDTO itemDTO = this.modelMapper.map(item, TreeItemDTO.class);
+			if (itemDTO.getItem_type().equals(MyFile.class.toString())) {
+				itemDTO.setItem_type(FILE_TYPE); 
+			}else if (itemDTO.getItem_type().equals(Directory.class.toString())) {
+				itemDTO.setItem_type(DIRECTORY_TYPE);
+			}			
 		return itemDTO;
 	}
 
