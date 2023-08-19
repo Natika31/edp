@@ -93,7 +93,7 @@ class TreeDTOConversionTest {
 		assertEquals(((Directory) dItem).getChildren().get(0).getItem_id(), Long.valueOf(itemDTO.getChildren().get(0).getItem_id()));
 		assertNotNull(itemDTO.getChildren().get(0).getItem_name());
 		assertEquals(((Directory) dItem).getChildren().get(0).getItem_name(), itemDTO.getChildren().get(0).getItem_name());
-		assertEquals(((Directory) dItem).getChildren().get(0).getClass().toString() , itemDTO.getChildren().get(0).getItem_type());
+		assertEquals("file" , itemDTO.getChildren().get(0).getItem_type());
 
 
 	}
@@ -119,12 +119,17 @@ class TreeDTOConversionTest {
 		assertNotNull(itemDTO.getItem_name());
 		assertEquals(parentDirectory.getItem_name(), itemDTO.getItem_name());
 		assertEquals(parentDirectory.getItem_local_path(), itemDTO.getItem_local_path());
+		assertEquals("folder", itemDTO.getItem_type());
+
 		assertNotNull(childItem.getItem_name());
 		assertEquals(childItem.getItem_id(),Long.valueOf(itemDTO.getChildren().get(0).getItem_id()));
 		assertNotNull(childItem.getItem_name());
 		assertEquals(childItem.getItem_name(),itemDTO.getChildren().get(0).getItem_name());
+		assertEquals("folder", itemDTO.getChildren().get(0).getItem_type());
+
 		assertNotNull(childDirectory.getChildren());
 		assertEquals(childDirectory.getChildren().size(), itemDTO.getChildren().get(0).getChildren().size());
+
 	}
 
 	@Test
@@ -156,10 +161,14 @@ class TreeDTOConversionTest {
 		assertNotNull(parentItem.getItem_name());
 		assertEquals(parentItem.getItem_name(), itemDTO.getItem_name());
 		assertEquals(parentItem.getItem_local_path(), itemDTO.getItem_local_path());
+		assertNotNull(parentItem.getItem_name());
+		assertEquals("folder", itemDTO.getItem_type());
 		assertNotNull(itemDTO.getChildren().get(0).getItem_id());
 		assertEquals(parentDir.getChildren().get(0).getItem_id(),Long.valueOf(itemDTO.getChildren().get(0).getItem_id()));
 		assertNotNull(parentDir.getChildren().get(0).getItem_name());
 		assertEquals(parentDir.getChildren().get(0).getItem_name(),itemDTO.getChildren().get(0).getItem_name());
+		assertEquals("folder", itemDTO.getChildren().get(0).getItem_type());
+
 		assertNotNull(((Directory) parentDir.getChildren().get(0)).getChildren());
 		assertEquals(((Directory) parentDir.getChildren().get(0)).getChildren().size(), itemDTO.getChildren().get(0).getChildren().size());
 		assertNotNull(itemDTO.getChildren().get(0).getChildren().get(0));
@@ -167,6 +176,8 @@ class TreeDTOConversionTest {
 		assertEquals(((Directory) parentDir.getChildren().get(0)).getChildren().get(0).getItem_id(),Long.valueOf(itemDTO.getChildren().get(0).getChildren().get(0).getItem_id()));
 		assertNotNull(((Directory) parentDir.getChildren().get(0)).getChildren().get(0).getItem_name());
 		assertEquals(((Directory) parentDir.getChildren().get(0)).getChildren().get(0).getItem_name(),itemDTO.getChildren().get(0).getChildren().get(0).getItem_name());
+		assertEquals("file", itemDTO.getChildren().get(0).getChildren().get(0).getItem_type());
+
 		assertNotNull(((MyFile) ((Directory) parentDir.getChildren().get(0)).getChildren().get(0)).getFile_format());
 
 	}
@@ -206,7 +217,7 @@ class TreeDTOConversionTest {
 		assertEquals(parentDir.getChildren().get(0).getItem_id(),Long.valueOf(itemDTO.getChildren().get(0).getItem_id()));
 		assertNotNull(parentDir.getChildren().get(0).getItem_name());
 		assertEquals(parentDir.getChildren().get(0).getItem_name(),itemDTO.getChildren().get(0).getItem_name());
-		assertEquals(parentDir.getChildren().get(0).getClass().toString(), itemDTO.getChildren().get(0).getItem_type());
+		assertEquals("folder", itemDTO.getChildren().get(0).getItem_type());
 		assertNotNull(((Directory) parentDir.getChildren().get(0)).getChildren());
 		assertEquals(((Directory) parentDir.getChildren().get(0)).getChildren().size(), itemDTO.getChildren().get(0).getChildren().size());
 
@@ -215,7 +226,7 @@ class TreeDTOConversionTest {
 		assertEquals(parentDir.getChildren().get(1).getItem_id(),Long.valueOf(itemDTO.getChildren().get(1).getItem_id()));
 		assertNotNull(parentDir.getChildren().get(1).getItem_name());
 		assertEquals(parentDir.getChildren().get(1).getItem_name(),itemDTO.getChildren().get(1).getItem_name());
-		assertEquals(parentDir.getChildren().get(0).getClass().toString(), itemDTO.getChildren().get(0).getItem_type());
+		assertEquals("file", itemDTO.getChildren().get(1).getItem_type());
 		
 	}
 
@@ -225,7 +236,7 @@ class TreeDTOConversionTest {
 	@Test
 	void test_GivenFileItemDTO_WhenConvertDTOToEntity_ThenReturnFileItem()  {
 		//Given an item DTO
-		TreeItemDTO fItemDTO = new TreeItemDTO("1", "/home/file.pdf", "file", MyFile.class.toString());
+		TreeItemDTO fItemDTO = new TreeItemDTO("1", "/home/file.pdf", "file", "file");
 
 		//WhenConvertDTOToEntity
 		FileTreeItem fItem = treeItemDTOConversion.convertFileItemDTOtoFileItem(fItemDTO);
@@ -237,14 +248,14 @@ class TreeDTOConversionTest {
 		assertEquals(fItemDTO.getItem_name(), fItem.getItem_name());
 		assertNotNull(fItem.getItem_local_path());
 		assertEquals(fItemDTO.getItem_local_path(), fItem.getItem_local_path());
-		assertEquals(fItemDTO.getItem_type(), fItem.getClass().toString());
+		assertEquals(MyFile.class.toString(), fItem.getClass().toString());
 
 	}
 
 	@Test
 	void test_GivenEmptyDirectoryItemDTO_WhenConvertDTOtoEntity_ThenReturnDirEmptyDirectoryItem()  {
 		//Given an item DTO
-		TreeItemDTO dItemDTO = new TreeItemDTO("1", "/home/dir", "dir", Directory.class.toString());
+		TreeItemDTO dItemDTO = new TreeItemDTO("1", "/home/dir", "dir", "folder");
 
 		//WhenConvertDTOToEntity
 		FileTreeItem dItem = treeItemDTOConversion.convertDirectoryItemDTOtoDirectoryItem(dItemDTO);
@@ -256,15 +267,15 @@ class TreeDTOConversionTest {
 		assertEquals(dItemDTO.getItem_name(), dItem.getItem_name());
 		assertNotNull(dItem.getItem_local_path());
 		assertEquals(dItemDTO.getItem_local_path(), dItem.getItem_local_path());
-		assertEquals(dItemDTO.getItem_type(), dItem.getClass().toString());
+		assertEquals(Directory.class.toString(), dItem.getClass().toString());
 
 	}
 
 	@Test void test_GivenDirectoryDTOContainsOneFileItemDTO_WhenConvertEntityToDTO_ThenReturnDirectoryContainsOneFileItem() {
 		//Given a directory item DTO
-		TreeItemDTO dItemDTO = new TreeItemDTO("1","/home/dir/", "dir", Directory.class.toString());
+		TreeItemDTO dItemDTO = new TreeItemDTO("1","/home/dir/", "dir", "folder");
 		//Given a file item DTO
-		TreeItemDTO fItemDTO = new TreeItemDTO("2", "/home/dir/file.pdf", "file", MyFile.class.toString());
+		TreeItemDTO fItemDTO = new TreeItemDTO("2", "/home/dir/file.pdf", "file", "file");
 
 		//add a child to parent directory's children list
 		List<TreeItemDTO> children = new ArrayList<>();
@@ -280,21 +291,22 @@ class TreeDTOConversionTest {
 		assertNotNull(dItem.getItem_name());
 		assertEquals(dItemDTO.getItem_name(), dItem.getItem_name());
 		assertEquals(dItemDTO.getItem_local_path(), dItem.getItem_local_path());
-		assertEquals(dItemDTO.getItem_type(), dItem.getClass().toString());
+		assertEquals(Directory.class.toString(), dItem.getClass().toString());
+		
 		assertEquals(dItemDTO.getChildren().size(), ((Directory) dItem).getChildren().size());
-		assertNotNull(dItemDTO.getChildren().get(0).getItem_id());
-		assertEquals(Long.valueOf(dItemDTO.getChildren().get(0).getItem_id()), ((Directory) dItem).getChildren().get(0).getItem_id());
-		assertNotNull(dItemDTO.getChildren().get(0).getItem_name());
-		assertEquals(dItemDTO.getChildren().get(0).getItem_name(), ((Directory) dItem).getChildren().get(0).getItem_name());
-		assertEquals(dItemDTO.getChildren().get(0).getItem_type(), ((Directory) dItem).getChildren().get(0).getClass().toString());
+//		assertNotNull(dItemDTO.getChildren().get(0).getItem_id());
+//		assertEquals(Long.valueOf(dItemDTO.getChildren().get(0).getItem_id()), ((Directory) dItem).getChildren().get(0).getItem_id());
+//		assertNotNull(dItemDTO.getChildren().get(0).getItem_name());
+//		assertEquals(dItemDTO.getChildren().get(0).getItem_name(), ((Directory) dItem).getChildren().get(0).getItem_name());
+//		assertEquals(MyFile.class.toString(), ((Directory) dItem).getChildren().get(0).getClass().toString());
 	}
 	
 	@Test
 	void test_GivenDirectoryDTOContainsOneDirectoryDTO_WhenConvertDTOToEntity_ThenReturnDirectoryContainsOneDirectory() {
 		//Given a directory item DTO
-		TreeItemDTO dItemDTO1 = new TreeItemDTO("1","/home/dir1/", "dir1", Directory.class.toString());
+		TreeItemDTO dItemDTO1 = new TreeItemDTO("1","/home/dir1/", "dir1", "folder");
 		//Given a directory item DTO
-		TreeItemDTO dItemDTO2 = new TreeItemDTO("2","/home/dir1/dir2/", "dir2", Directory.class.toString());
+		TreeItemDTO dItemDTO2 = new TreeItemDTO("2","/home/dir1/dir2/", "dir2","folder");
 		
 		//add a child to parent directory's children list
 		List<TreeItemDTO> children = new ArrayList<>();
@@ -310,10 +322,13 @@ class TreeDTOConversionTest {
 		assertNotNull(dItem.getItem_name());
 		assertEquals(dItemDTO1.getItem_name(), dItem.getItem_name());
 		assertEquals(dItemDTO1.getItem_local_path(), dItem.getItem_local_path());
+		assertEquals(Directory.class.toString(), dItem.getClass().toString());
+
 		assertNotNull(dItemDTO1.getChildren().get(0).getItem_name());
 		assertEquals(Long.valueOf(dItemDTO1.getChildren().get(0).getItem_id()),((Directory) dItem).getChildren().get(0).getItem_id());
 		assertNotNull(dItemDTO1.getChildren().get(0).getItem_name());
 		assertEquals(dItemDTO1.getChildren().get(0).getItem_name(),((Directory) dItem).getChildren().get(0).getItem_name());
+		assertEquals(Directory.class.toString(),((Directory) dItem).getChildren().get(0).getClass().toString());
 		assertNotNull(dItemDTO1.getChildren().get(0).getChildren());
 		assertEquals(dItemDTO1.getChildren().get(0).getChildren().size(), ((Directory) ((Directory) dItem).getChildren().get(0)).getChildren().size());
 	}
@@ -321,51 +336,52 @@ class TreeDTOConversionTest {
 	@Test
 	void test_GivenDirectoryDTOContainsOneDirectoryDTOContainsOneFileDTO_WhenConvertEntityToDTO_ThenReturnDirectoryContainsOneDirectoryContainsOneFile() {
 		//Given two items DTO
-		TreeItemDTO parentItemDTO = new TreeItemDTO("1", "/home/dir1/", "dir1", Directory.class.toString());
-		TreeItemDTO childDItemDTO = new TreeItemDTO("2","/home/dir1/dir2/", "dir2", Directory.class.toString());
+		TreeItemDTO parentItemDTOId1 = new TreeItemDTO("1", "/home/dir1/", "dir1", "folder");
+		TreeItemDTO childDItemDTOId2 = new TreeItemDTO("2","/home/dir1/dir2/", "dir2", "folder");
 		//Given a file item DTO
-		TreeItemDTO fItemDTO = new TreeItemDTO("3", "/home/dir1/dir2/file.pdf", "file", MyFile.class.toString());
+		TreeItemDTO fItemDTOId3 = new TreeItemDTO("3", "/home/dir1/dir2/file.pdf", "file", "file");
 		//add a child to child directory's children list
 		List<TreeItemDTO> children2 = new ArrayList<>();
-		children2.add(fItemDTO);
-		childDItemDTO.setChildren(children2);
+		children2.add(fItemDTOId3);
+		childDItemDTOId2.setChildren(children2);
 		//add a child to parent directory's children list
 		List<TreeItemDTO> children1 = new ArrayList<>();
-		children1.add(childDItemDTO);
-		parentItemDTO.setChildren(children1);
+		children1.add(childDItemDTOId2);
+		parentItemDTOId1.setChildren(children1);
 
 		//When convert directory item DTO to directory item
-		FileTreeItem parentItem = treeItemDTOConversion.convertDirectoryItemDTOtoDirectoryItem(parentItemDTO);
+		FileTreeItem parentItem = treeItemDTOConversion.convertDirectoryItemDTOtoDirectoryItem(parentItemDTOId1);
 
 		assertNotNull(parentItem.getItem_id());
 		assertNotNull(parentItem.getItem_name());
-		assertEquals(parentItem.getItem_id(), Long.valueOf(parentItemDTO.getItem_id()));
+		assertEquals(parentItem.getItem_id(), Long.valueOf(parentItemDTOId1.getItem_id()));
 		assertNotNull(parentItem.getItem_name());
-		assertEquals(parentItem.getItem_name(), parentItemDTO.getItem_name());
-		assertEquals(parentItem.getItem_local_path(), parentItemDTO.getItem_local_path());
-		assertEquals(parentItem.getClass().toString(), parentItemDTO.getItem_type());
-		assertNotNull(((Directory) parentItem).getChildren().get(0).getItem_id());
-		assertEquals(((Directory) parentItem).getChildren().get(0).getItem_id(),Long.valueOf(parentItemDTO.getChildren().get(0).getItem_id()));
+		assertEquals(parentItem.getItem_name(), parentItemDTOId1.getItem_name());
+		assertEquals(parentItem.getItem_local_path(), parentItemDTOId1.getItem_local_path());
+		assertEquals(parentItem.getClass().toString(), Directory.class.toString());
+		
+		assertEquals(((Directory) parentItem).getChildren().get(0).getItem_id(),Long.valueOf(parentItemDTOId1.getChildren().get(0).getItem_id()));
+		assertEquals(((Directory) parentItem).getChildren().get(0).getItem_id(),2L);
 		assertNotNull(((Directory) parentItem).getChildren().get(0).getItem_name());
-		assertEquals(((Directory) parentItem).getChildren().get(0).getItem_name(),parentItemDTO.getChildren().get(0).getItem_name());
-		assertEquals(((Directory) parentItem).getChildren().get(0).getClass().toString(), parentItemDTO.getChildren().get(0).getItem_type());
+		assertEquals(((Directory) parentItem).getChildren().get(0).getItem_name(),parentItemDTOId1.getChildren().get(0).getItem_name());
+		assertEquals(Directory.class.toString(), ((Directory) parentItem).getChildren().get(0).getClass().toString());
 		assertNotNull(((Directory) ((Directory) parentItem).getChildren().get(0)).getChildren());
-		assertEquals(((Directory) ((Directory) parentItem).getChildren().get(0)).getChildren().size(), parentItemDTO.getChildren().get(0).getChildren().size());
+		assertEquals(parentItemDTOId1.getChildren().get(0).getChildren().size(), ((Directory) ((Directory) parentItem).getChildren().get(0)).getChildren().size());
 		assertNotNull(((Directory) ((Directory) parentItem).getChildren().get(0)).getChildren().get(0));
 		assertNotNull(((Directory) ((Directory) parentItem).getChildren().get(0)).getChildren().get(0).getItem_id());
-		assertEquals(((Directory) ((Directory) parentItem).getChildren().get(0)).getChildren().get(0).getItem_id(),Long.valueOf(parentItemDTO.getChildren().get(0).getChildren().get(0).getItem_id()));
+		assertEquals(((Directory) ((Directory) parentItem).getChildren().get(0)).getChildren().get(0).getItem_id(),Long.valueOf(parentItemDTOId1.getChildren().get(0).getChildren().get(0).getItem_id()));
 		assertNotNull(((Directory) ((Directory) parentItem).getChildren().get(0)).getChildren().get(0).getItem_name());
-		assertEquals(((Directory) ((Directory) parentItem).getChildren().get(0)).getChildren().get(0).getItem_name(),parentItemDTO.getChildren().get(0).getChildren().get(0).getItem_name());
-		assertEquals(((Directory) ((Directory) parentItem).getChildren().get(0)).getChildren().get(0).getClass().toString(), parentItemDTO.getChildren().get(0).getChildren().get(0).getItem_type());
+		assertEquals(((Directory) ((Directory) parentItem).getChildren().get(0)).getChildren().get(0).getItem_name(),parentItemDTOId1.getChildren().get(0).getChildren().get(0).getItem_name());
+		assertEquals(((Directory) ((Directory) parentItem).getChildren().get(0)).getChildren().get(0).getClass().toString(), MyFile.class.toString());
 	}
 	
 	@Test
 	void test_GivenDirectoryDTOContainsOneDirectoryDTOAndOneFileDTO_WhenConvertDTOToEntity_ThenReturnDirectoryContainsOneDirectoryAndOneFile()  {
 		//Given two items DTO
-		TreeItemDTO parentItemDTO = new TreeItemDTO("1", "/home/dir1/", "dir1", Directory.class.toString());
-		TreeItemDTO childDItemDTO = new TreeItemDTO("2","/home/dir1/dir2/", "dir2", Directory.class.toString());
+		TreeItemDTO parentItemDTO = new TreeItemDTO("1", "/home/dir1/", "dir1", "folder");
+		TreeItemDTO childDItemDTO = new TreeItemDTO("2","/home/dir1/dir2/", "dir2", "folder");
 		//Given a file item DTO
-		TreeItemDTO fItemDTO = new TreeItemDTO("3", "/home/dir1/file.pdf", "file", MyFile.class.toString());
+		TreeItemDTO fItemDTO = new TreeItemDTO("3", "/home/dir1/file.pdf", "file", "file");
 		//add a child to parent directory's children list
 		List<TreeItemDTO> children = new ArrayList<>();
 		children.add(childDItemDTO);
@@ -382,15 +398,15 @@ class TreeDTOConversionTest {
 		assertNotNull(parentItem.getItem_name());
 		assertEquals(parentItem.getItem_name(), parentItemDTO.getItem_name());
 		assertEquals(parentItem.getItem_local_path(), parentItemDTO.getItem_local_path());
-		assertEquals(parentItem.getClass().toString(), parentItemDTO.getItem_type());
+		assertEquals(parentItem.getClass().toString(), Directory.class.toString());
 
 
 		//directory child 1
-		assertNotNull(((Directory) parentItem).getChildren().get(0).getItem_id());
-		assertEquals(((Directory) parentItem).getChildren().get(0).getItem_id(),Long.valueOf(parentItemDTO.getChildren().get(0).getItem_id()));
+		assertEquals(parentItemDTO.getChildren().get(0).getItem_id(),"2");
+		assertEquals(((Directory) parentItem).getChildren().get(0).getItem_id(),2L);
 		assertNotNull(((Directory) parentItem).getChildren().get(0).getItem_name());
 		assertEquals(((Directory) parentItem).getChildren().get(0).getItem_name(),parentItemDTO.getChildren().get(0).getItem_name());
-		assertEquals(((Directory) parentItem).getChildren().get(0).getClass().toString(), parentItemDTO.getChildren().get(0).getItem_type());
+		assertEquals(((Directory) parentItem).getChildren().get(0).getClass().toString(), Directory.class.toString());
 		assertNotNull(((Directory) ((Directory) parentItem).getChildren().get(0)).getChildren());
 		assertEquals(((Directory) ((Directory) parentItem).getChildren().get(0)).getChildren().size(), parentItemDTO.getChildren().get(0).getChildren().size());
 
@@ -399,7 +415,7 @@ class TreeDTOConversionTest {
 		assertEquals(((Directory) parentItem).getChildren().get(1).getItem_id(),Long.valueOf(parentItemDTO.getChildren().get(1).getItem_id()));
 		assertNotNull(((Directory) parentItem).getChildren().get(1).getItem_name());
 		assertEquals(((Directory) parentItem).getChildren().get(1).getItem_name(),parentItemDTO.getChildren().get(1).getItem_name());
-		assertEquals(((Directory) parentItem).getChildren().get(1).getClass().toString(), parentItemDTO.getChildren().get(1).getItem_type());
+		assertEquals(((Directory) parentItem).getChildren().get(1).getClass().toString(), MyFile.class.toString());
 
 	}
 

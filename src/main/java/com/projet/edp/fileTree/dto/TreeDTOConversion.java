@@ -12,9 +12,9 @@ import com.projet.edp.fileTree.domain.MyFile;
 public class TreeDTOConversion {
 
 	private static final String DIRECTORY_TYPE = "folder";
-	
+
 	private static final String FILE_TYPE = "file";
-	
+
 	@Autowired
 	private ModelMapper modelMapper;
 
@@ -25,11 +25,7 @@ public class TreeDTOConversion {
 	@Bean
 	public TreeItemDTO convertEntityToDTO(FileTreeItem item) {
 		TreeItemDTO itemDTO = this.modelMapper.map(item, TreeItemDTO.class);
-			if (itemDTO.getItem_type().equals(MyFile.class.toString())) {
-				itemDTO.setItem_type(FILE_TYPE); 
-			}else if (itemDTO.getItem_type().equals(Directory.class.toString())) {
-				itemDTO.setItem_type(DIRECTORY_TYPE);
-			}			
+		renameItemType(itemDTO);			
 		return itemDTO;
 	}
 
@@ -47,22 +43,35 @@ public class TreeDTOConversion {
 
 	@Bean
 	public FileTreeItem convertDirectoryItemDTOtoDirectoryItem(TreeItemDTO dItemDTO) {
-		if(dItemDTO.getChildren().size() > 0) {
-			Directory item = modelMapper.map(dItemDTO, Directory.class);
-			List<FileTreeItem> newChildren = new ArrayList<>();
-			for (TreeItemDTO childDTO : dItemDTO.getChildren()) {
-				if (childDTO.getItem_type().equals(MyFile.class.toString())) {
-					FileTreeItem childItem = convertFileItemDTOtoFileItem(childDTO);
-					newChildren.add(childItem );
-				}else if (childDTO.getItem_type().equals(Directory.class.toString())) {
-					FileTreeItem childItem = convertDirectoryItemDTOtoDirectoryItem(childDTO);
-					newChildren.add(childItem );
-				}			
-			}
-			item.setChildren(newChildren);
-			return item;
+		Directory item = modelMapper.map(dItemDTO, Directory.class);
+		if(!dItemDTO.getChildren().isEmpty()) 		
+			item.setChildren(convertChildren(dItemDTO));
+		return item;
+	}
+
+	private List<FileTreeItem> convertChildren(TreeItemDTO dItemDTO) {
+		List<FileTreeItem> newChildren = new ArrayList<>();
+		for (TreeItemDTO childDTO : dItemDTO.getChildren()) {
+			if (childDTO.getItem_type().equals(FILE_TYPE)) {
+				FileTreeItem childItem = convertFileItemDTOtoFileItem(childDTO);
+				newChildren.add(childItem );
+			}else if (childDTO.getItem_type().equals(DIRECTORY_TYPE)) {
+				FileTreeItem childItem = convertDirectoryItemDTOtoDirectoryItem(childDTO);
+				newChildren.add(childItem );
+			}			
 		}
-		return modelMapper.map(dItemDTO, Directory.class);
+		return newChildren;
+	}
+	
+	private void renameItemType(TreeItemDTO itemDTO) {
+		if (itemDTO.getItem_type().equals(MyFile.class.toString())) {
+			itemDTO.setItem_type(FILE_TYPE); 
+		}else if (itemDTO.getItem_type().equals(Directory.class.toString())) {
+			itemDTO.setItem_type(DIRECTORY_TYPE);
+			for (TreeItemDTO childDTO : itemDTO.getChildren()) {
+				renameItemType(childDTO);
+			}
+		}
 	}
 
 }
