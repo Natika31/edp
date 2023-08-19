@@ -3,14 +3,18 @@ package com.projet.edp.fileTree.domain;
 import java.io.Serializable;
 
 import jakarta.persistence.Column;
+import jakarta.persistence.DiscriminatorColumn;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.Inheritance;
+import jakarta.persistence.InheritanceType;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name = "file_tree_item")
+@Inheritance(strategy = InheritanceType.JOINED)
+@DiscriminatorColumn(name = "tree_item_type")
 public class FileTreeItem implements Serializable {
 
 	@Id
