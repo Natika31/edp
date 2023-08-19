@@ -43,7 +43,7 @@ class FileRestControllerTest {
 		;
 
 	}
-	private Optional<MyFile> createFile(String file_path, String file_name, String file_format, String file_origin_path) throws FileNotFoundException, IOException {
+	private Optional<MyFile> createFile(String file_name, String file_path, String file_format, String file_origin_path) throws FileNotFoundException, IOException {
 		FileContent fileContent = new FileContent();
 		byte[] binaryArray = fileContent.convertInputFileToBinaryArray(file_origin_path);	
 		fileContent.setFile_content_id(1L);

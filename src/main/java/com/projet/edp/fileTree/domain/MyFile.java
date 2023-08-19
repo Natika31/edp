@@ -16,7 +16,7 @@ import jakarta.persistence.*;
 @DiscriminatorValue(value = "FILE")
 @PrimaryKeyJoinColumn(name = "file_id")
 @Table(name = "file")
-public class MyFile extends TreeItem implements Serializable {
+public class MyFile extends FileTreeItem implements Serializable {
 
 	@Column(name = "file_format")
 	private String file_format;

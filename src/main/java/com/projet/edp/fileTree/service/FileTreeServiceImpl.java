@@ -5,7 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.projet.edp.exceptions.BusinessResourceException;
 import com.projet.edp.fileTree.dao.FileTreeDAO;
-import com.projet.edp.fileTree.domain.TreeItem;
+import com.projet.edp.fileTree.domain.FileTreeItem;
 
 @Service
 public class FileTreeServiceImpl implements FileTreeService {
@@ -14,8 +14,8 @@ public class FileTreeServiceImpl implements FileTreeService {
 	FileTreeDAO fileTreeDAO;
 
 	@Override
-	public Optional<TreeItem> findFileTreeItemById(Long item_id) throws BusinessResourceException {
-		Optional<TreeItem> itemFound =  fileTreeDAO.findById(item_id);
+	public Optional<FileTreeItem> findFileTreeItemById(Long item_id) throws BusinessResourceException {
+		Optional<FileTreeItem> itemFound =  fileTreeDAO.findById(item_id);
 		if (Boolean.FALSE.equals(itemFound.isPresent())) {
 			throw new BusinessResourceException("Item Not Found", "Le fichier ou répertoire avec cet id n'existe pas :" + item_id);
 		}
@@ -23,8 +23,8 @@ public class FileTreeServiceImpl implements FileTreeService {
 	}
 
 	@Override
-	public TreeItem save(TreeItem treeItem) throws BusinessResourceException {
-		return fileTreeDAO.save(treeItem);
+	public FileTreeItem save(FileTreeItem fileTreeItem) throws BusinessResourceException {
+		return fileTreeDAO.save(fileTreeItem);
 	}
 
 	@Override

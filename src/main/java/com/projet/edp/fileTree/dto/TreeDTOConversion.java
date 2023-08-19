@@ -6,7 +6,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import com.projet.edp.fileTree.domain.Directory;
-import com.projet.edp.fileTree.domain.TreeItem;
+import com.projet.edp.fileTree.domain.FileTreeItem;
 import com.projet.edp.fileTree.domain.MyFile;
 
 public class TreeDTOConversion {
@@ -23,7 +23,7 @@ public class TreeDTOConversion {
 	}
 
 	@Bean
-	public TreeItemDTO convertEntityToDTO(TreeItem item) {
+	public TreeItemDTO convertEntityToDTO(FileTreeItem item) {
 		TreeItemDTO itemDTO = this.modelMapper.map(item, TreeItemDTO.class);
 			if (itemDTO.getItem_type().equals(MyFile.class.toString())) {
 				itemDTO.setItem_type(FILE_TYPE); 
@@ -34,28 +34,28 @@ public class TreeDTOConversion {
 	}
 
 	@Bean
-	public TreeItem convertDTOtoEntities(TreeItemDTO itemDTO) {
-		TreeItem item = modelMapper.map(itemDTO, TreeItem.class);
+	public FileTreeItem convertDTOtoEntities(TreeItemDTO itemDTO) {
+		FileTreeItem item = modelMapper.map(itemDTO, FileTreeItem.class);
 		return item;
 	}
 
 	@Bean
-	public TreeItem convertFileItemDTOtoFileItem(TreeItemDTO fItemDTO) {
-		TreeItem item = modelMapper.map(fItemDTO, MyFile.class);
+	public FileTreeItem convertFileItemDTOtoFileItem(TreeItemDTO fItemDTO) {
+		FileTreeItem item = modelMapper.map(fItemDTO, MyFile.class);
 		return item;
 	}
 
 	@Bean
-	public TreeItem convertDirectoryItemDTOtoDirectoryItem(TreeItemDTO dItemDTO) {
+	public FileTreeItem convertDirectoryItemDTOtoDirectoryItem(TreeItemDTO dItemDTO) {
 		if(dItemDTO.getChildren().size() > 0) {
 			Directory item = modelMapper.map(dItemDTO, Directory.class);
-			List<TreeItem> newChildren = new ArrayList<>();
+			List<FileTreeItem> newChildren = new ArrayList<>();
 			for (TreeItemDTO childDTO : dItemDTO.getChildren()) {
 				if (childDTO.getItem_type().equals(MyFile.class.toString())) {
-					TreeItem childItem = convertFileItemDTOtoFileItem(childDTO);
+					FileTreeItem childItem = convertFileItemDTOtoFileItem(childDTO);
 					newChildren.add(childItem );
 				}else if (childDTO.getItem_type().equals(Directory.class.toString())) {
-					TreeItem childItem = convertDirectoryItemDTOtoDirectoryItem(childDTO);
+					FileTreeItem childItem = convertDirectoryItemDTOtoDirectoryItem(childDTO);
 					newChildren.add(childItem );
 				}			
 			}

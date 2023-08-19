@@ -48,7 +48,7 @@ class FileDTOConversionTest {
 		MyFile file = fileDTOConversion.convertDTOtoEntities(fileDTO);
 
 		assertNotNull(fileDTO.getItem_id());
-		assertEquals(file.getItem_id(), fileDTO.getItem_id());
+		assertEquals(file.getItem_id(), Long.valueOf(fileDTO.getItem_id()));
 		assertNotNull(fileDTO.getItem_name());
 		assertEquals(file.getItem_name(), fileDTO.getItem_name());
 		assertEquals(file.getFile_format(), fileDTO.getFile_format());
