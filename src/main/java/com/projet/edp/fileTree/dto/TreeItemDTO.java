@@ -18,7 +18,6 @@ public class TreeItemDTO {
 
 	public TreeItemDTO() {
 		super();
-		this.setItem_type(item_type);
 		this.children = new ArrayList<>();
 	}
 

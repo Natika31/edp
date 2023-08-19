@@ -13,10 +13,10 @@ import jakarta.persistence.Table;
 @DiscriminatorValue(value = "DIRECTORY")
 @PrimaryKeyJoinColumn(name = "directory_id")
 @Table(name = "directory")
-public class Directory extends TreeItem implements Serializable {
+public class Directory extends FileTreeItem implements Serializable {
 
 	@OneToMany
-	private List<TreeItem> children;
+	private List<FileTreeItem> children;
 
 	private String item_type;
 	
@@ -42,19 +42,19 @@ public class Directory extends TreeItem implements Serializable {
 	}
 
 	
-	public List<TreeItem> getChildren() {
+	public List<FileTreeItem> getChildren() {
 		return children;
 	}
 
-	public void addChildren(TreeItem item) {
+	public void addChildren(FileTreeItem item) {
 		this.children.add(item);
 	}
 
-	public void removeChildren(TreeItem item) {
+	public void removeChildren(FileTreeItem item) {
 		this.children.remove(item);
 	}
 
-	public void setChildren(List<TreeItem> children) {
+	public void setChildren(List<FileTreeItem> children) {
 		this.children = children;
 	}
 

@@ -12,13 +12,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.web.servlet.MockMvc;
-
 import com.projet.edp.fileTree.domain.Directory;
 import com.projet.edp.fileTree.domain.FileContent;
 import com.projet.edp.fileTree.domain.MyFile;
-import com.projet.edp.fileTree.domain.TreeItem;
+import com.projet.edp.fileTree.domain.FileTreeItem;
 import com.projet.edp.fileTree.service.FileTreeService;
-import com.projet.edp.fileTree.ui.DirectoryController;
 import com.projet.edp.fileTree.ui.FileTreeController;
 
 @WebMvcTest(FileTreeController.class)
@@ -32,7 +30,7 @@ class FileTreeRestControllerTest {
 
 	@Test
 	void GivenEmptyDirectoryId1_whenHTTPRequestGETTreeItemId1_thenGetStoredDirectoryIdEquals1() throws Exception {
-		TreeItem rootDirectory = new Directory("home", "/home/");
+		FileTreeItem rootDirectory = new Directory("home", "/home/");
 		rootDirectory.setItem_id(1L);
 		when(fileTreeService.findFileTreeItemById(1L)).thenReturn(Optional.of(rootDirectory));
 
@@ -68,7 +66,7 @@ class FileTreeRestControllerTest {
 		FileContent fileContent = new FileContent();
 		byte[] binaryArray = fileContent.convertInputFileToBinaryArray("C:/Users/Natacha/Documents/cnam/GLG204 - 2023/DANS MON ILE.pdf");
 		fileContent.setBinary_content(binaryArray);
-		TreeItem childFile = new MyFile("Dans mon ile", "/home/henri_salvador/dans_mon_ile.pdf","pdf","C:/Users/Natacha/Documents/cnam/GLG204 - 2023/DANS MON ILE.pdf", fileContent );
+		FileTreeItem childFile = new MyFile("Dans mon ile", "/home/henri_salvador/dans_mon_ile.pdf","pdf","C:/Users/Natacha/Documents/cnam/GLG204 - 2023/DANS MON ILE.pdf", fileContent );
 		childFile.setItem_id(3L);
 		childDirectory.addChildren(childFile);
 		rootDirectory.addChildren(childDirectory);
@@ -93,7 +91,7 @@ class FileTreeRestControllerTest {
 		FileContent fileContent = new FileContent();
 		byte[] binaryArray = fileContent.convertInputFileToBinaryArray("C:/Users/Natacha/Documents/cnam/GLG204 - 2023/DANS MON ILE.pdf");
 		fileContent.setBinary_content(binaryArray);
-		TreeItem childFile = new MyFile("Dans mon ile", "/home/henri_salvador/dans_mon_ile.pdf","pdf","C:/Users/Natacha/Documents/cnam/GLG204 - 2023/DANS MON ILE.pdf", fileContent );
+		FileTreeItem childFile = new MyFile("Dans mon ile", "/home/henri_salvador/dans_mon_ile.pdf","pdf","C:/Users/Natacha/Documents/cnam/GLG204 - 2023/DANS MON ILE.pdf", fileContent );
 		childFile.setItem_id(3L);
 		childDirectory1.addChildren(childFile);
 		rootDirectory.addChildren(childDirectory1);
