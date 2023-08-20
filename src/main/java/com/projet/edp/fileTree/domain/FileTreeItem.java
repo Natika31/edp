@@ -24,18 +24,18 @@ public class FileTreeItem implements Serializable {
 	@Column(name = "item_local_path")
 	private String item_local_path;
 
-	@Column(name = "item_name")
-	private String item_name;
+	@Column(name = "name")
+	private String name;
 
 	public FileTreeItem() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
-	public FileTreeItem(String item_local_path, String item_name) {
+	public FileTreeItem(String item_local_path, String name) {
 		super();
 		this.item_local_path = item_local_path;
-		this.item_name = item_name;
+		this.name = name;
 	}
 
 	public Long getItem_id() {
@@ -54,17 +54,17 @@ public class FileTreeItem implements Serializable {
 		this.item_local_path = item_local_path;
 	}
 
-	public String getItem_name() {
-		return item_name;
+	public String getName() {
+		return name;
 	}
 
-	public void setItem_name(String item_name) {
-		this.item_name = item_name;
+	public void setName(String item_name) {
+		this.name = item_name;
 	}
 
 	@Override
 	public String toString() {
-		return "FileTreeItem [item_id=" + item_id + ", item_local_path=" + item_local_path + ", item_name=" + item_name
+		return "FileTreeItem [item_id=" + item_id + ", item_local_path=" + item_local_path + ", name=" + name
 				+ "]";
 	}
 	

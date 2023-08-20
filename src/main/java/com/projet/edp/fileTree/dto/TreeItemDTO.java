@@ -9,7 +9,7 @@ public class TreeItemDTO {
 
 	private String item_local_path;
 
-	private String item_name;
+	private String name;
 	
 	private String item_type;
 	
@@ -21,11 +21,11 @@ public class TreeItemDTO {
 		this.children = new ArrayList<>();
 	}
 
-	public TreeItemDTO(String item_id, String item_local_path, String item_name, String item_type) {
+	public TreeItemDTO(String item_id, String item_local_path, String name, String item_type) {
 		super();
 		this.item_id = item_id;
 		this.item_local_path = item_local_path;
-		this.item_name = item_name;
+		this.name = name;
 		this.children = new ArrayList<>();
 		this.setItem_type(item_type);
 	}
@@ -46,12 +46,12 @@ public class TreeItemDTO {
 		this.item_local_path = item_local_path;
 	}
 
-	public String getItem_name() {
-		return item_name;
+	public String getName() {
+		return name;
 	}
 
-	public void setItem_name(String item_name) {
-		this.item_name = item_name;
+	public void setName(String name) {
+		this.name = name;
 	}
 	
 	public String getItem_type() {

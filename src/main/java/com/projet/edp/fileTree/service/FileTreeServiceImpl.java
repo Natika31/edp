@@ -21,6 +21,15 @@ public class FileTreeServiceImpl implements FileTreeService {
 		}
 		return itemFound;
 	}
+	
+	@Override
+	public Optional<FileTreeItem> findFileTreeItemByName(String item_name) throws BusinessResourceException {
+		Optional<FileTreeItem> itemFound =  fileTreeDAO.findByName(item_name);
+		if (Boolean.FALSE.equals(itemFound.isPresent())) {
+			throw new BusinessResourceException("Item Not Found", "Le fichier ou répertoire avec ce nom n'existe pas :" + item_name);
+		}
+		return itemFound;
+	}
 
 	@Override
 	public FileTreeItem save(FileTreeItem fileTreeItem) throws BusinessResourceException {

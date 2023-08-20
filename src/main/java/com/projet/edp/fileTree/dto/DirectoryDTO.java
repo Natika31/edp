@@ -10,7 +10,7 @@ public class DirectoryDTO
 
 	private String item_local_path;
 
-	private String item_name;
+	private String name;
 
 	private List<TreeItemDTO> children;
 
@@ -19,11 +19,11 @@ public class DirectoryDTO
 		this.children = new ArrayList<TreeItemDTO>();
 	}
 
-	public DirectoryDTO(String directory_id, String directory_local_path, String directory_name) {
+	public DirectoryDTO(String directory_id, String directory_local_path, String name) {
 		super();
 		this.item_id = directory_id;
 		this.item_local_path = directory_local_path;
-		this.item_name = directory_name;
+		this.name = name;
 		this.children = new ArrayList<TreeItemDTO>();
 	}
 
@@ -43,12 +43,12 @@ public class DirectoryDTO
 		this.item_local_path = item_local_path;
 	}
 
-	public String getItem_name() {
-		return item_name;
+	public String getName() {
+		return name;
 	}
 
-	public void setItem_name(String item_name) {
-		this.item_name = item_name;
+	public void setName(String name) {
+		this.name = name;
 	}
 
 	public List<TreeItemDTO> getChildren() {

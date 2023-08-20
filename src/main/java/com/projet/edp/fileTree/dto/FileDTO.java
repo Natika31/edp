@@ -4,7 +4,7 @@ public class FileDTO{
 	
 	private String item_id;
 	
-	private String item_name;
+	private String name;
 	
 	private String item_local_path;
 	
@@ -18,11 +18,11 @@ public class FileDTO{
 		super();
 	}
 
-	public FileDTO(String item_id, String item_name, String item_local_path, String file_format, String file_origin_path,
+	public FileDTO(String item_id, String name, String item_local_path, String file_format, String file_origin_path,
 			byte[] binary_content) {
 		super();
 		this.item_id = item_id;
-		this.item_name = item_name;
+		this.name = name;
 		this.item_local_path = item_local_path;
 		this.file_format = file_format;
 		this.file_origin_path = file_origin_path;
@@ -37,12 +37,12 @@ public class FileDTO{
 		this.item_id = item_id;
 	}
 
-	public String getItem_name() {
-		return item_name;
+	public String getName() {
+		return name;
 	}
 
-	public void setItem_name(String item_name) {
-		this.item_name = item_name;
+	public void setName(String name) {
+		this.name = name;
 	}
 
 	public String getItem_local_path() {

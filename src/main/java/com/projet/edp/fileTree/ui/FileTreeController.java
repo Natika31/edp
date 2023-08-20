@@ -39,4 +39,11 @@ public class FileTreeController {
 		TreeItemDTO fileTreeItemDTO = itemDTOConversion.convertEntityToDTO(fileTreeItem);
 		return ResponseEntity.ok(fileTreeItemDTO);
 	}
+	
+	@GetMapping("/api/file-tree/name")
+	public ResponseEntity<TreeItemDTO> getItemByName(@RequestParam String name) {
+		FileTreeItem fileTreeItem = fileTreeService.findFileTreeItemByName(name).get();
+		TreeItemDTO fileTreeItemDTO = itemDTOConversion.convertEntityToDTO(fileTreeItem);
+		return ResponseEntity.ok(fileTreeItemDTO);
+	}
 }

@@ -61,7 +61,7 @@ public class Directory extends FileTreeItem implements Serializable {
 	@Override
 	public String toString() {
 		return "Directory [item_id=" + super.getItem_id() + ", directory_local_path=" + super.getItem_local_path() + ", directory_name="
-				+ super.getItem_name() + ", item_type=" + item_type + ", children=" + children + "]";
+				+ super.getName() + ", item_type=" + item_type + ", children=" + children + "]";
 	}
 
 }
