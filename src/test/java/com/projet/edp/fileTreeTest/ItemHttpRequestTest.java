@@ -19,9 +19,9 @@ class ItemHttpRequestTest {
 	private TestRestTemplate restTemplate;
 
 	@Test
-	public void getEmptyCompositeShouldReturnCompositeIdLocalPathNamAndZeroChildren() throws Exception {
+	public void getEmptyDirectoryShouldReturnItemIdLocalPathNamAndZeroChildren() throws Exception {
 		assertThat(this.restTemplate.getForObject("http://localhost:" + port + "/api/file-tree?item_id=1",
-				String.class)).contains("item_id\":1,\"item_local_path\":\"/home/\",\"item_name\":\"home\"");
+				String.class)).contains("{\"item_id\":\"1\",\"item_local_path\":\"/home/Dans mon île.pdf\",\"name\":\"Dans mon île\",\"item_type\":\"file\",\"children\":[]}");
 	}
 
 }

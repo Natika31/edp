@@ -22,7 +22,7 @@ class FileDTOConversionTest {
 		fileContent.setBinary_content(binaryArray);
 		MyFile file = new MyFile();
 		file.setItem_id(1L);
-		file.setItem_name("file");
+		file.setName("file");
 		file.setItem_local_path("/home/file.pdf");
 		file.setFile_format("pdf");
 		file.setFile_origin_path("C:/Users/Natacha/Documents/cnam/GLG204 - 2023/DANS MON ILE.pdf");
@@ -32,8 +32,8 @@ class FileDTOConversionTest {
 		
 		assertNotNull(file.getItem_id());
 		assertEquals(file.getItem_id(), Long.valueOf(fileDTO.getItem_id()));
-		assertNotNull(file.getItem_name());
-		assertEquals(file.getItem_name(), fileDTO.getItem_name());
+		assertNotNull(file.getName());
+		assertEquals(file.getName(), fileDTO.getName());
 		assertEquals(file.getFile_format(), fileDTO.getFile_format());
 		assertArrayEquals(file.getFile_content().getBinary_content(), fileDTO.getBinary_content());
 	}
@@ -49,8 +49,8 @@ class FileDTOConversionTest {
 
 		assertNotNull(fileDTO.getItem_id());
 		assertEquals(file.getItem_id(), Long.valueOf(fileDTO.getItem_id()));
-		assertNotNull(fileDTO.getItem_name());
-		assertEquals(file.getItem_name(), fileDTO.getItem_name());
+		assertNotNull(fileDTO.getName());
+		assertEquals(file.getName(), fileDTO.getName());
 		assertEquals(file.getFile_format(), fileDTO.getFile_format());
 		assertArrayEquals(file.getFile_content().getBinary_content(), fileDTO.getBinary_content());
 	}

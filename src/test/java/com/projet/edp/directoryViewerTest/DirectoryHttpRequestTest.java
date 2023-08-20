@@ -21,13 +21,13 @@ class DirectoryHttpRequestTest {
 	@Test
 	public void getEmptyDirectoryShouldReturnDirectoryIdLocalPathNamAndZeroChildren() throws Exception {
 		assertThat(this.restTemplate.getForObject("http://localhost:" + port + "/api/directory?directory_id=2",
-				String.class)).contains("item_id\":\"1\",\"item_local_path\":\"/home/repertoire_vide\",\"item_name\":\"repertoire vide\",\"childrenDTO\":[]");
+				String.class)).contains("{\"item_id\":\"2\",\"item_local_path\":\"/home/dir\",\"name\":\"dir\",\"children\":[]}");
 	}
 	
 	@Test
 	public void getNonEmptyDirectoryShouldReturnDirectoryIdLocalPathNameAndChildren() throws Exception {
-		assertThat(this.restTemplate.getForObject("http://localhost:" + port + "/api/directory?directory_id=2",
-				String.class)).contains("item_id\":\"2\",\"item_local_path\":\"/home/Henri Salvador/\",\"item_name\":\"Henri Salvador\",\"childrenDTO\":[{\"file_id\":\"1\",\"file_name\":\"Dans mon île\",\"binary_content\":\"JVBERi0xLjcKCjQgMCBvYmoKKElkZW50aXR5KQplbmRvYmoKNSAwIG9iagooQWRvYmUpC");
+		assertThat(this.restTemplate.getForObject("http://localhost:" + port + "/api/directory?directory_id=4",
+				String.class)).contains("\"item_id\":\"4\",\"item_local_path\":\"/home/\",\"name\":\"home\",\"children\":[{\"item_id\":\"2\",\"item_local_path\":\"/home/dir\",\"name\":\"dir\",\"item_type\":\"class com.projet.edp.fileTree.domain.Directory\",\"children\":[]},{\"item_id\":\"3\",\"item_local_path\":\"/home/dir1\",\"name\":\"dir1\",\"item_type\":\"class com.projet.edp.fileTree.domain.Directory\",\"children\":[{\"item_id\":\"1\",\"item_local_path\":\"/home/Dans mon île.pdf\",\"name\":\"Dans mon île\",\"item_type\":\"class com.projet.edp.fileTree.domain.MyFile\",\"children\":[]}]}]}");
 	}
 
 }

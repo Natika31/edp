@@ -34,7 +34,7 @@ class DirectoryRestControllerTest {
 		emptyDirectory.setItem_id(1L);
 		when(directoryService.findDirectoryById(1L)).thenReturn(Optional.of(emptyDirectory));
 		this.mockMvc.perform(get("/api/directory?directory_id=1")).andDo(print()).andExpect(status().isOk())
-		.andExpect(content().string(containsString("\"item_id\":\"1\",\"item_local_path\":\"home\",\"item_name\":\"/home/\",\"children\":[]")))
+		.andExpect(content().string(containsString("{\"item_id\":\"1\",\"item_local_path\":\"/home/\",\"name\":\"home\",\"children\":[]}")))
 		;
 	}
 
@@ -48,7 +48,7 @@ class DirectoryRestControllerTest {
 		nonEmptyDirectory.addChildren(file);
 		when(directoryService.findDirectoryById(2L)).thenReturn(Optional.of(nonEmptyDirectory));
 		this.mockMvc.perform(get("/api/directory?directory_id=2")).andDo(print()).andExpect(status().isOk())
-		.andExpect(content().string(containsString("\"item_id\":\"2\",\"item_local_path\":\"home\",\"item_name\":\"/home/\",\"children\":[{\"item_id\":\"1\",\"item_local_path\":\"Dans mon Ã®le\",\"item_name\":\"/home/\",\"children\":[],\"item_type\":\"class com.projet.edp.fileTree.domain.MyFile\"}]")))
+		.andExpect(content().string(containsString("{\"item_id\":\"2\",\"item_local_path\":\"/home/\",\"name\":\"home\",\"children\":[{\"item_id\":\"1\",\"item_local_path\":\"/home/\",\"name\":\"Dans mon Ã®le\",\"item_type\":\"class com.projet.edp.fileTree.domain.MyFile\",\"children\":[]}]}")))
 		;
 	}
 }

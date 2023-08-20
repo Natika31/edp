@@ -26,11 +26,11 @@ class DirectoryDTOConversionTest {
 		Directory directory = new Directory();
 		directory.setItem_id(1L);
 		directory.setItem_local_path("/home/");
-		directory.setItem_name("home");
+		directory.setName("home");
 
 		DirectoryDTO directoryDTO = directoryDTOConversion.convertEntityToDTO(directory);
 		
-		assertEquals(directory.getItem_name(), directoryDTO.getItem_name());
+		assertEquals(directory.getName(), directoryDTO.getName());
 		assertEquals(directory.getItem_local_path(), directoryDTO.getItem_local_path());
 		assertEquals(directory.getChildren().size(), directoryDTO.getChildren().size());
 	}
@@ -45,7 +45,7 @@ class DirectoryDTOConversionTest {
 		DirectoryDTO directoryDTO = directoryDTOConversion.convertEntityToDTO(directory);
 		
 		assertEquals(directoryDTO.getChildren().size(),directory.getChildren().size() );
-		assertEquals(directory.getChildren().get(0).getItem_name(), directoryDTO.getChildren().get(0).getItem_name());
+		assertEquals(directory.getChildren().get(0).getName(), directoryDTO.getChildren().get(0).getName());
 	}
 
 	@Test
@@ -54,7 +54,7 @@ class DirectoryDTOConversionTest {
 		
 		Directory directory = directoryDTOConversion.convertDTOtoEntities(directoryDTO);
 		
-		assertEquals(directory.getItem_name(), directoryDTO.getItem_name());
+		assertEquals(directory.getName(), directoryDTO.getName());
 		assertEquals(directory.getItem_local_path(), directoryDTO.getItem_local_path());
 		assertEquals(directory.getChildren().size(), directoryDTO.getChildren().size());	}
 }

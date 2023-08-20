@@ -36,7 +36,7 @@ class FileTreeRestControllerTest {
 
 		this.mockMvc.perform(get("/api/file-tree?item_id=1")).andDo(print())
 		.andExpect(status().isOk())
-		.andExpect(content().string(containsString("item_id\":\"1\",\"item_local_path\":\"/home/\",\"item_name\":\"home\"")));
+		.andExpect(content().string(containsString("{\"item_id\":\"1\",\"item_local_path\":\"home\",\"name\":\"/home/\",\"item_type\":\"folder\",\"children\":[]}")));
 	}
 
 	@Test
@@ -51,9 +51,7 @@ class FileTreeRestControllerTest {
 		when(fileTreeService.findFileTreeItemById(1L)).thenReturn(Optional.of(rootDirectory));
 		this.mockMvc.perform(get("/api/file-tree?item_id=1")).andDo(print())
 		.andExpect(status().isOk())
-		.andExpect(content().string(containsString("item_id\":\"1\",\"item_local_path\":\"/home/\",\"item_name\":\"home\",\"item_type\":\"class com.projet.edp.fileTree.domain.Directory\",\"children\":["
-				+ "{\"item_id\":\"2\",\"item_local_path\":\"/home/henri_salvador\",\"item_name\":\"Henri Salvador\",\"item_type\":\"class com.projet.edp.fileTree.domain.Directory\",\"children\":[]}"
-				+ "]")))
+		.andExpect(content().string(containsString("{\"item_id\":\"1\",\"item_local_path\":\"home\",\"name\":\"/home/\",\"item_type\":\"folder\",\"children\":[{\"item_id\":\"2\",\"item_local_path\":\"Henri Salvador\",\"name\":\"/home/henri_salvador\",\"item_type\":\"folder\",\"children\":[]}]}")))
 		;
 	}
 	
@@ -73,11 +71,7 @@ class FileTreeRestControllerTest {
 		when(fileTreeService.findFileTreeItemById(1L)).thenReturn(Optional.of(rootDirectory));
 		this.mockMvc.perform(get("/api/file-tree?item_id=1")).andDo(print()).andExpect(status().isOk())
 		.andExpect(content().string(containsString(
-				  "\"item_id\":\"1\",\"item_local_path\":\"/home/\",\"item_name\":\"home\",\"item_type\":\"class com.projet.edp.fileTree.domain.Directory\",\"children\":["
-				+ "{\"item_id\":\"2\",\"item_local_path\":\"/home/henri_salvador\",\"item_name\":\"Henri Salvador\",\"item_type\":\"class com.projet.edp.fileTree.domain.Directory\",\"children\":["
-				+ "{\"item_id\":\"3\",\"item_local_path\":\"/home/henri_salvador/dans_mon_ile.pdf\",\"item_name\":\"Dans mon ile\",\"item_type\":\"class com.projet.edp.fileTree.domain.MyFile\",\"children\":[]}"
-				+ "]}"
-				+ "]")));
+				  "{\"item_id\":\"1\",\"item_local_path\":\"home\",\"name\":\"/home/\",\"item_type\":\"folder\",\"children\":[{\"item_id\":\"2\",\"item_local_path\":\"Henri Salvador\",\"name\":\"/home/henri_salvador\",\"item_type\":\"folder\",\"children\":[{\"item_id\":\"3\",\"item_local_path\":\"Dans mon ile\",\"name\":\"/home/henri_salvador/dans_mon_ile.pdf\",\"item_type\":\"file\",\"children\":[]}]}]}")));
 	}
 	
 	@Test
@@ -98,11 +92,7 @@ class FileTreeRestControllerTest {
 		when(fileTreeService.findFileTreeItemById(1L)).thenReturn(Optional.of(rootDirectory));
 		this.mockMvc.perform(get("/api/file-tree?item_id=1")).andDo(print()).andExpect(status().isOk())
 		.andExpect(content().string(containsString(
-				  "\"item_id\":\"1\",\"item_local_path\":\"/home/\",\"item_name\":\"home\",\"item_type\":\"class com.projet.edp.fileTree.domain.Directory\",\"children\":["
-				+ "{\"item_id\":\"2\",\"item_local_path\":\"/home/henri_salvador\",\"item_name\":\"Henri Salvador\",\"item_type\":\"class com.projet.edp.fileTree.domain.Directory\",\"children\":["
-				+ "{\"item_id\":\"3\",\"item_local_path\":\"/home/henri_salvador/dans_mon_ile.pdf\",\"item_name\":\"Dans mon ile\",\"item_type\":\"class com.projet.edp.fileTree.domain.MyFile\",\"children\":[]}"
-				+ "]}"
-				+ "]")));
+				  "{\"item_id\":\"1\",\"item_local_path\":\"home\",\"name\":\"/home/\",\"item_type\":\"folder\",\"children\":[{\"item_id\":\"2\",\"item_local_path\":\"Henri Salvador\",\"name\":\"/home/henri_salvador\",\"item_type\":\"folder\",\"children\":[{\"item_id\":\"3\",\"item_local_path\":\"Dans mon ile\",\"name\":\"/home/henri_salvador/dans_mon_ile.pdf\",\"item_type\":\"file\",\"children\":[]}]}]}")));
 	}
 
 }
