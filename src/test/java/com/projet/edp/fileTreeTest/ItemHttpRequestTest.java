@@ -21,7 +21,7 @@ class ItemHttpRequestTest {
 	@Test
 	public void getEmptyDirectoryShouldReturnItemIdLocalPathNamAndZeroChildren() throws Exception {
 		assertThat(this.restTemplate.getForObject("http://localhost:" + port + "/api/file-tree?item_id=1",
-				String.class)).contains("{\"item_id\":\"1\",\"item_local_path\":\"/home/Dans mon île.pdf\",\"name\":\"Dans mon île\",\"item_type\":\"file\",\"children\":[]}");
+				String.class)).contains("{\"item_id\":\"1\",\"item_local_path\":\"/home/Dans_mon_ile.pdf\",\"name\":\"Dans mon île\",\"item_type\":\"file\",\"children\":[]}");
 	}
 
 }
