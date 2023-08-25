@@ -47,7 +47,7 @@ class TreeDTOConversionTest {
 	@Test
 	void test_GivenEmptyDirectoryItem_WhenConvertEntityToDTO_ThenReturnDirItemDTOWithZeroChildren() throws FileNotFoundException, IOException  {
 		//Given a directory item
-		FileTreeItem dItem = new Directory("/home/dir/","dir");
+		FileTreeItem dItem = new Directory("dir","/home/dir/");
 		dItem.setItem_id(1L);
 
 		//When convert directory item to directory item  DTO
@@ -67,7 +67,7 @@ class TreeDTOConversionTest {
 	@Test
 	void test_GivenDirectoryContainsOneFileItem_WhenConvertEntityToDTO_ThenReturnDirectoryDTOContainsOneFileDTO() throws FileNotFoundException, IOException {
 		//Given a directory item
-		FileTreeItem dItem = new Directory("/home/dir/","dir");
+		FileTreeItem dItem = new Directory("dir","/home/dir/");
 		dItem.setItem_id(1L);
 		//Given a file item
 		FileContent fileContent = new FileContent();
@@ -101,10 +101,10 @@ class TreeDTOConversionTest {
 	@Test
 	void test_GivenDirectoryContainsOneDirectory_WhenConvertEntityToDTO_ThenReturnDirectoryDTOContainsOneDirectoryDTO() throws FileNotFoundException, IOException {
 		//Given two directory items
-		Directory parentDirectory = new Directory("/home/dir1/","dir1");
+		Directory parentDirectory = new Directory("dir1","/home/dir1/");
 		parentDirectory.setItem_id(1L);
 		//Given a directory item
-		Directory childDirectory = new Directory("/home/dir1/dir2/","dir2");
+		Directory childDirectory = new Directory("dir2","/home/dir1/dir2/");
 		childDirectory.setItem_id(2L);
 		//add a child to parent directory's children list
 		FileTreeItem childItem = childDirectory;
@@ -135,9 +135,9 @@ class TreeDTOConversionTest {
 	@Test
 	void test_GivenDirectoryContainsOneDirectoryContainsOneFile_WhenConvertEntityToDTO_ThenReturnDirectoryDTOContainsOneDirectoryDTOContainsOneFileDTO() throws FileNotFoundException, IOException {
 		//Given two directory items
-		FileTreeItem parentItem = new Directory("/home/dir1/","dir1");
+		FileTreeItem parentItem = new Directory("dir1","/home/dir1/");
 		parentItem.setItem_id(1L);
-		FileTreeItem childDItem = new Directory("/home/dir1/dir2/","dir2");
+		FileTreeItem childDItem = new Directory("dir2","/home/dir1/dir2/");
 		childDItem.setItem_id(2L);
 		//Given a file item
 		FileContent fileContent = new FileContent();

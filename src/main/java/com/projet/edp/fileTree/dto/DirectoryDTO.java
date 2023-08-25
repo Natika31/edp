@@ -19,7 +19,7 @@ public class DirectoryDTO
 		this.children = new ArrayList<TreeItemDTO>();
 	}
 
-	public DirectoryDTO(String directory_id, String directory_local_path, String name) {
+	public DirectoryDTO(String directory_id,String name, String directory_local_path) {
 		super();
 		this.item_id = directory_id;
 		this.item_local_path = directory_local_path;
