@@ -10,12 +10,12 @@ import com.projet.edp.fileTree.dto.TreeItemDTO;
 import com.projet.edp.userDirectory.domain.User;
 
 public class UserDTOConversion {
-	
+
 	@Autowired
 	private ModelMapper modelMapper;
-	
+
 	private DirectoryDTOConversion directoryDTOConversion;
-	
+
 	private TreeDTOConversion treeDTOConversion;
 
 	private static final String USER_TYPE = "user";
@@ -25,7 +25,7 @@ public class UserDTOConversion {
 		this.directoryDTOConversion = new DirectoryDTOConversion();
 		this.treeDTOConversion = new TreeDTOConversion();
 	}
-	
+
 	@Bean
 	public UserDTO convertEntityToDTO(User user) {
 		UserDTO userDTO = this.modelMapper.map(user, UserDTO.class);
@@ -38,9 +38,10 @@ public class UserDTOConversion {
 	@Bean
 	public User convertDTOtoEntities(UserDTO userDTO) {
 		User user = modelMapper.map(userDTO, User.class);
+		user.getRoot().setChildren(directoryDTOConversion.convertChildren(userDTO.getRoot()));
 		return user;
 	}
-	
+
 	private void renameEntityType(UserDTO userDTO) {
 		if (userDTO.getItem_type().equals(User.class.toString())) {
 			userDTO.setItem_type(USER_TYPE); 
@@ -49,5 +50,4 @@ public class UserDTOConversion {
 			treeDTOConversion.renameEntityType(itemDTO);
 		}
 	}
-
 }

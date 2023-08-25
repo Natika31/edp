@@ -16,16 +16,16 @@ public class UserDTO {
 
 	public UserDTO() {
 		super();
-		this.root = new DirectoryDTO();
+		this.root = new DirectoryDTO(null,"home","/home");
 	}
 
-	public UserDTO(String user_id, String name, String mail, String item_type, DirectoryDTO root) {
+	public UserDTO(String user_id, String name, String mail, String item_type) {
 		super();
 		this.user_id = user_id;
 		this.name = name;
 		this.mail = mail;
 		this.item_type = item_type;
-		this.root = new DirectoryDTO();
+		this.root = new DirectoryDTO(null,"home","/home");
 		this.setItem_type(item_type);
 
 	}
