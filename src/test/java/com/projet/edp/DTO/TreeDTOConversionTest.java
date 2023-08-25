@@ -29,7 +29,7 @@ class TreeDTOConversionTest {
 		FileContent fileContent = new FileContent();
 		byte[] binaryArray = fileContent.convertInputFileToBinaryArray("C:/Users/Natacha/Documents/cnam/GLG204 - 2023/DANS MON ILE.pdf");
 		fileContent.setBinary_content(binaryArray);
-		FileTreeItem fItem = new MyFile("file", "/home/file.pdf","pdf","C:/Users/Natacha/Documents/cnam/GLG204 - 2023/DANS MON ILE.pdf", fileContent ); 
+		FileTreeItem fItem = new MyFile("filename", "/home/filename.pdf","pdf","C:/Users/Natacha/Documents/cnam/GLG204 - 2023/DANS MON ILE.pdf", fileContent ); 
 		fItem.setItem_id(1L);
 
 		//When convert file item to file item DTO
@@ -73,7 +73,7 @@ class TreeDTOConversionTest {
 		FileContent fileContent = new FileContent();
 		byte[] binaryArray = fileContent.convertInputFileToBinaryArray("C:/Users/Natacha/Documents/cnam/GLG204 - 2023/DANS MON ILE.pdf");
 		fileContent.setBinary_content(binaryArray);
-		FileTreeItem childItem = new MyFile("file", "/home/dir/file.pdf","pdf","C:/Users/Natacha/Documents/cnam/GLG204 - 2023/DANS MON ILE.pdf", fileContent ); 
+		FileTreeItem childItem = new MyFile("filename", "/home/dir/filename.pdf","pdf","C:/Users/Natacha/Documents/cnam/GLG204 - 2023/DANS MON ILE.pdf", fileContent ); 
 		childItem.setItem_id(2L);
 		//add a child to parent directory's children list
 		((Directory) dItem).addChildren(childItem);
@@ -143,7 +143,7 @@ class TreeDTOConversionTest {
 		FileContent fileContent = new FileContent();
 		byte[] binaryArray = fileContent.convertInputFileToBinaryArray("C:/Users/Natacha/Documents/cnam/GLG204 - 2023/DANS MON ILE.pdf");
 		fileContent.setBinary_content(binaryArray);
-		FileTreeItem childFileItem = new MyFile("file", "/home/dir/file.pdf","pdf","C:/Users/Natacha/Documents/cnam/GLG204 - 2023/DANS MON ILE.pdf", fileContent ); 
+		FileTreeItem childFileItem = new MyFile("filename", "/home/dir/filename.pdf","pdf","C:/Users/Natacha/Documents/cnam/GLG204 - 2023/DANS MON ILE.pdf", fileContent ); 
 		childFileItem.setItem_id(3L);
 		//add a child to child directory's children list
 		Directory childDir = (Directory) childDItem;
@@ -193,7 +193,7 @@ class TreeDTOConversionTest {
 		FileContent fileContent = new FileContent();
 		byte[] binaryArray = fileContent.convertInputFileToBinaryArray("C:/Users/Natacha/Documents/cnam/GLG204 - 2023/DANS MON ILE.pdf");
 		fileContent.setBinary_content(binaryArray);
-		FileTreeItem fItem = new MyFile("file", "/home/dir/file.pdf","pdf","C:/Users/Natacha/Documents/cnam/GLG204 - 2023/DANS MON ILE.pdf", fileContent ); 
+		FileTreeItem fItem = new MyFile("filename", "/home/dir/filename.pdf","pdf","C:/Users/Natacha/Documents/cnam/GLG204 - 2023/DANS MON ILE.pdf", fileContent ); 
 		fItem.setItem_id(3L);
 		//add a child to parent directory's children list
 		Directory parentDir = (Directory) dItem1;
@@ -236,7 +236,7 @@ class TreeDTOConversionTest {
 	@Test
 	void test_GivenFileItemDTO_WhenConvertDTOToEntity_ThenReturnFileItem()  {
 		//Given an item DTO
-		TreeItemDTO fItemDTO = new TreeItemDTO("1", "/home/file.pdf", "file", "file");
+		TreeItemDTO fItemDTO = new TreeItemDTO("1","filename", "/home/filename.pdf",  "file");
 
 		//WhenConvertDTOToEntity
 		FileTreeItem fItem = treeItemDTOConversion.convertFileItemDTOtoFileItem(fItemDTO);
@@ -275,7 +275,7 @@ class TreeDTOConversionTest {
 		//Given a directory item DTO
 		TreeItemDTO dItemDTO = new TreeItemDTO("1","/home/dir/", "dir", "folder");
 		//Given a file item DTO
-		TreeItemDTO fItemDTO = new TreeItemDTO("2", "/home/dir/file.pdf", "file", "file");
+		TreeItemDTO fItemDTO = new TreeItemDTO("2", "filename","/home/dir/filename.pdf",  "file");
 
 		//add a child to parent directory's children list
 		List<TreeItemDTO> children = new ArrayList<>();
@@ -339,7 +339,7 @@ class TreeDTOConversionTest {
 		TreeItemDTO parentItemDTOId1 = new TreeItemDTO("1", "/home/dir1/", "dir1", "folder");
 		TreeItemDTO childDItemDTOId2 = new TreeItemDTO("2","/home/dir1/dir2/", "dir2", "folder");
 		//Given a file item DTO
-		TreeItemDTO fItemDTOId3 = new TreeItemDTO("3", "/home/dir1/dir2/file.pdf", "file", "file");
+		TreeItemDTO fItemDTOId3 = new TreeItemDTO("3", "filename", "/home/dir1/dir2/filename.pdf", "file");
 		//add a child to child directory's children list
 		List<TreeItemDTO> children2 = new ArrayList<>();
 		children2.add(fItemDTOId3);
@@ -381,7 +381,7 @@ class TreeDTOConversionTest {
 		TreeItemDTO parentItemDTO = new TreeItemDTO("1", "/home/dir1/", "dir1", "folder");
 		TreeItemDTO childDItemDTO = new TreeItemDTO("2","/home/dir1/dir2/", "dir2", "folder");
 		//Given a file item DTO
-		TreeItemDTO fItemDTO = new TreeItemDTO("3", "/home/dir1/file.pdf", "file", "file");
+		TreeItemDTO fItemDTO = new TreeItemDTO("3", "filename","/home/dir1/filename.pdf",  "file");
 		//add a child to parent directory's children list
 		List<TreeItemDTO> children = new ArrayList<>();
 		children.add(childDItemDTO);
