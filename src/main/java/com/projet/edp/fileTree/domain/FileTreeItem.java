@@ -20,19 +20,20 @@ public class FileTreeItem implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long item_id;
-
-	@Column(name = "item_local_path")
-	private String item_local_path;
+	
 
 	@Column(name = "name")
 	private String name;
+
+	@Column(name = "item_local_path")
+	private String item_local_path;
 
 	public FileTreeItem() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
-	public FileTreeItem(String item_local_path, String name) {
+	public FileTreeItem(String name, String item_local_path) {
 		super();
 		this.item_local_path = item_local_path;
 		this.name = name;

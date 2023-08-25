@@ -4,15 +4,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class TreeItemDTO {
-	
+
 	private String item_id;
+
+	private String name;
 
 	private String item_local_path;
 
-	private String name;
-	
 	private String item_type;
-	
+
 	private List<TreeItemDTO> children;
 
 
@@ -21,7 +21,7 @@ public class TreeItemDTO {
 		this.children = new ArrayList<>();
 	}
 
-	public TreeItemDTO(String item_id, String item_local_path, String name, String item_type) {
+	public TreeItemDTO(String item_id, String name, String item_local_path,  String item_type) {
 		super();
 		this.item_id = item_id;
 		this.item_local_path = item_local_path;
@@ -53,7 +53,7 @@ public class TreeItemDTO {
 	public void setName(String name) {
 		this.name = name;
 	}
-	
+
 	public String getItem_type() {
 		return item_type;
 	}
