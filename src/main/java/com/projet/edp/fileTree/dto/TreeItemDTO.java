@@ -70,4 +70,12 @@ public class TreeItemDTO {
 		this.children = children;
 	}
 
+	@Override
+	public String toString() {
+		return "TreeItemDTO [item_id=" + item_id + ", name=" + name + ", item_local_path=" + item_local_path
+				+ ", item_type=" + item_type + ", children=" + children + "]";
+	}
+	
+	
+
 }

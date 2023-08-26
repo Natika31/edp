@@ -21,13 +21,13 @@ class DirectoryHttpRequestTest {
 	@Test
 	public void getEmptyDirectoryShouldReturnDirectoryIdLocalPathNamAndZeroChildren() throws Exception {
 		assertThat(this.restTemplate.getForObject("http://localhost:" + port + "/api/directory?directory_id=2",
-				String.class)).contains("{\"item_id\":\"2\",\"item_local_path\":\"/home/natacha/henri_salavador\",\"name\":\"Henri Salvador\",\"children\":[{\"item_id\":\"1\",\"item_local_path\":\"/home/Dans_mon_ile.pdf\",\"name\":\"Dans mon île\",\"item_type\":\"class com.projet.edp.fileTree.domain.MyFile\",\"children\":[]}]}");
+				String.class)).contains("{\"item_id\":\"2\",\"name\":\"Henri Salvador\",\"item_local_path\":\"/home/natacha/henri_salavador\",\"children\":[{\"item_id\":\"1\",\"name\":\"Dans mon île\",\"item_local_path\":\"/home/Dans_mon_ile.pdf\",\"item_type\":\"class com.projet.edp.fileTree.domain.MyFile\",\"children\":[]}]}");
 	}
 	
 	@Test
 	public void getNonEmptyDirectoryShouldReturnDirectoryIdLocalPathNameAndChildren() throws Exception {
 		assertThat(this.restTemplate.getForObject("http://localhost:" + port + "/api/directory?directory_id=4",
-				String.class)).contains("{\"item_id\":\"4\",\"item_local_path\":\"/home/natacha/johnny\",\"name\":\"Johnny\",\"children\":[]}");
+				String.class)).contains("{\"item_id\":\"4\",\"name\":\"Johnny\",\"item_local_path\":\"/home/natacha/johnny\",\"children\":[]}");
 	}
 
 }

@@ -35,7 +35,7 @@ class FileRestControllerTest {
 	@Test
 	void GivenSelectedFile_whenRequestGETFileIdEquals1_thenGetStoredFileIdEquals1() throws Exception {
 
-		Optional<MyFile> selectedItem = createFile("/home/","Dans mon île", "pdf", "C:/Users/Natacha/Documents/cnam/GLG204 - 2023/DANS MON ILE.pdf");
+		Optional<MyFile> selectedItem = createFile("Dans mon île","/home/", "pdf", "C:/Users/Natacha/Documents/cnam/GLG204 - 2023/DANS MON ILE.pdf");
 		when(fileService.findFileById(1L)).thenReturn(selectedItem);
 		this.mockMvc.perform(get("/api/file?file_id=1")).andDo(print()).andExpect(status().isOk())
 		//TODO: encodage pb 

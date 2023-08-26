@@ -7,10 +7,10 @@ public class DirectoryDTO
 {
 
 	private String item_id;
+	
+	private String name;
 
 	private String item_local_path;
-
-	private String name;
 
 	private List<TreeItemDTO> children;
 
@@ -66,5 +66,13 @@ public class DirectoryDTO
 	public void removeChildrenDTO(TreeItemDTO itemDTO) {
 		this.children.remove(itemDTO);		
 	}
+
+	@Override
+	public String toString() {
+		return "DirectoryDTO [item_id=" + item_id + ", name=" + name + ", item_local_path=" + item_local_path
+				+ ", children=" + children + "]";
+	}
+
+	
 
 }
