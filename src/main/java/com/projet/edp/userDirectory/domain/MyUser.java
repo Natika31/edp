@@ -12,8 +12,8 @@ import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name = "user")
-public class User implements Serializable {
+@Table(name = "my_user")
+public class MyUser implements Serializable {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -31,17 +31,16 @@ public class User implements Serializable {
 	@JoinColumn(name = "root_directory_fk", nullable=false)
 	private Directory root;
 
-	public User() {
+	public MyUser() {
 		super();
-		this.root = new Directory();
 		this.setItem_type(this.getClass().toString());
 	}
 
-	public User(String name, String mail) {
+	public MyUser(String name, String mail,Directory root) {
 		super();
 		this.name = name;
 		this.mail = mail;
-		this.root = new Directory("home","/home");
+		this.root = root;
 		this.setItem_type(this.getClass().toString());
 	}
 

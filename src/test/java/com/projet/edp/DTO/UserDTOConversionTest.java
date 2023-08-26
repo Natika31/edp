@@ -13,7 +13,7 @@ import com.projet.edp.fileTree.domain.FileContent;
 import com.projet.edp.fileTree.domain.FileTreeItem;
 import com.projet.edp.fileTree.domain.MyFile;
 import com.projet.edp.fileTree.dto.TreeItemDTO;
-import com.projet.edp.userDirectory.domain.User;
+import com.projet.edp.userDirectory.domain.MyUser;
 import com.projet.edp.userDirectory.dto.UserDTO;
 import com.projet.edp.userDirectory.dto.UserDTOConversion;
 
@@ -29,8 +29,8 @@ class UserDTOConversionTest extends UserDTOConversion {
 	@Test
 	void testConvertUserToUserDTO_noChildren() {
 		//Given an user
-		User user = new User("name", "email");
-		user.setUser_id(1L);
+		Directory rootDirectory = new Directory("home", "/home");		
+		MyUser user = new MyUser("toto", "toto@me",rootDirectory);		user.setUser_id(1L);
 		user.getRoot().setItem_id(42L);
 
 		//When convert user to userDTO
@@ -68,7 +68,8 @@ class UserDTOConversionTest extends UserDTOConversion {
 		parentDir.addChildren(dItem2);
 		parentDir.addChildren(fItem);
 		//Given an user
-		User user = new User("name", "email");
+		Directory rootDirectory = new Directory("home", "/home");		
+		MyUser user = new MyUser("toto", "toto@me",rootDirectory);
 		user.setUser_id(1L);
 		user.getRoot().setItem_id(42L);
 		user.getRoot().addChildren(parentDir);
@@ -115,7 +116,8 @@ class UserDTOConversionTest extends UserDTOConversion {
 		Directory parentDir = (Directory) dItem1;
 		parentDir.addChildren(dItem2);
 		//Given an user
-		User user = new User("name", "email");
+		Directory rootDirectory = new Directory("home", "/home");		
+		MyUser user = new MyUser("toto", "toto@me",rootDirectory);
 		user.setUser_id(1L);
 		user.getRoot().setItem_id(42L);
 		user.getRoot().addChildren(parentDir);
@@ -161,7 +163,7 @@ class UserDTOConversionTest extends UserDTOConversion {
 		userDTO.getRoot().setItem_id("42");
 
 		//When convert user DTO to user item
-		User user = userDTOConversion.convertDTOtoEntities(userDTO); 
+		MyUser user = userDTOConversion.convertDTOtoEntities(userDTO); 
 
 		//Then Return user 
 		assertNotNull(user.getUser_id());
@@ -169,7 +171,7 @@ class UserDTOConversionTest extends UserDTOConversion {
 		assertNotNull(user.getName());
 		assertEquals(userDTO.getName(), user.getName());
 		assertNotNull(user.getItem_type());
-		assertEquals(User.class.toString(), user.getClass().toString());
+		assertEquals(MyUser.class.toString(), user.getClass().toString());
 		assertNotNull(user.getRoot());
 		assertEquals(userDTO.getRoot().getItem_id(), String.valueOf(user.getRoot().getItem_id()) );
 		assertEquals(userDTO.getRoot().getName(), user.getRoot().getName());
@@ -197,7 +199,7 @@ class UserDTOConversionTest extends UserDTOConversion {
 		userDTO.getRoot().addChildrenDTO(parentItemDTO);
 
 		//When convert user DTO to user
-		User user = userDTOConversion.convertDTOtoEntities(userDTO); 
+		MyUser user = userDTOConversion.convertDTOtoEntities(userDTO); 
 
 		//Then Return user
 		assertNotNull(user.getUser_id());
@@ -205,7 +207,7 @@ class UserDTOConversionTest extends UserDTOConversion {
 		assertNotNull(user.getName());
 		assertEquals(userDTO.getName(), user.getName());
 		assertNotNull(user.getItem_type());
-		assertEquals(User.class.toString(), user.getClass().toString());
+		assertEquals(MyUser.class.toString(), user.getClass().toString());
 
 		assertNotNull(user.getRoot());
 		assertNotNull(user.getRoot().getItem_id());
@@ -264,7 +266,7 @@ class UserDTOConversionTest extends UserDTOConversion {
 		userDTO.getRoot().setItem_id("42");
 		userDTO.getRoot().addChildrenDTO(parentItemDTOId1);
 		
-		User user = userDTOConversion.convertDTOtoEntities(userDTO); 
+		MyUser user = userDTOConversion.convertDTOtoEntities(userDTO); 
 
 		//Then Return user
 		assertNotNull(user.getUser_id());
@@ -272,7 +274,7 @@ class UserDTOConversionTest extends UserDTOConversion {
 		assertNotNull(user.getName());
 		assertEquals(userDTO.getName(), user.getName());
 		assertNotNull(user.getItem_type());
-		assertEquals(User.class.toString(), user.getClass().toString());
+		assertEquals(MyUser.class.toString(), user.getClass().toString());
 
 		assertNotNull(user.getRoot());
 		assertNotNull(user.getRoot().getItem_id());
