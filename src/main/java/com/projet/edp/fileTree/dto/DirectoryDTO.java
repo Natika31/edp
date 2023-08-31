@@ -7,7 +7,7 @@ public class DirectoryDTO
 {
 
 	private String item_id;
-	
+
 	private String name;
 
 	private String item_local_path;
@@ -72,7 +72,4 @@ public class DirectoryDTO
 		return "DirectoryDTO [item_id=" + item_id + ", name=" + name + ", item_local_path=" + item_local_path
 				+ ", children=" + children + "]";
 	}
-
-	
-
 }

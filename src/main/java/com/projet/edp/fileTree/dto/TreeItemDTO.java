@@ -15,7 +15,6 @@ public class TreeItemDTO {
 
 	private List<TreeItemDTO> children;
 
-
 	public TreeItemDTO() {
 		super();
 		this.children = new ArrayList<>();
@@ -75,7 +74,4 @@ public class TreeItemDTO {
 		return "TreeItemDTO [item_id=" + item_id + ", name=" + name + ", item_local_path=" + item_local_path
 				+ ", item_type=" + item_type + ", children=" + children + "]";
 	}
-	
-	
-
 }
