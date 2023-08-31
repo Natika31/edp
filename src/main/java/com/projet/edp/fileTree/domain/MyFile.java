@@ -8,7 +8,6 @@ import java.io.IOException;
 import java.io.Serializable;
 import jakarta.persistence.*;
 
-
 /**
  * 
  */
@@ -76,7 +75,7 @@ public class MyFile extends FileTreeItem implements Serializable {
 
 	@Override
 	public String toString() {
-		return "MyFile [item_id=" + super.getItem_id() + ", file_format="
+		return "MyFile [" + super.toString() + ", file_format="
 				+ file_format + ", file_origin_path=" + file_origin_path + ", item_type=" + item_type + ", file_content=" + file_content + "]";
 	}
 

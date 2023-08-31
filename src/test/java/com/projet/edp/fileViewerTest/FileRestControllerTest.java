@@ -9,13 +9,19 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Optional;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.web.servlet.MockMvc;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.projet.edp.fileTree.domain.FileContent;
 import com.projet.edp.fileTree.domain.MyFile;
+import com.projet.edp.fileTree.dto.FileDTOConversion;
 import com.projet.edp.fileTree.service.FileContentService;
 import com.projet.edp.fileTree.service.FileService;
 import com.projet.edp.fileTree.ui.FileViewerController;
@@ -31,25 +37,52 @@ class FileRestControllerTest {
 
 	@MockBean
 	private FileService fileService;
+	
+	private static FileDTOConversion fileDTOConversion ;
+
+	private static ObjectMapper mapperJSON;
+	
+	private FileContent fileContent;
+
+	private MyFile file; 
+	
+	@BeforeAll
+	public static void setup() {
+		fileDTOConversion = new FileDTOConversion();
+		mapperJSON = new ObjectMapper();
+	}
+
+	@AfterAll
+	public static void tearDown() {
+		fileDTOConversion = null;
+		mapperJSON = null;    
+	}
+	
+	@BeforeEach 
+	public void init() throws FileNotFoundException, IOException {
+		fileContent = new FileContent();
+		byte[] binaryArray = fileContent.convertInputFileToBinaryArray("C:/Users/Natacha/Documents/cnam/GLG204 - 2023/DANS MON ILE.pdf");
+		fileContent.setBinary_content(binaryArray);
+
+		file = new MyFile("Dans mon ile", "/home/henri_salvador/dans_mon_ile.pdf","pdf","C:/Users/Natacha/Documents/cnam/GLG204 - 2023/DANS MON ILE.pdf", fileContent );
+		file.setItem_id(1L);
+	}
+
+	@AfterEach
+	public void teardown() {
+		fileContent = null;
+		file = null;
+	}
 
 	@Test
-	void GivenSelectedFile_whenRequestGETFileIdEquals1_thenGetStoredFileIdEquals1() throws Exception {
+	void testGivenSelectedFile_whenRequestGETFileIdEquals1_thenGetStoredFileIdEquals1() throws Exception {
 
-		Optional<MyFile> selectedItem = createFile("/home/","Dans mon île", "pdf", "C:/Users/Natacha/Documents/cnam/GLG204 - 2023/DANS MON ILE.pdf");
-		when(fileService.findFileById(1L)).thenReturn(selectedItem);
-		this.mockMvc.perform(get("/api/file?file_id=1")).andDo(print()).andExpect(status().isOk())
-		//TODO: encodage pb 
-		.andExpect(content().string(containsString("{\"item_id\":\"1\",\"name\":\"Dans mon Ã®le\",\"item_local_path\":\"/home/\",\"file_format\":\"pdf\",\"file_origin_path\":\"C:/Users/Natacha/Documents/cnam/GLG204 - 2023/DANS MON ILE.pdf\",\"binary_content\":\"JVBERi0xLjcKCjQgMCBvYmoKKElkZW50aXR5KQ")))
-		;
+		when(fileService.findFileById(1L)).thenReturn(Optional.of(file));
+		
+		String jsonFileDTO = mapperJSON.writeValueAsString(fileDTOConversion.convertEntityToDTO(file));
 
-	}
-	private Optional<MyFile> createFile(String file_name, String file_path, String file_format, String file_origin_path) throws FileNotFoundException, IOException {
-		FileContent fileContent = new FileContent();
-		byte[] binaryArray = fileContent.convertInputFileToBinaryArray(file_origin_path);	
-		fileContent.setFile_content_id(1L);
-		fileContent.setBinary_content(binaryArray);
-		MyFile selectedItem = new MyFile(file_name, file_path,  file_format, file_origin_path, fileContent);
-		selectedItem.setItem_id(1L);
-		return Optional.of(selectedItem);
+		this.mockMvc.perform(get("/api/file?file_id=1")).andDo(print())
+		.andExpect(status().isOk())
+		.andExpect(content().string(containsString(jsonFileDTO)));
 	}
 }

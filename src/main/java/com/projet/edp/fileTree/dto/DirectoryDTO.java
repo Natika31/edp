@@ -8,9 +8,9 @@ public class DirectoryDTO
 
 	private String item_id;
 
-	private String item_local_path;
-
 	private String name;
+
+	private String item_local_path;
 
 	private List<TreeItemDTO> children;
 
@@ -19,7 +19,7 @@ public class DirectoryDTO
 		this.children = new ArrayList<TreeItemDTO>();
 	}
 
-	public DirectoryDTO(String directory_id, String directory_local_path, String name) {
+	public DirectoryDTO(String directory_id,String name, String directory_local_path) {
 		super();
 		this.item_id = directory_id;
 		this.item_local_path = directory_local_path;
@@ -67,4 +67,9 @@ public class DirectoryDTO
 		this.children.remove(itemDTO);		
 	}
 
+	@Override
+	public String toString() {
+		return "DirectoryDTO [item_id=" + item_id + ", name=" + name + ", item_local_path=" + item_local_path
+				+ ", children=" + children + "]";
+	}
 }

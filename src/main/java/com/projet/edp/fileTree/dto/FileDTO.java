@@ -1,5 +1,7 @@
 package com.projet.edp.fileTree.dto;
 
+import java.util.Arrays;
+
 public class FileDTO{
 	
 	private String item_id;
@@ -77,4 +79,11 @@ public class FileDTO{
 		this.binary_content = binary_content;
 	}
 
+	@Override
+	public String toString() {
+		return "FileDTO [item_id=" + item_id + ", name=" + name + ", item_local_path=" + item_local_path
+				+ ", file_format=" + file_format + ", file_origin_path=" + file_origin_path + ", binary_content="
+				+ Arrays.toString(binary_content) + "]";
+	}
+	
 }
