@@ -10,5 +10,5 @@ public interface UserService {
 	
 	public MyUser save(MyUser myUser) throws BusinessResourceException;
 	
-	void deleteAll();
+	public void deleteAll();
 }

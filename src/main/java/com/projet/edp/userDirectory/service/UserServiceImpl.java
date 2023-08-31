@@ -1,10 +1,8 @@
 package com.projet.edp.userDirectory.service;
 
 import java.util.Optional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import com.projet.edp.exceptions.BusinessResourceException;
 import com.projet.edp.userDirectory.dao.UserDAO;
 import com.projet.edp.userDirectory.domain.MyUser;

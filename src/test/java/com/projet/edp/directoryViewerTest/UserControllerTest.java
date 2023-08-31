@@ -37,7 +37,7 @@ class UserControllerTest {
 
 	@MockBean
 	private UserService userService;
-	
+
 	private static UserDTOConversion userDTOConversion ;
 
 	private static ObjectMapper mapperJSON;
@@ -51,22 +51,22 @@ class UserControllerTest {
 	private FileTreeItem childFile; 
 
 	private MyUser user;
-	
+
 	@BeforeAll
-	static void setup() {
+	public static void setup() {
 		userDTOConversion = new UserDTOConversion();
 		mapperJSON = new ObjectMapper();
 	}
-	
-    @AfterAll
-    static void tearDown() {
-    	userDTOConversion = null;
+
+	@AfterAll
+	public static void tearDown() {
+		userDTOConversion = null;
 		mapperJSON = null;    
-		}
+	}
 
 
 	@BeforeEach 
-	void init() throws FileNotFoundException, IOException {
+	public void init() throws FileNotFoundException, IOException {
 		rootDirectory = new Directory("home", "/home");
 		rootDirectory.setItem_id(1L);
 
@@ -86,7 +86,7 @@ class UserControllerTest {
 	}
 
 	@AfterEach
-	void teardown() {
+	public void teardown() {
 		user = null;
 		rootDirectory = null;
 		childDirectory = null;
@@ -95,10 +95,10 @@ class UserControllerTest {
 	}
 
 	@Test
-	void testGetUserById_EmptyRootDirectory() throws Exception {
-		
+	public void testGetUserById_EmptyRootDirectory() throws Exception {
+
 		when(userService.findUserById(1L)).thenReturn(Optional.of(user));
-		
+
 		String jsonUserDTO = mapperJSON.writeValueAsString(userDTOConversion.convertEntityToDTO(user));
 
 		this.mockMvc.perform(get("/api/user?user_id=1")).andDo(print())
@@ -107,31 +107,30 @@ class UserControllerTest {
 	}
 
 	@Test
-	void testGetUserById_RootDirectoryContainsDirectoryContainsFile() throws Exception {
+	public void testGetUserById_RootDirectoryContainsDirectoryContainsFile() throws Exception {
 
 		childDirectory.addChildren(childFile);
 		rootDirectory.addChildren(childDirectory);
 
 		when(userService.findUserById(1L)).thenReturn(Optional.of(user));
-		
+
 		String jsonUserDTO = mapperJSON.writeValueAsString(userDTOConversion.convertEntityToDTO(user));
 
 		this.mockMvc.perform(get("/api/user?user_id=1")).andDo(print()).andExpect(status().isOk())
 		.andExpect(content().string(containsString(jsonUserDTO)));	
-		}
+	}
 
 	@Test
-	void testGetUserById_RootDirectoryContainsDirectoryAndFile() throws Exception {
+	public void testGetUserById_RootDirectoryContainsDirectoryAndFile() throws Exception {
 
 		rootDirectory.addChildren(childFile);
 		rootDirectory.addChildren(childDirectory);
 
 		when(userService.findUserById(1L)).thenReturn(Optional.of(user));
-		
+
 		String jsonUserDTO = mapperJSON.writeValueAsString(userDTOConversion.convertEntityToDTO(user));
 
 		this.mockMvc.perform(get("/api/user?user_id=1")).andDo(print()).andExpect(status().isOk())
 		.andExpect(content().string(containsString(jsonUserDTO)));	
-		}
-
+	}
 }

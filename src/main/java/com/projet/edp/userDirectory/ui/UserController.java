@@ -17,9 +17,9 @@ import com.projet.edp.userDirectory.service.UserService;
 public class UserController {
 
 	@Autowired
-	UserService userService;
+	private UserService userService;
 	
-	UserDTOConversion userDTOConversion;
+	private UserDTOConversion userDTOConversion;
 
 	public UserController(UserService userService) {
 		this.userService = userService;
