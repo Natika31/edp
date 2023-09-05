@@ -1,11 +1,12 @@
 /**
  * 
  */
-package com.projet.edp.fileTree.domain;
+package com.projet.edp.fileViewer.domain;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.Serializable;
+import com.projet.edp.fileTree.domain.FileTreeItem;
 import jakarta.persistence.*;
 
 /**
@@ -14,8 +15,12 @@ import jakarta.persistence.*;
 @Entity
 @DiscriminatorValue(value = "FILE")
 @PrimaryKeyJoinColumn(name = "file_id")
-@Table(name = "file")
+@Table(name = "my_file")
 public class MyFile extends FileTreeItem implements Serializable {
+	
+	public static final String FILE_TYPE = "file";
+	
+	private String item_type;
 
 	@Column(name = "file_format")
 	private String file_format;
@@ -27,18 +32,20 @@ public class MyFile extends FileTreeItem implements Serializable {
 	@JoinColumn(name = "file_content_fk", nullable=false)
 	private FileContent file_content;
 
-	private String item_type;
-
 	public MyFile() {
-		this.setItem_type(this.getClass().toString());
+		this.item_type = FILE_TYPE;
 	}
 
 	public MyFile(String item_name, String item_local_path, String file_format, String file_origin_path, FileContent fileContent)throws FileNotFoundException, IOException {
 		super(item_name, item_local_path);
+		this.item_type = FILE_TYPE;
 		this.file_format = file_format;
 		this.file_origin_path = file_origin_path;
 		this.file_content = fileContent;
-		this.setItem_type(this.getClass().toString());
+	}
+	
+	public String getItem_type() {
+		return item_type;
 	}
 
 	public String getFile_format() {
@@ -65,18 +72,10 @@ public class MyFile extends FileTreeItem implements Serializable {
 		this.file_content = file_content;
 	}
 
-	public String getItem_type() {
-		return item_type;
-	}
-
-	public void setItem_type(String item_type) {
-		this.item_type = item_type;
-	}
-
 	@Override
 	public String toString() {
-		return "MyFile [" + super.toString() + ", file_format="
-				+ file_format + ", file_origin_path=" + file_origin_path + ", item_type=" + item_type + ", file_content=" + file_content + "]";
+		return "MyFile ["+ super.toString() +"item_type=" + item_type + ", file_format=" + file_format + ", file_origin_path="
+				+ file_origin_path + ", file_content=" + file_content + "]";
 	}
-
+	
 }

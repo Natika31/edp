@@ -1,14 +1,18 @@
-package com.projet.edp.fileTree.dto;
+package com.projet.edp.fileViewer.dto;
 
 import java.util.Arrays;
 
 public class FileDTO{
+	
+	public static final String FILE_TYPE = "file";
 	
 	private String item_id;
 	
 	private String name;
 	
 	private String item_local_path;
+	
+	private String item_type;
 	
 	private String file_format;
 	
@@ -18,6 +22,7 @@ public class FileDTO{
 	
 	public FileDTO() {
 		super();
+		this.item_type = FILE_TYPE;
 	}
 
 	public FileDTO(String item_id, String name, String item_local_path, String file_format, String file_origin_path,
@@ -29,6 +34,8 @@ public class FileDTO{
 		this.file_format = file_format;
 		this.file_origin_path = file_origin_path;
 		this.binary_content = binary_content;
+		this.item_type = FILE_TYPE;
+
 	}
 
 	public String getItem_id() {
@@ -79,11 +86,21 @@ public class FileDTO{
 		this.binary_content = binary_content;
 	}
 
+	public String getItem_type() {
+		return item_type;
+	}
+
+	public void setItem_type(String item_type) {
+		this.item_type = item_type;
+	}
+
 	@Override
 	public String toString() {
 		return "FileDTO [item_id=" + item_id + ", name=" + name + ", item_local_path=" + item_local_path
-				+ ", file_format=" + file_format + ", file_origin_path=" + file_origin_path + ", binary_content="
-				+ Arrays.toString(binary_content) + "]";
+				+ ", item_type=" + item_type + ", file_format=" + file_format + ", file_origin_path=" + file_origin_path
+				+ ", binary_content=" + Arrays.toString(binary_content) + "]";
 	}
+	
+	
 	
 }
