@@ -3,11 +3,6 @@ package com.projet.edp.userDirectory.dto;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.projet.edp.userDirectory.domain.MyUser;
-
-import jakarta.persistence.Column;
-import jakarta.persistence.OneToMany;
-
 public class GroupDTO {
 	
 	public static final String GROUP_TYPE = "group";

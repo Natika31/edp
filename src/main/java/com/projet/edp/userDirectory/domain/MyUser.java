@@ -14,26 +14,28 @@ import jakarta.persistence.Table;
 @Entity
 @Table(name = "my_user")
 public class MyUser implements Serializable {
-	
+
+	public static final String MEMBER_TYPE = "user";
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long user_id;
 
 	@Column(name = "name")
 	private String name;
-	
+
 	@Column(name = "mail")
 	private String mail;
-	
+
 	private String item_type;
-	
+
 	@OneToOne
 	@JoinColumn(name = "root_directory_fk", nullable=false)
 	private Directory root;
 
 	public MyUser() {
 		super();
-		this.setItem_type(this.getClass().toString());
+		this.item_type=MEMBER_TYPE;
 	}
 
 	public MyUser(String name, String mail,Directory root) {
@@ -41,7 +43,7 @@ public class MyUser implements Serializable {
 		this.name = name;
 		this.mail = mail;
 		this.root = root;
-		this.setItem_type(this.getClass().toString());
+		this.item_type=MEMBER_TYPE;
 	}
 
 	public Long getUser_id() {

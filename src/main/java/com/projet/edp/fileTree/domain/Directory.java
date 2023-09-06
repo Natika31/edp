@@ -15,24 +15,26 @@ import jakarta.persistence.Table;
 @Table(name = "directory")
 public class Directory extends FileTreeItem implements Serializable {
 
+	public static final String DIRECTORY_TYPE = "folder";
+
 	@OneToMany
 	private List<FileTreeItem> children;
 
 	private String item_type;
-	
+
 
 	public Directory() {
 		super();
 		this.children = new ArrayList<>();
-		this.setItem_type(this.getClass().toString());
+		this.item_type = DIRECTORY_TYPE;
 	}
 
 	public Directory(String item_name, String item_local_path) {
 		super(item_name,item_local_path);
 		this.children = new ArrayList<>();
-		this.setItem_type(this.getClass().toString());
+		this.item_type = DIRECTORY_TYPE;
 	}
-	
+
 	public String getItem_type() {
 		return item_type;
 	}
@@ -41,7 +43,7 @@ public class Directory extends FileTreeItem implements Serializable {
 		this.item_type = item_type;
 	}
 
-	
+
 	public List<FileTreeItem> getChildren() {
 		return children;
 	}

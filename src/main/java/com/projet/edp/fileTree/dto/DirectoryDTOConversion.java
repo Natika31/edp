@@ -2,12 +2,13 @@ package com.projet.edp.fileTree.dto;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
+
 import com.projet.edp.fileTree.domain.Directory;
 import com.projet.edp.fileTree.domain.FileTreeItem;
-import com.projet.edp.fileViewer.domain.MyFile;
 
 
 public class DirectoryDTOConversion {

@@ -1,6 +1,8 @@
 package com.projet.edp.fileViewerTest;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertArrayEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -11,13 +13,10 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import com.projet.edp.fileTree.domain.Directory;
 import com.projet.edp.fileViewer.domain.FileContent;
 import com.projet.edp.fileViewer.domain.MyFile;
 import com.projet.edp.fileViewer.dto.FileDTO;
 import com.projet.edp.fileViewer.dto.FileDTOConversion;
-import com.projet.edp.userDirectory.domain.MyUser;
-import com.projet.edp.userDirectory.dto.UserDTOConversion;
 
 class FileDTOConversionTest {
 

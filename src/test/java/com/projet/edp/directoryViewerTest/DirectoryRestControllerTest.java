@@ -20,12 +20,12 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.web.servlet.MockMvc;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.projet.edp.fileTree.domain.Directory;
-import com.projet.edp.fileTree.domain.FileContent;
 import com.projet.edp.fileTree.domain.FileTreeItem;
-import com.projet.edp.fileTree.domain.MyFile;
 import com.projet.edp.fileTree.dto.DirectoryDTOConversion;
 import com.projet.edp.fileTree.service.DirectoryService;
 import com.projet.edp.fileTree.ui.DirectoryController;
+import com.projet.edp.fileViewer.domain.FileContent;
+import com.projet.edp.fileViewer.domain.MyFile;
 
 @WebMvcTest(DirectoryController.class)
 class DirectoryRestControllerTest {

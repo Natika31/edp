@@ -5,18 +5,23 @@ import java.util.List;
 
 public class DirectoryDTO
 {
+	
+	public static final String DIRECTORY_TYPE = "folder";
 
 	private String item_id;
 
 	private String name;
 
 	private String item_local_path;
+	
+	private String item_type;
 
 	private List<TreeItemDTO> children;
 
 	public DirectoryDTO() {
 		super();
 		this.children = new ArrayList<TreeItemDTO>();
+		this.item_type=DIRECTORY_TYPE;
 	}
 
 	public DirectoryDTO(String directory_id,String name, String directory_local_path) {
@@ -25,6 +30,7 @@ public class DirectoryDTO
 		this.item_local_path = directory_local_path;
 		this.name = name;
 		this.children = new ArrayList<TreeItemDTO>();
+		this.item_type=DIRECTORY_TYPE;
 	}
 
 	public String getItem_id() {
@@ -41,6 +47,10 @@ public class DirectoryDTO
 
 	public void setItem_local_path(String item_local_path) {
 		this.item_local_path = item_local_path;
+	}
+
+	public String getItem_type() {
+		return item_type;
 	}
 
 	public String getName() {

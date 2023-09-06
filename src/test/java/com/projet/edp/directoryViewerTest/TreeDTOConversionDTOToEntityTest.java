@@ -1,8 +1,8 @@
 package com.projet.edp.directoryViewerTest;
 
-import static org.junit.jupiter.api.Assertions.*;
-import java.io.FileNotFoundException;
-import java.io.IOException;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -11,14 +11,12 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
 import com.projet.edp.fileTree.domain.Directory;
 import com.projet.edp.fileTree.domain.FileTreeItem;
 import com.projet.edp.fileTree.dto.TreeDTOConversion;
 import com.projet.edp.fileTree.dto.TreeItemDTO;
-import com.projet.edp.fileViewer.domain.FileContent;
 import com.projet.edp.fileViewer.domain.MyFile;
-
-import jakarta.persistence.Column;
 
 class TreeDTOConversionDTOToEntityTest {
 
