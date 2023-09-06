@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import com.projet.edp.fileTree.domain.Directory;
 import com.projet.edp.fileTree.domain.FileTreeItem;
+import com.projet.edp.fileViewer.domain.MyFile;
 
 
 public class DirectoryDTOConversion {
@@ -30,6 +31,12 @@ public class DirectoryDTOConversion {
 	@Bean
 	public Directory convertDTOtoEntities(DirectoryDTO directoryDTO) {
 		Directory directory = modelMapper.map(directoryDTO, Directory.class);
+		List<FileTreeItem> convertedChildren = new ArrayList<>();
+		for (TreeItemDTO childDTO : directoryDTO.getChildren()) {
+			FileTreeItem child = treeDTOConversion.convertDTOtoEntities(childDTO);
+			convertedChildren.add(child);
+		}
+		directory.setChildren(convertedChildren);
 		return directory;
 	}
 	
@@ -47,4 +54,6 @@ public class DirectoryDTOConversion {
 		}
 		return newChildren;
 	}
+	
+	
 }
