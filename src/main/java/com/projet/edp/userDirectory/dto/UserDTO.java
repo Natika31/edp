@@ -4,8 +4,6 @@ import com.projet.edp.fileTree.dto.DirectoryDTO;
 
 public class UserDTO {
 	
-	public static final String MEMBER_TYPE = "user";
-	
 	private String user_id;
 
 	private String name;
@@ -18,15 +16,17 @@ public class UserDTO {
 
 	public UserDTO() {
 		super();
-		this.item_type = MEMBER_TYPE;
+		this.root = new DirectoryDTO(null,"home","/home");
 	}
 
-	public UserDTO(String user_id, String name, String mail) {
+	public UserDTO(String user_id, String name, String mail, String item_type) {
 		super();
 		this.user_id = user_id;
 		this.name = name;
 		this.mail = mail;
-		this.item_type = MEMBER_TYPE;
+		this.item_type = item_type;
+		this.root = new DirectoryDTO(null,"home","/home");
+		this.setItem_type(item_type);
 
 	}
 
@@ -56,6 +56,10 @@ public class UserDTO {
 
 	public String getItem_type() {
 		return item_type;
+	}
+
+	public void setItem_type(String item_type) {
+		this.item_type = item_type;
 	}
 
 	public DirectoryDTO getRoot() {

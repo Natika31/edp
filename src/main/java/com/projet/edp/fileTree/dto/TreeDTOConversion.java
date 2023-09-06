@@ -7,13 +7,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import com.projet.edp.fileTree.domain.Directory;
 import com.projet.edp.fileTree.domain.FileTreeItem;
-import com.projet.edp.fileViewer.domain.MyFile;
+import com.projet.edp.fileTree.domain.MyFile;
 
 public class TreeDTOConversion {
 
-	static final String DIRECTORY_TYPE = "folder";
+	private static final String DIRECTORY_TYPE = "folder";
 
-	static final String FILE_TYPE = "file";
+	private static final String FILE_TYPE = "file";
 
 	@Autowired
 	private ModelMapper modelMapper;
@@ -25,15 +25,13 @@ public class TreeDTOConversion {
 	@Bean
 	public TreeItemDTO convertEntityToDTO(FileTreeItem item) {
 		TreeItemDTO itemDTO = this.modelMapper.map(item, TreeItemDTO.class);
-		renameItemType(itemDTO);				
+		renameItemType(itemDTO);			
 		return itemDTO;
 	}
 
 	@Bean
 	public FileTreeItem convertDTOtoEntities(TreeItemDTO itemDTO) {
 		FileTreeItem item = modelMapper.map(itemDTO, FileTreeItem.class);
-		//type?
-		
 		return item;
 	}
 

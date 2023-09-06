@@ -18,6 +18,8 @@ public class UserDTOConversion {
 
 	private TreeDTOConversion treeDTOConversion;
 
+	private static final String USER_TYPE = "user";
+
 	public UserDTOConversion() {
 		this.modelMapper = new ModelMapper();
 		this.directoryDTOConversion = new DirectoryDTOConversion();
@@ -29,7 +31,7 @@ public class UserDTOConversion {
 		UserDTO userDTO = this.modelMapper.map(user, UserDTO.class);
 		DirectoryDTO rootDTO = directoryDTOConversion.convertEntityToDTO(user.getRoot());
 		userDTO.setRoot(rootDTO);
-//		renameEntityType(userDTO);
+		renameEntityType(userDTO);
 		return userDTO;
 	}
 
@@ -40,12 +42,12 @@ public class UserDTOConversion {
 		return user;
 	}
 
-//	private void renameEntityType(UserDTO userDTO) {
-//		if (userDTO.getItem_type().equals(MyUser.class.toString())) {
-//			userDTO.setItem_type(USER_TYPE); 
-//		}
-//		for (TreeItemDTO itemDTO : userDTO.getRoot().getChildren()) {
-//			treeDTOConversion.renameEntityType(itemDTO);
-//		}
-//	}
+	private void renameEntityType(UserDTO userDTO) {
+		if (userDTO.getItem_type().equals(MyUser.class.toString())) {
+			userDTO.setItem_type(USER_TYPE); 
+		}
+		for (TreeItemDTO itemDTO : userDTO.getRoot().getChildren()) {
+			treeDTOConversion.renameEntityType(itemDTO);
+		}
+	}
 }

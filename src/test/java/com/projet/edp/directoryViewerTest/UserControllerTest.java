@@ -1,4 +1,4 @@
-package com.projet.edp.userDirectory;
+package com.projet.edp.directoryViewerTest;
 
 import static org.hamcrest.CoreMatchers.containsString;
 import static org.mockito.Mockito.when;
@@ -21,9 +21,9 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.web.servlet.MockMvc;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.projet.edp.fileTree.domain.Directory;
+import com.projet.edp.fileTree.domain.FileContent;
 import com.projet.edp.fileTree.domain.FileTreeItem;
-import com.projet.edp.fileViewer.domain.FileContent;
-import com.projet.edp.fileViewer.domain.MyFile;
+import com.projet.edp.fileTree.domain.MyFile;
 import com.projet.edp.userDirectory.domain.MyUser;
 import com.projet.edp.userDirectory.dto.UserDTOConversion;
 import com.projet.edp.userDirectory.service.UserService;
