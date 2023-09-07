@@ -1,8 +1,8 @@
-package com.projet.edp.fileTree.service;
+package com.projet.edp.fileViewer.service;
 
 import java.util.Optional;
 import com.projet.edp.exceptions.BusinessResourceException;
-import com.projet.edp.fileTree.domain.MyFile;
+import com.projet.edp.fileViewer.domain.MyFile;
 
 public interface FileService {
 

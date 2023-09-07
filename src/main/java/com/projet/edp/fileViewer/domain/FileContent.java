@@ -1,4 +1,4 @@
-package com.projet.edp.fileTree.domain;
+package com.projet.edp.fileViewer.domain;
 
 import java.io.File;
 import java.io.FileInputStream;
