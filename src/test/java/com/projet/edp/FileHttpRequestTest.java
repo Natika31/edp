@@ -1,4 +1,4 @@
-package com.projet.edp.fileViewerTest;
+package com.projet.edp;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
