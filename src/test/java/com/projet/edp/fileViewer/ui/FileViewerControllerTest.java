@@ -29,7 +29,7 @@ import com.projet.edp.fileViewer.service.FileContentService;
 import com.projet.edp.fileViewer.service.FileService;
 
 @WebMvcTest(FileViewerController.class)
-class FileViewerControllerTest {
+class FileRestControllerTest {
 
 	@Autowired
 	private MockMvc mockMvc;
