@@ -1,7 +1,6 @@
 package com.projet.edp.group.ui;
 
 import static org.hamcrest.CoreMatchers.containsString;
-import static org.junit.jupiter.api.Assertions.fail;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
@@ -12,6 +11,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Optional;
 
+import org.assertj.core.util.Lists;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
@@ -22,7 +22,6 @@ import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.web.servlet.MockMvc;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.projet.edp.fileTree.domain.Directory;
 import com.projet.edp.fileTree.domain.FileTreeItem;
@@ -32,7 +31,6 @@ import com.projet.edp.group.domain.MyGroup;
 import com.projet.edp.group.dto.GroupDTOConversion;
 import com.projet.edp.group.service.GroupService;
 import com.projet.edp.user.domain.MyUser;
-import com.projet.edp.user.dto.UserDTOConversion;
 
 @WebMvcTest(GroupController.class)
 class GroupControllerTest {
@@ -171,6 +169,21 @@ class GroupControllerTest {
 		String jsonGroupDTO = mapperJSON.writeValueAsString(groupDTOConversion.convertEntityToDTO(group1));
 
 		this.mockMvc.perform(get("/api/group?group_id=1")).andDo(print())
+		.andExpect(status().isOk())
+		.andExpect(content().string(containsString(jsonGroupDTO)));	
+	}
+	
+	@Test
+	void testGetAllGroups() throws Exception {
+		group1.addMember(user1);
+		group1.addMember(user2);
+		group2.addMember(user3);
+		
+		when(groupService.findAll()).thenReturn(Lists.newArrayList(group1,group2));
+
+		String jsonGroupDTO = mapperJSON.writeValueAsString(groupDTOConversion.convertEntityToDTO(Lists.newArrayList(group1,group2)));
+
+		this.mockMvc.perform(get("/api/groups")).andDo(print())
 		.andExpect(status().isOk())
 		.andExpect(content().string(containsString(jsonGroupDTO)));	
 	}

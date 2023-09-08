@@ -32,8 +32,16 @@ public class GroupDTOConversion {
 	@Bean
 	public GroupDTO convertEntityToDTO(MyGroup myGroup) {
 		GroupDTO groupDTO = this.modelMapper.map(myGroup, GroupDTO.class);
-//		renameEntityType(groupDTO);
 		return groupDTO;
+	}
+	
+	public List<GroupDTO> convertEntityToDTO(List<MyGroup> groups) {
+		List<GroupDTO> groupDTOs = new ArrayList<>();
+		for (MyGroup group : groups) {
+			GroupDTO groupDTO = convertEntityToDTO(group);
+			groupDTOs.add(groupDTO);
+		}
+		return groupDTOs;
 	}
 
 	@Bean
@@ -51,6 +59,7 @@ public class GroupDTOConversion {
 		}
 		return newMembers;
 	}
+
 
 
 }

@@ -1,5 +1,7 @@
 package com.projet.edp.group.ui;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -40,6 +42,13 @@ public class GroupController {
 		MyGroup group = groupService.findGroupById(group_id).get();
 		GroupDTO groupDTO = groupDTOConversion.convertEntityToDTO(group);
 		return ResponseEntity.ok(groupDTO);
+	}
+	
+	@GetMapping("/api/groups")
+	public ResponseEntity<List<GroupDTO>> getAllGroups() {
+		List<MyGroup> groups = groupService.findAll();
+		List<GroupDTO> groupDTOs = groupDTOConversion.convertEntityToDTO(groups);
+		return ResponseEntity.ok(groupDTOs);
 	}
 	
 }

@@ -1,5 +1,6 @@
 package com.projet.edp.group.service;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,7 +9,6 @@ import org.springframework.stereotype.Service;
 import com.projet.edp.exceptions.BusinessResourceException;
 import com.projet.edp.group.dao.GroupDAO;
 import com.projet.edp.group.domain.MyGroup;
-import com.projet.edp.user.domain.MyUser;
 
 @Service
 public class GroupServiceImpl implements GroupService {
@@ -33,6 +33,11 @@ public class GroupServiceImpl implements GroupService {
 	@Override
 	public void deleteAll() {
 		groupDAO.deleteAll();
+	}
+
+	@Override
+	public List<MyGroup> findAll() {
+		return 	groupDAO.findAll();
 	}
 
 }

@@ -12,7 +12,6 @@ import com.projet.edp.fileViewer.domain.FileContent;
 import com.projet.edp.fileViewer.domain.MyFile;
 import com.projet.edp.fileViewer.service.FileContentService;
 import com.projet.edp.fileViewer.service.FileService;
-import com.projet.edp.group.dao.GroupDAO;
 import com.projet.edp.group.domain.MyGroup;
 import com.projet.edp.group.service.GroupService;
 import com.projet.edp.user.domain.MyUser;
