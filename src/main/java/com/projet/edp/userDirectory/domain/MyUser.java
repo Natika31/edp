@@ -15,9 +15,13 @@ import jakarta.persistence.Table;
 @Table(name = "my_user")
 public class MyUser implements Serializable {
 	
+	private static final String USER_TYPE = "user";
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long user_id;
+	
+	private String item_type;
 
 	@Column(name = "name")
 	private String name;
@@ -25,15 +29,13 @@ public class MyUser implements Serializable {
 	@Column(name = "mail")
 	private String mail;
 	
-	private String item_type;
-	
 	@OneToOne
 	@JoinColumn(name = "root_directory_fk", nullable=false)
 	private Directory root;
 
 	public MyUser() {
 		super();
-		this.setItem_type(this.getClass().toString());
+		this.item_type=USER_TYPE;
 	}
 
 	public MyUser(String name, String mail,Directory root) {
@@ -41,7 +43,7 @@ public class MyUser implements Serializable {
 		this.name = name;
 		this.mail = mail;
 		this.root = root;
-		this.setItem_type(this.getClass().toString());
+		this.item_type=USER_TYPE;
 	}
 
 	public Long getUser_id() {
@@ -50,6 +52,10 @@ public class MyUser implements Serializable {
 
 	public void setUser_id(Long user_id) {
 		this.user_id = user_id;
+	}
+	
+	public String getItem_type() {
+		return item_type;
 	}
 
 	public String getName() {
@@ -76,17 +82,9 @@ public class MyUser implements Serializable {
 		this.root = root;
 	}
 
-	public String getItem_type() {
-		return item_type;
-	}
-
-	public void setItem_type(String item_type) {
-		this.item_type = item_type;
-	}
-
 	@Override
 	public String toString() {
-		return "User [user_id=" + user_id + ", name=" + name + ", mail=" + mail + ", item_type=" + item_type + ", root="
-				+ root + "]";
+		return "MyUser [user_id=" + user_id + ", item_type=" + item_type + ", name=" + name + ", mail=" + mail
+				+ ", root=" + root + "]";
 	}	
 }
