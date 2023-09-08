@@ -28,8 +28,7 @@ public class DirectoryDTOConversion {
 		DirectoryDTO directoryDTO = this.modelMapper.map(directory, DirectoryDTO.class);
 		List<TreeItemDTO> childrenDTO = new ArrayList<>();
 		for (FileTreeItem child : directory.getChildren()) {
-			TreeItemDTO childDTO = new TreeItemDTO();				
-			childDTO = treeDTOConversion.convertEntityToDTO(child);
+			TreeItemDTO childDTO = treeDTOConversion.convertEntityToDTO(child);
 			childrenDTO.add(childDTO);			
 		}
 		directoryDTO.setChildren(childrenDTO);
