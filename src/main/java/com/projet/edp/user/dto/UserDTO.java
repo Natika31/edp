@@ -4,8 +4,6 @@ import com.projet.edp.fileTree.dto.DirectoryDTO;
 
 public class UserDTO {
 	
-	private static final String USER_TYPE = "user";
-		
 	private String user_id;
 	
 	private String item_type;
@@ -38,9 +36,12 @@ public class UserDTO {
 		this.user_id = user_id;
 	}
 	
-
 	public String getItem_type() {
-		return USER_TYPE;
+		return item_type;
+	}
+
+	public void setItem_type(String item_type) {
+		this.item_type = item_type;
 	}
 
 	public String getName() {

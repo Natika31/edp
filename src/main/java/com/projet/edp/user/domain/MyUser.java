@@ -35,7 +35,7 @@ public class MyUser implements Serializable {
 
 	public MyUser() {
 		super();
-		this.item_type=USER_TYPE;
+		this.setItem_type(USER_TYPE);
 	}
 
 	public MyUser(String name, String mail,Directory root) {
@@ -43,7 +43,7 @@ public class MyUser implements Serializable {
 		this.name = name;
 		this.mail = mail;
 		this.root = root;
-		this.item_type=USER_TYPE;
+		this.setItem_type(USER_TYPE);
 	}
 
 	public Long getUser_id() {
@@ -56,6 +56,10 @@ public class MyUser implements Serializable {
 	
 	public String getItem_type() {
 		return item_type;
+	}
+
+	public void setItem_type(String item_type) {
+		this.item_type = item_type;
 	}
 
 	public String getName() {
