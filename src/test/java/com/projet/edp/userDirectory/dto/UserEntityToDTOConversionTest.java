@@ -185,7 +185,7 @@ class UserEntityToDTOConversionTest extends UserDTOConversion {
 		assertEquals(user.getRoot().getChildren().get(0).getName(), userDTO.getRoot().getChildren().get(0).getName());
 		//item_type
 		assertNotNull(userDTO.getRoot().getChildren().get(0).getItem_type());
-		assertEquals("((Directory) user.getRoot().getChildren().get(0)).getItem_type()", userDTO.getRoot().getChildren().get(0).getItem_type());
+		assertEquals(((Directory) user.getRoot().getChildren().get(0)).getItem_type(), userDTO.getRoot().getChildren().get(0).getItem_type());
 	}
 
 	@Test
