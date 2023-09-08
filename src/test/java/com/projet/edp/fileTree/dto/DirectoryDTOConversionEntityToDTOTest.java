@@ -1,4 +1,4 @@
-package com.projet.edp.directoryViewerTest;
+package com.projet.edp.fileTree.dto;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -14,14 +14,20 @@ import org.junit.jupiter.api.Test;
 
 import com.projet.edp.fileTree.domain.Directory;
 import com.projet.edp.fileTree.domain.FileTreeItem;
-import com.projet.edp.fileTree.dto.DirectoryDTO;
-import com.projet.edp.fileTree.dto.DirectoryDTOConversion;
 import com.projet.edp.fileViewer.domain.FileContent;
 import com.projet.edp.fileViewer.domain.MyFile;
 
-class DirectoryDTOConversionEntityToDTOTest {
+class DirectoryDTOConversionEntityToDTOTest extends DirectoryDTOConversion {
 
 	private static DirectoryDTOConversion directoryDTOConversion ;
+
+	private Directory rootDirectory;
+	
+	private FileContent fileContent;
+	
+	private FileTreeItem file;
+	
+	private FileTreeItem childDirectory;
 
 	@BeforeAll
 	public static void setup() {
@@ -32,15 +38,6 @@ class DirectoryDTOConversionEntityToDTOTest {
 	static void tearDownAfterClass() throws Exception {
 		directoryDTOConversion = null;
 	}
-
-	private Directory rootDirectory;
-	
-	private FileContent fileContent;
-	
-	private FileTreeItem file;
-	
-	private FileTreeItem childDirectory;
-
 
 	@BeforeEach
 	void setUp() throws Exception {
@@ -88,8 +85,8 @@ class DirectoryDTOConversionEntityToDTOTest {
 		assertEquals(rootDirectory.getChildren().size(), actualDirectoryDTO.getChildren().size());
 		//item_type
 		assertNotNull(actualDirectoryDTO.getItem_type());
-		assertEquals(rootDirectory.getItem_type(), actualDirectoryDTO.getItem_type());	
-		}
+		assertEquals(rootDirectory.getItem_type(), actualDirectoryDTO.getItem_type());
+	}
 
 
 	@Test
@@ -114,7 +111,7 @@ class DirectoryDTOConversionEntityToDTOTest {
 		assertEquals(rootDirectory.getChildren().size(), actualDirectoryDTO.getChildren().size());
 		//item_type
 		assertNotNull(actualDirectoryDTO.getItem_type());
-		assertEquals(rootDirectory.getItem_type(), actualDirectoryDTO.getItem_type());	
+		assertEquals(rootDirectory.getItem_type(), actualDirectoryDTO.getItem_type());
 
 		//root directory child file tree item
 
@@ -126,8 +123,8 @@ class DirectoryDTOConversionEntityToDTOTest {
 		assertNotNull(actualDirectoryDTO.getChildren().get(0).getName());
 		assertEquals(rootDirectory.getChildren().get(0).getName(), actualDirectoryDTO.getChildren().get(0).getName());
 		//item_type
-		assertNotNull(actualDirectoryDTO.getItem_type());
-		assertEquals(rootDirectory.getItem_type(), actualDirectoryDTO.getItem_type());	
+		assertNotNull(actualDirectoryDTO.getChildren().get(0).getItem_type());
+		assertEquals(((MyFile) rootDirectory.getChildren().get(0)).getItem_type(), actualDirectoryDTO.getChildren().get(0).getItem_type());
 	}
 
 	@Test
@@ -169,5 +166,6 @@ class DirectoryDTOConversionEntityToDTOTest {
 		assertNotNull(actualDirectoryDTO.getChildren().get(0).getItem_type());
 		assertEquals(((Directory) rootDirectory.getChildren().get(0)).getItem_type(), actualDirectoryDTO.getChildren().get(0).getItem_type());
 	}
+
 
 }

@@ -12,10 +12,10 @@ import com.projet.edp.fileTree.domain.FileTreeItem;
 
 
 public class DirectoryDTOConversion {
-	
+
 	@Autowired
 	private ModelMapper modelMapper;
-	
+
 	private TreeDTOConversion treeDTOConversion;
 
 	public DirectoryDTOConversion() {
@@ -26,9 +26,16 @@ public class DirectoryDTOConversion {
 	@Bean
 	public DirectoryDTO convertEntityToDTO(Directory directory) {
 		DirectoryDTO directoryDTO = this.modelMapper.map(directory, DirectoryDTO.class);
+		List<TreeItemDTO> childrenDTO = new ArrayList<>();
+		for (FileTreeItem child : directory.getChildren()) {
+			TreeItemDTO childDTO = new TreeItemDTO();				
+			childDTO = treeDTOConversion.convertEntityToDTO(child);
+			childrenDTO.add(childDTO);			
+		}
+		directoryDTO.setChildren(childrenDTO);
 		return directoryDTO;
 	}
-	
+
 	@Bean
 	public Directory convertDTOtoEntities(DirectoryDTO directoryDTO) {
 		Directory directory = modelMapper.map(directoryDTO, Directory.class);
@@ -40,7 +47,7 @@ public class DirectoryDTOConversion {
 		directory.setChildren(convertedChildren);
 		return directory;
 	}
-	
+
 	@Bean
 	public List<FileTreeItem> convertChildren(DirectoryDTO directoryDTO) {
 		List<FileTreeItem> newChildren = new ArrayList<>();
@@ -55,6 +62,4 @@ public class DirectoryDTOConversion {
 		}
 		return newChildren;
 	}
-	
-	
 }
