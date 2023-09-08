@@ -12,6 +12,9 @@ import com.projet.edp.fileViewer.domain.FileContent;
 import com.projet.edp.fileViewer.domain.MyFile;
 import com.projet.edp.fileViewer.service.FileContentService;
 import com.projet.edp.fileViewer.service.FileService;
+import com.projet.edp.group.dao.GroupDAO;
+import com.projet.edp.group.domain.MyGroup;
+import com.projet.edp.group.service.GroupService;
 import com.projet.edp.user.domain.MyUser;
 import com.projet.edp.user.service.UserService;
 
@@ -22,13 +25,14 @@ public class LoadDatabase {
 	private static final Logger log = LoggerFactory.getLogger(LoadDatabase.class);
 
 	@Bean
-	CommandLineRunner initDatabase(FileService fileService,FileContentService fileContentService, DirectoryService directoryService,UserService userService) {
+	CommandLineRunner initDatabase(FileService fileService,FileContentService fileContentService, DirectoryService directoryService,UserService userService, GroupService groupService) {
 
 		return args -> {
 			log.info("clean database ");
 			fileService.deleteAll();
 			directoryService.deleteAll();
 			userService.deleteAll();
+			groupService.deleteAll();
 
 			//toto account
 			//get an input file binary content 
@@ -71,8 +75,8 @@ public class LoadDatabase {
 
 			log.info("Preloading " + directoryService.save(rootDirectory));
 			//Create an user 
-			MyUser myUser = new MyUser("toto", "toto@me", rootDirectory);
-			log.info("Preloading " + userService.save(myUser));
+			MyUser myUser1 = new MyUser("toto", "toto@me", rootDirectory);
+			log.info("Preloading " + userService.save(myUser1));
 
 			//tata account
 			//get an input file binary content 
@@ -115,8 +119,18 @@ public class LoadDatabase {
 
 			log.info("Preloading " + directoryService.save(rootDirectory1));
 			//Create an user 
-			MyUser myUser1 = new MyUser("tata", "tata@me", rootDirectory1);
-			log.info("Preloading " + userService.save(myUser1));
+			MyUser myUser2 = new MyUser("tata", "tata@me", rootDirectory1);
+			log.info("Preloading " + userService.save(myUser2));
+			
+			//create  groups
+			MyGroup group1= new MyGroup("famille");
+			log.info("Preloading " + groupService.save(group1));
+
+			MyGroup group2= new MyGroup("travail");
+			group2.addMember(myUser1);
+			group2.addMember(myUser2);
+			log.info("Preloading " + groupService.save(group2));
+
 		};
 	}
 
