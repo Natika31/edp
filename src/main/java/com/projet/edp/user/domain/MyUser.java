@@ -1,4 +1,4 @@
-package com.projet.edp.userDirectory.domain;
+package com.projet.edp.user.domain;
 
 import java.io.Serializable;
 import com.projet.edp.fileTree.domain.Directory;

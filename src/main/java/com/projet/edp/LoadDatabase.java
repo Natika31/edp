@@ -12,8 +12,9 @@ import com.projet.edp.fileViewer.domain.FileContent;
 import com.projet.edp.fileViewer.domain.MyFile;
 import com.projet.edp.fileViewer.service.FileContentService;
 import com.projet.edp.fileViewer.service.FileService;
-import com.projet.edp.userDirectory.domain.MyUser;
-import com.projet.edp.userDirectory.service.UserService;
+import com.projet.edp.user.domain.MyUser;
+import com.projet.edp.user.service.UserService;
+
 
 @Configuration
 public class LoadDatabase {

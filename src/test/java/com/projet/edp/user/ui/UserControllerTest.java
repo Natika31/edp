@@ -1,4 +1,4 @@
-package com.projet.edp.userDirectory.ui;
+package com.projet.edp.user.ui;
 
 import static org.hamcrest.CoreMatchers.containsString;
 import static org.mockito.Mockito.when;
@@ -26,9 +26,9 @@ import com.projet.edp.fileTree.domain.Directory;
 import com.projet.edp.fileTree.domain.FileTreeItem;
 import com.projet.edp.fileViewer.domain.FileContent;
 import com.projet.edp.fileViewer.domain.MyFile;
-import com.projet.edp.userDirectory.domain.MyUser;
-import com.projet.edp.userDirectory.dto.UserDTOConversion;
-import com.projet.edp.userDirectory.service.UserService;
+import com.projet.edp.user.domain.MyUser;
+import com.projet.edp.user.dto.UserDTOConversion;
+import com.projet.edp.user.service.UserService;
 
 @WebMvcTest(UserController.class)
 class UserControllerTest {

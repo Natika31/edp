@@ -1,4 +1,4 @@
-package com.projet.edp.userDirectory.ui;
+package com.projet.edp.user.ui;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -8,10 +8,12 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import com.projet.edp.userDirectory.domain.MyUser;
-import com.projet.edp.userDirectory.dto.UserDTO;
-import com.projet.edp.userDirectory.dto.UserDTOConversion;
-import com.projet.edp.userDirectory.service.UserService;
+
+import com.projet.edp.user.domain.MyUser;
+import com.projet.edp.user.dto.UserDTO;
+import com.projet.edp.user.dto.UserDTOConversion;
+import com.projet.edp.user.service.UserService;
+
 
 @RestController
 public class UserController {

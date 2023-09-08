@@ -1,4 +1,4 @@
-package com.projet.edp.userDirectory.dto;
+package com.projet.edp.user.dto;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -16,7 +16,7 @@ import com.projet.edp.fileTree.domain.Directory;
 import com.projet.edp.fileTree.domain.FileTreeItem;
 import com.projet.edp.fileViewer.domain.FileContent;
 import com.projet.edp.fileViewer.domain.MyFile;
-import com.projet.edp.userDirectory.domain.MyUser;
+import com.projet.edp.user.domain.MyUser;
 
 class UserEntityToDTOConversionTest extends UserDTOConversion {
 

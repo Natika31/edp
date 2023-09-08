@@ -1,4 +1,4 @@
-package com.projet.edp.userDirectory.dto;
+package com.projet.edp.user.dto;
 
 import com.projet.edp.fileTree.dto.DirectoryDTO;
 

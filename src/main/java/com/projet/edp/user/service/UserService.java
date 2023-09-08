@@ -1,8 +1,8 @@
-package com.projet.edp.userDirectory.service;
+package com.projet.edp.user.service;
 
 import java.util.Optional;
 import com.projet.edp.exceptions.BusinessResourceException;
-import com.projet.edp.userDirectory.domain.MyUser;
+import com.projet.edp.user.domain.MyUser;
 
 public interface UserService {
 
