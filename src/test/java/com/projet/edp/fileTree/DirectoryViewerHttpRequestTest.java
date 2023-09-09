@@ -20,7 +20,7 @@ class DirectoryViewerHttpRequestTest {
 	@Test
 	public void getFileTreeItem() throws Exception {
 		assertThat(this.restTemplate.getForObject("http://localhost:" + port + "/api/file-tree?item_id=1",
-				String.class)).contains("{\"item_id\":\"1\",\"item_type\":\"file\",\"name\":\"Dans mon île\",\"item_local_path\":\"/home/Dans_mon_ile.pdf\",\"children\":[]}");
+				String.class)).contains("{\"item_id\":\"1\",\"item_type\":\"file\",\"name\":\"Dans mon ile\",\"item_local_path\":\"/home/Dans_mon_ile.pdf\",\"children\":[]}");
 	}
 	
 	@Test
@@ -30,13 +30,13 @@ class DirectoryViewerHttpRequestTest {
 		assertThat(this.restTemplate.getForObject("http://localhost:" + port + "/api/file-tree/name?name=Dans mon ile",
 		String.class)).contains("{\"item_id\":\"1\",\"item_type\":\"file\",\"name\":\"Dans mon ile\",\"item_local_path\":\"/home/Dans_mon_ile.pdf\",\"children\":[]}");
 		assertThat(this.restTemplate.getForObject("http://localhost:" + port + "/api/file-tree/name?name=home",
-				String.class)).contains("{\"item_id\":\"1\",\"item_type\":\"file\",\"name\":\"Dans mon île\",\"item_local_path\":\"/home/Dans_mon_ile.pdf\",\"children\":[]}");
+				String.class)).contains("{\"item_id\":\"1\",\"item_type\":\"file\",\"name\":\"Dans mon ile\",\"item_local_path\":\"/home/Dans_mon_ile.pdf\",\"children\":[]}");
 	}
 	
 	@Test
 	public void getNonEmptyDirectory() throws Exception {
 		assertThat(this.restTemplate.getForObject("http://localhost:" + port + "/api/directory?directory_id=2",
-				String.class)).contains("{\"item_id\":\"2\",\"item_type\":\"folder\",\"name\":\"Henri Salvador\",\"item_local_path\":\"/home/natacha/henri_salvador\",\"children\":[{\"item_id\":\"1\",\"item_type\":\"file\",\"name\":\"Dans mon île\",\"item_local_path\":\"/home/Dans_mon_ile.pdf\",\"children\":[]}]}");
+				String.class)).contains("{\"item_id\":\"2\",\"item_type\":\"folder\",\"name\":\"Henri Salvador\",\"item_local_path\":\"/home/natacha/henri_salvador\",\"children\":[{\"item_id\":\"1\",\"item_type\":\"file\",\"name\":\"Dans mon ile\",\"item_local_path\":\"/home/Dans_mon_ile.pdf\",\"children\":[]}]}");
 	}
 	
 	@Test
