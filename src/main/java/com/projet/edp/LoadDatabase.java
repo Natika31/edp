@@ -43,7 +43,7 @@ public class LoadDatabase {
 			log.info("Preloading " + fileContentService.save(fileContent) );
 
 			//Create a new file 
-			MyFile childFile = new MyFile("Dans mon île", "/home/Dans_mon_ile.pdf", "pdf", file_origin_path, fileContent);
+			MyFile childFile = new MyFile("Dans mon ile", "/home/Dans_mon_ile.pdf", "pdf", file_origin_path, fileContent);
 			//save the new file
 			log.info("Preloading " + fileService.save(childFile) );
 
