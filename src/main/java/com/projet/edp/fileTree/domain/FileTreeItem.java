@@ -26,6 +26,8 @@ public class FileTreeItem implements Serializable {
 
 	@Column(name = "item_local_path")
 	private String item_local_path;
+	
+	private String item_type;
 
 	public FileTreeItem() {
 		super();
@@ -62,13 +64,18 @@ public class FileTreeItem implements Serializable {
 		this.name = item_name;
 	}
 
+	public String getItem_type() {
+		return item_type;
+	}
+
+	public void setItem_type(String item_type) {
+		this.item_type = item_type;
+	}
+
 	@Override
 	public String toString() {
-		return "FileTreeItem [item_id=" + item_id + ", item_local_path=" + item_local_path + ", name=" + name
-				+ "]";
+		return "FileTreeItem [item_id=" + item_id + ", name=" + name + ", item_local_path=" + item_local_path
+				+ ", item_type=" + item_type + "]";
 	}
-	
-	
-	
-	
+
 }

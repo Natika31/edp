@@ -1,4 +1,4 @@
-package com.projet.edp.fileViewerTest;
+package com.projet.edp.fileViewer.ui;
 
 import static org.hamcrest.CoreMatchers.containsString;
 import static org.mockito.Mockito.when;
@@ -6,9 +6,11 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Optional;
+
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
@@ -18,13 +20,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.web.servlet.MockMvc;
+
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.projet.edp.fileViewer.domain.FileContent;
 import com.projet.edp.fileViewer.domain.MyFile;
 import com.projet.edp.fileViewer.dto.FileDTOConversion;
 import com.projet.edp.fileViewer.service.FileContentService;
 import com.projet.edp.fileViewer.service.FileService;
-import com.projet.edp.fileViewer.ui.FileViewerController;
 
 @WebMvcTest(FileViewerController.class)
 class FileRestControllerTest {

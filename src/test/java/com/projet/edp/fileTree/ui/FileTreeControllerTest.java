@@ -1,5 +1,4 @@
-package com.projet.edp.directoryViewerTest;
-
+package com.projet.edp.fileTree.ui;
 import static org.hamcrest.CoreMatchers.containsString;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -10,6 +9,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Optional;
+
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
@@ -19,17 +19,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.web.servlet.MockMvc;
+
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.projet.edp.fileTree.domain.Directory;
-import com.projet.edp.fileTree.dto.TreeDTOConversion;
 import com.projet.edp.fileTree.domain.FileTreeItem;
+import com.projet.edp.fileTree.dto.TreeDTOConversion;
 import com.projet.edp.fileTree.service.FileTreeService;
-import com.projet.edp.fileTree.ui.FileTreeController;
 import com.projet.edp.fileViewer.domain.FileContent;
 import com.projet.edp.fileViewer.domain.MyFile;
 
 @WebMvcTest(FileTreeController.class)
-class FileTreeRestControllerTest {
+class FileTreeControllerTest {
 
 	@Autowired
 	private MockMvc mockMvc;

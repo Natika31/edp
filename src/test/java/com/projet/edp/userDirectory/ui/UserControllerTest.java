@@ -1,4 +1,4 @@
-package com.projet.edp.directoryViewerTest;
+package com.projet.edp.userDirectory.ui;
 
 import static org.hamcrest.CoreMatchers.containsString;
 import static org.mockito.Mockito.when;
@@ -6,9 +6,11 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Optional;
+
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
@@ -18,91 +20,120 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.web.servlet.MockMvc;
+
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.projet.edp.fileTree.domain.Directory;
 import com.projet.edp.fileTree.domain.FileTreeItem;
-import com.projet.edp.fileTree.dto.DirectoryDTOConversion;
-import com.projet.edp.fileTree.service.DirectoryService;
-import com.projet.edp.fileTree.ui.DirectoryController;
 import com.projet.edp.fileViewer.domain.FileContent;
 import com.projet.edp.fileViewer.domain.MyFile;
+import com.projet.edp.userDirectory.domain.MyUser;
+import com.projet.edp.userDirectory.dto.UserDTOConversion;
+import com.projet.edp.userDirectory.service.UserService;
 
-@WebMvcTest(DirectoryController.class)
-class DirectoryRestControllerTest {
+@WebMvcTest(UserController.class)
+class UserControllerTest {
 
 	@Autowired
 	private MockMvc mockMvc;
 
 	@MockBean
-	private DirectoryService directoryService;
-	
-	private static DirectoryDTOConversion directoryDTOConversion;
+	private UserService userService;
+
+	private static UserDTOConversion userDTOConversion ;
 
 	private static ObjectMapper mapperJSON;
-	
+
 	private Directory rootDirectory;
-	
+
+	private Directory childDirectory;
+
 	private FileContent fileContent;
 
-	private FileTreeItem childFile;
-	
+	private FileTreeItem childFile; 
+
+	private MyUser user;
+
 	@BeforeAll
 	public static void setup() {
-		directoryDTOConversion = new DirectoryDTOConversion();
+		userDTOConversion = new UserDTOConversion();
 		mapperJSON = new ObjectMapper();
 	}
 
 	@AfterAll
 	public static void tearDown() {
-		directoryDTOConversion = null;
+		userDTOConversion = null;
 		mapperJSON = null;    
 	}
-	
+
+
 	@BeforeEach 
 	public void init() throws FileNotFoundException, IOException {
 		rootDirectory = new Directory("home", "/home");
 		rootDirectory.setItem_id(1L);
+
+		childDirectory = new Directory("Henri Salvador", "/home/henri_salvador");
+		childDirectory.setItem_id(2L);
 
 		fileContent = new FileContent();
 		byte[] binaryArray = fileContent.convertInputFileToBinaryArray("C:/Users/Natacha/Documents/cnam/GLG204 - 2023/DANS MON ILE.pdf");
 		fileContent.setBinary_content(binaryArray);
 
 		childFile = new MyFile("Dans mon ile", "/home/henri_salvador/dans_mon_ile.pdf","pdf","C:/Users/Natacha/Documents/cnam/GLG204 - 2023/DANS MON ILE.pdf", fileContent );
-		childFile.setItem_id(2L);
+		childFile.setItem_id(3L);
+
+		user = new MyUser("toto", "toto@me", rootDirectory );
+		user.setUser_id(1L);
+
 	}
 
 	@AfterEach
 	public void teardown() {
+		user = null;
 		rootDirectory = null;
+		childDirectory = null;
 		fileContent = null;
 		childFile = null;
 	}
 
-
 	@Test
-	public void givenSelectedDirectory_whenRequestGETEmptyDirectoryIdEquals1_thenGetStoredDirectoryIdEquals1() throws Exception {
+	public void testGetUserById_EmptyRootDirectory() throws Exception {
 
-		when(directoryService.findDirectoryById(1L)).thenReturn(Optional.of(rootDirectory));
-		
-		String jsonDirectoryDTO = mapperJSON.writeValueAsString(directoryDTOConversion.convertEntityToDTO(rootDirectory));
+		when(userService.findUserById(1L)).thenReturn(Optional.of(user));
 
-		this.mockMvc.perform(get("/api/directory?directory_id=1")).andDo(print())
+		String jsonUserDTO = mapperJSON.writeValueAsString(userDTOConversion.convertEntityToDTO(user));
+
+		this.mockMvc.perform(get("/api/user?user_id=1")).andDo(print())
 		.andExpect(status().isOk())
-		.andExpect(content().string(containsString(jsonDirectoryDTO)))
-		;
+		.andExpect(content().string(containsString(jsonUserDTO)));
 	}
 
 	@Test
-	public void givenSelectedDirectory_whenRequestGETNonEmptyDirectoryIdEquals2_thenGetStoredDirectoryIdEquals2AndGetItsContent() throws Exception {
+	public void testGetUserById_RootDirectoryContainsDirectoryContainsFile() throws Exception {
+
+		childDirectory.addChildren(childFile);
+		rootDirectory.addChildren(childDirectory);
+
+		when(userService.findUserById(1L)).thenReturn(Optional.of(user));
+
+		String jsonUserDTO = mapperJSON.writeValueAsString(userDTOConversion.convertEntityToDTO(user));
+
+		this.mockMvc.perform(get("/api/user?user_id=1")).andDo(print()).andExpect(status().isOk())
+		.andExpect(content().string(containsString(jsonUserDTO)));	
+	}
+
+	@Test
+	public void testGetUserById_RootDirectoryContainsDirectoryAndFile() throws Exception {
 
 		rootDirectory.addChildren(childFile);
-		
-		String jsonDirectoryDTO = mapperJSON.writeValueAsString(directoryDTOConversion.convertEntityToDTO(rootDirectory));
-		
-		when(directoryService.findDirectoryById(1L)).thenReturn(Optional.of(rootDirectory));
-		this.mockMvc.perform(get("/api/directory?directory_id=1"))
-		.andDo(print()).andExpect(status().isOk())
-		.andExpect(content().string(containsString(jsonDirectoryDTO)))
-		;
+		rootDirectory.addChildren(childDirectory);
+
+		when(userService.findUserById(1L)).thenReturn(Optional.of(user));
+
+		String jsonUserDTO = mapperJSON.writeValueAsString(userDTOConversion.convertEntityToDTO(user));
+
+		this.mockMvc.perform(get("/api/user?user_id=1")).andDo(print()).andExpect(status().isOk())
+		.andExpect(content().string(containsString(jsonUserDTO)));	
 	}
+
+
 }

@@ -1,4 +1,4 @@
-package com.projet.edp.fileViewerTest;
+package com.projet.edp.fileViewer.dto;
 
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -15,32 +15,27 @@ import org.junit.jupiter.api.Test;
 
 import com.projet.edp.fileViewer.domain.FileContent;
 import com.projet.edp.fileViewer.domain.MyFile;
-import com.projet.edp.fileViewer.dto.FileDTO;
-import com.projet.edp.fileViewer.dto.FileDTOConversion;
 
-class FileDTOConversionTest {
+class FileEntityToDTOConversionTest extends FileDTOConversion{
 
-	private static FileDTOConversion fileDTOConversion = new FileDTOConversion();
-	
+	private static FileDTOConversion fileDTOConversion ;
+
 	private FileContent fileContent;
-	
+
 	private MyFile file;
 
 	private byte[] binaryArray;
 
-	private FileDTO fileDTO;
-	
 	@BeforeAll
 	static void setup() {
 		fileDTOConversion = new FileDTOConversion();
 	}
-	
+
 	@AfterAll
 	static void tearDownAfterClass() throws Exception {
 		fileDTOConversion = null;
 	}
 
-	
 	@BeforeEach
 	void setUp() throws Exception {
 		//Entity
@@ -52,12 +47,6 @@ class FileDTOConversionTest {
 		//Create a file
 		file = new MyFile("Dans mon ile","/home/file.pdf","pdf","C:/Users/Natacha/Documents/cnam/GLG204 - 2023/DANS MON ILE.pdf",fileContent);
 		file.setItem_id(1L);
-		
-		//DTO
-		//create a file item DTO
-		fileDTO = new FileDTO("1", "file", "/home/file.pdf","pdf","C:/Users/Natacha/Documents/cnam/GLG204 - 2023/DANS MON ILE.pdf", binaryArray );
-
-		
 	}
 
 	@AfterEach
@@ -65,7 +54,6 @@ class FileDTOConversionTest {
 		this.binaryArray=null;
 		this.fileContent=null;
 		this.file=null;
-		this.fileDTO=null;
 	}
 
 
@@ -74,57 +62,27 @@ class FileDTOConversionTest {
 
 		//WHEN Convert entity to DTO
 		FileDTO actualFileDTO = fileDTOConversion.convertEntityToDTO(file);
-		
-		//THEN 
-		//Item
-//		item_id
-		assertNotNull(file.getItem_id());
-		assertEquals(file.getItem_id(), Long.valueOf(actualFileDTO.getItem_id()));
-//		item_name
-		assertNotNull(file.getName());
-		assertEquals(file.getName(), actualFileDTO.getName());
-//		item_local_path
-		assertNotNull(file.getFile_origin_path());
-		assertEquals(file.getFile_origin_path(), actualFileDTO.getFile_origin_path());	
-//		item_type
-		assertNotNull(file.getItem_type());
-		assertEquals(file.getItem_type(), actualFileDTO.getItem_type());
-		//File
-//		file_format
-		assertNotNull(file.getFile_format());
-		assertEquals(file.getFile_format(), actualFileDTO.getFile_format());
-//		binary_content
-		assertNotNull(file.getFile_content().getBinary_content());
-		assertArrayEquals(file.getFile_content().getBinary_content(), actualFileDTO.getBinary_content());
-		
-	}
-	
-	@Test
-	void test_GivenFile_WhenConvertDTOToEntity_ThenReturnFileItemDTO() throws FileNotFoundException, IOException {
-	 
-		//WHEN Convert DTO to entity
-		MyFile actualFile = fileDTOConversion.convertDTOtoEntities(fileDTO);
 
 		//THEN 
 		//Item
-//		item_id
-		assertNotNull(fileDTO.getItem_id());
-		assertEquals(fileDTO.getItem_id(), String.valueOf(actualFile.getItem_id()));
-//		item_name
-		assertNotNull(fileDTO.getName());
-		assertEquals(fileDTO.getName(), actualFile.getName());
-//		item_local_path
-		assertNotNull(fileDTO.getFile_origin_path());
-		assertEquals(fileDTO.getFile_origin_path(), actualFile.getFile_origin_path());	
-//		item_type
-		assertNotNull(fileDTO.getItem_type());
-		assertEquals(fileDTO.getItem_type(), actualFile.getItem_type());
+		//item_id
+		assertNotNull(file.getItem_id());
+		assertEquals(file.getItem_id(), Long.valueOf(actualFileDTO.getItem_id()));
+		//item_name
+		assertNotNull(file.getName());
+		assertEquals(file.getName(), actualFileDTO.getName());
+		//item_local_path
+		assertNotNull(file.getFile_origin_path());
+		assertEquals(file.getFile_origin_path(), actualFileDTO.getFile_origin_path());	
+		//item_type
+		assertNotNull(file.getItem_type());
+		assertEquals(file.getItem_type(), actualFileDTO.getItem_type());
 		//File
-//		file_format
-		assertNotNull(fileDTO.getFile_format());
-		assertEquals(fileDTO.getFile_format(), actualFile.getFile_format());
-//		binary_content
-		assertNotNull(fileDTO.getBinary_content());
-		assertArrayEquals(fileDTO.getBinary_content(), actualFile.getFile_content().getBinary_content());
+		//file_format
+		assertNotNull(file.getFile_format());
+		assertEquals(file.getFile_format(), actualFileDTO.getFile_format());
+		//binary_content
+		assertNotNull(file.getFile_content().getBinary_content());
+		assertArrayEquals(file.getFile_content().getBinary_content(), actualFileDTO.getBinary_content());
 	}
 }
