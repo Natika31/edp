@@ -27,7 +27,6 @@ import com.projet.edp.contact.domain.MyGroup;
 import com.projet.edp.contact.domain.MyUser;
 import com.projet.edp.contact.dto.GroupDTOConversion;
 import com.projet.edp.contact.service.GroupService;
-import com.projet.edp.contact.ui.GroupController;
 import com.projet.edp.fileTree.domain.Directory;
 import com.projet.edp.fileTree.domain.FileTreeItem;
 import com.projet.edp.fileViewer.domain.FileContent;

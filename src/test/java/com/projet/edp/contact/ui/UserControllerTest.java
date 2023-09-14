@@ -25,7 +25,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.projet.edp.contact.domain.MyUser;
 import com.projet.edp.contact.dto.UserDTOConversion;
 import com.projet.edp.contact.service.UserService;
-import com.projet.edp.contact.ui.UserController;
 import com.projet.edp.fileTree.domain.Directory;
 import com.projet.edp.fileTree.domain.FileTreeItem;
 import com.projet.edp.fileViewer.domain.FileContent;
