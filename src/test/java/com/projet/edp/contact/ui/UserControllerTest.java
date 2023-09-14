@@ -1,4 +1,4 @@
-package com.projet.edp.user.ui;
+package com.projet.edp.contact.ui;
 
 import static org.hamcrest.CoreMatchers.containsString;
 import static org.mockito.Mockito.when;
@@ -22,13 +22,14 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.web.servlet.MockMvc;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.projet.edp.contact.domain.MyUser;
+import com.projet.edp.contact.dto.UserDTOConversion;
+import com.projet.edp.contact.service.UserService;
+import com.projet.edp.contact.ui.UserController;
 import com.projet.edp.fileTree.domain.Directory;
 import com.projet.edp.fileTree.domain.FileTreeItem;
 import com.projet.edp.fileViewer.domain.FileContent;
 import com.projet.edp.fileViewer.domain.MyFile;
-import com.projet.edp.user.domain.MyUser;
-import com.projet.edp.user.dto.UserDTOConversion;
-import com.projet.edp.user.service.UserService;
 
 @WebMvcTest(UserController.class)
 class UserControllerTest {
@@ -81,8 +82,8 @@ class UserControllerTest {
 		childFile = new MyFile("Dans mon ile", "/home/henri_salvador/dans_mon_ile.pdf","pdf","C:/Users/Natacha/Documents/cnam/GLG204 - 2023/DANS MON ILE.pdf", fileContent );
 		childFile.setItem_id(3L);
 
-		user = new MyUser("toto", "toto@me", rootDirectory );
-		user.setUser_id(1L);
+		user = new MyUser("toto", "toto@me", "loginAToto", "secret", rootDirectory);
+		user.setRecipient_id(1L);
 
 	}
 

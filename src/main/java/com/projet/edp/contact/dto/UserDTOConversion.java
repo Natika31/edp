@@ -1,12 +1,12 @@
-package com.projet.edp.user.dto;
+package com.projet.edp.contact.dto;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 
+import com.projet.edp.contact.domain.MyUser;
 import com.projet.edp.fileTree.dto.DirectoryDTO;
 import com.projet.edp.fileTree.dto.DirectoryDTOConversion;
-import com.projet.edp.user.domain.MyUser;
 
 public class UserDTOConversion {
 

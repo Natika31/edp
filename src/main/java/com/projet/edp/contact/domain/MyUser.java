@@ -1,30 +1,32 @@
-package com.projet.edp.user.domain;
+package com.projet.edp.contact.domain;
 
 import java.io.Serializable;
+
 import com.projet.edp.fileTree.domain.Directory;
+
 import jakarta.persistence.Column;
+import jakarta.persistence.DiscriminatorValue;
 import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToOne;
+import jakarta.persistence.PrimaryKeyJoinColumn;
 import jakarta.persistence.Table;
 
 @Entity
+@DiscriminatorValue(value = "USER")
+@PrimaryKeyJoinColumn(name = "user_id")
 @Table(name = "my_user")
-public class MyUser implements Serializable {
+public class MyUser extends MyRecipient implements Serializable {
 	
 	private static final String USER_TYPE = "user";
 	
-	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	private Long user_id;
-	
 	private String item_type;
-
-	@Column(name = "name")
-	private String name;
+	
+	@Column(name = "login")
+	private String login;
+	
+	@Column(name = "password")
+	private String password;
 	
 	@Column(name = "mail")
 	private String mail;
@@ -38,20 +40,13 @@ public class MyUser implements Serializable {
 		this.setItem_type(USER_TYPE);
 	}
 
-	public MyUser(String name, String mail,Directory root) {
-		super();
-		this.name = name;
+	public MyUser(String name, String login, String password, String mail, Directory root) {
+		super(name);
+		this.login = login;
+		this.password = password;
 		this.mail = mail;
 		this.root = root;
 		this.setItem_type(USER_TYPE);
-	}
-
-	public Long getUser_id() {
-		return user_id;
-	}
-
-	public void setUser_id(Long user_id) {
-		this.user_id = user_id;
 	}
 	
 	public String getItem_type() {
@@ -62,12 +57,20 @@ public class MyUser implements Serializable {
 		this.item_type = item_type;
 	}
 
-	public String getName() {
-		return name;
+	public String getLogin() {
+		return login;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public void setLogin(String login) {
+		this.login = login;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
 	}
 
 	public String getMail() {
@@ -88,7 +91,7 @@ public class MyUser implements Serializable {
 
 	@Override
 	public String toString() {
-		return "MyUser [user_id=" + user_id + ", item_type=" + item_type + ", name=" + name + ", mail=" + mail
+		return "MyUser [" + super.toString() + "item_type=" + item_type + ", login=" + login + ", password=" + password + ", mail=" + mail
 				+ ", root=" + root + "]";
-	}	
+	}
 }

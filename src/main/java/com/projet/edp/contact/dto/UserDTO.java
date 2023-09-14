@@ -1,4 +1,4 @@
-package com.projet.edp.user.dto;
+package com.projet.edp.contact.dto;
 
 import com.projet.edp.fileTree.dto.DirectoryDTO;
 

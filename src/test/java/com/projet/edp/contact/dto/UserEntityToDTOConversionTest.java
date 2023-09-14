@@ -1,4 +1,4 @@
-package com.projet.edp.user.dto;
+package com.projet.edp.contact.dto;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -12,11 +12,11 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import com.projet.edp.contact.domain.MyUser;
 import com.projet.edp.fileTree.domain.Directory;
 import com.projet.edp.fileTree.domain.FileTreeItem;
 import com.projet.edp.fileViewer.domain.FileContent;
 import com.projet.edp.fileViewer.domain.MyFile;
-import com.projet.edp.user.domain.MyUser;
 
 class UserEntityToDTOConversionTest extends UserDTOConversion {
 
@@ -60,8 +60,8 @@ class UserEntityToDTOConversionTest extends UserDTOConversion {
 		childDirectory = new Directory("dir", "/root/dir");
 		childDirectory.setItem_id(2L);
 		//Given an user
-		user = new MyUser("toto", "toto@me",rootDirectory);		
-		user.setUser_id(1L);
+		user = new MyUser("toto", "toto@me","totolog", "secret", rootDirectory);		
+		user.setRecipient_id(1L);
 	}
 
 	@AfterEach
@@ -84,7 +84,7 @@ class UserEntityToDTOConversionTest extends UserDTOConversion {
 		//user
 		//user_id
 		assertNotNull(userDTO.getUser_id());
-		assertEquals(user.getUser_id(), Long.valueOf(userDTO.getUser_id()));
+		assertEquals(user.getRecipient_id(), Long.valueOf(userDTO.getUser_id()));
 		//name
 		assertNotNull(userDTO.getName());
 		assertEquals(user.getName(), userDTO.getName());
@@ -129,7 +129,7 @@ class UserEntityToDTOConversionTest extends UserDTOConversion {
 		//Then return userDTO
 		//user_id
 		assertNotNull(userDTO.getUser_id());
-		assertEquals(user.getUser_id(), Long.valueOf(userDTO.getUser_id()));
+		assertEquals(user.getRecipient_id(), Long.valueOf(userDTO.getUser_id()));
 		//name
 		assertNotNull(userDTO.getName());
 		assertEquals(user.getName(), userDTO.getName());
@@ -199,7 +199,7 @@ class UserEntityToDTOConversionTest extends UserDTOConversion {
 		//Then return userDTO
 		//user_id
 		assertNotNull(userDTO.getUser_id());
-		assertEquals(user.getUser_id(), Long.valueOf(userDTO.getUser_id()));
+		assertEquals(user.getRecipient_id(), Long.valueOf(userDTO.getUser_id()));
 		//name
 		assertNotNull(userDTO.getName());
 		assertEquals(user.getName(), userDTO.getName());
