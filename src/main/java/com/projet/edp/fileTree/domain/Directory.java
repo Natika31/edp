@@ -25,18 +25,13 @@ public class Directory extends FileTreeItem implements Serializable {
 	public Directory() {
 		super();
 		this.children = new ArrayList<>();
-		this.setItem_type(DIRECTORY_TYPE);
-		
+		this.setItem_type(DIRECTORY_TYPE);	
 	}
 
 	public Directory(String item_name, String item_local_path) {
 		super(item_name,item_local_path);
 		this.children = new ArrayList<>();
 		this.setItem_type(DIRECTORY_TYPE);
-	}
-
-	public List<FileTreeItem> getChildren() {
-		return children;
 	}
 	
 	public String getItem_type() {
@@ -55,12 +50,16 @@ public class Directory extends FileTreeItem implements Serializable {
 		this.children.remove(item);
 	}
 
+	public List<FileTreeItem> getChildren() {
+		return children;
+	}
+	
 	public void setChildren(List<FileTreeItem> children) {
 		this.children = children;
 	}
 
 	@Override
 	public String toString() {
-		return "Directory ["+ super.toString() +", children=" + children + ", item_type=" + item_type + "]";
+		return "Directory ["+ super.toString()+ ", item_type=" + item_type + ", children=" + children + "]";
 	}
 }

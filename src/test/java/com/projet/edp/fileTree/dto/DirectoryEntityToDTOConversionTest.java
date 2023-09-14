@@ -17,7 +17,7 @@ import com.projet.edp.fileTree.domain.FileTreeItem;
 import com.projet.edp.fileViewer.domain.FileContent;
 import com.projet.edp.fileViewer.domain.MyFile;
 
-class DirectoryDTOConversionEntityToDTOTest extends DirectoryDTOConversion {
+class DirectoryEntityToDTOConversionTest extends DirectoryDTOConversion {
 
 	private static DirectoryDTOConversion directoryDTOConversion ;
 

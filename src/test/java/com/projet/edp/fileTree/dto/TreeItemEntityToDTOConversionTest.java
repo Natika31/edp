@@ -18,7 +18,7 @@ import com.projet.edp.fileTree.domain.FileTreeItem;
 import com.projet.edp.fileViewer.domain.FileContent;
 import com.projet.edp.fileViewer.domain.MyFile;
 
-class TreeDTOConversionItemEntityToDTOTest extends TreeDTOConversion {
+class TreeItemEntityToDTOConversionTest extends TreeDTOConversion {
 
 	private static TreeDTOConversion treeItemDTOConversion ;
 
@@ -66,7 +66,6 @@ class TreeDTOConversionItemEntityToDTOTest extends TreeDTOConversion {
 		fItem = null;
 		fileContent = null;
 		childDItem = null;
-
 	}
 
 	//file and its content
