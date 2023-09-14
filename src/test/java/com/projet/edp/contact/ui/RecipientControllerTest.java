@@ -54,7 +54,7 @@ class RecipientControllerTest {
 	@BeforeEach
 	void setUp() throws Exception {
 		recipient = new MyRecipient("contacts");
-		recipient.setItem_id(1L);
+		recipient.setRecipient_id(1L);
 	}
 
 	@AfterEach
@@ -68,7 +68,7 @@ class RecipientControllerTest {
 
 		String jsonRecipientDTO = mapperJSON.writeValueAsString(recipientDTOConversion.convertEntityToDTO(recipient));
 
-		this.mockMvc.perform(get("/api/recipient?item_id=1")).andDo(print())
+		this.mockMvc.perform(get("/api/recipient?recipient_id=1")).andDo(print())
 		.andExpect(status().isOk())
 		.andExpect(content().string(containsString(jsonRecipientDTO)));	
 	}

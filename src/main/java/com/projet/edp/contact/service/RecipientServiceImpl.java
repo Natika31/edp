@@ -1,5 +1,6 @@
 package com.projet.edp.contact.service;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,6 +32,11 @@ public class RecipientServiceImpl implements RecipientService {
 	@Override
 	public void deleteAll() {
 		recipientDAO.deleteAll();
+	}
+
+	@Override
+	public List<MyRecipient> findAll() {
+		return recipientDAO.findAll();
 	}
 
 }

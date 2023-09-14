@@ -5,40 +5,32 @@ import java.util.List;
 
 public class RecipientDTO {
 
-	private String item_id;
+	private String recipient_id;
+	
+	private String name;
 	
 	private String item_type;
 
-	private String name;
-
-	private List<RecipientDTO> children;
+	private List<RecipientDTO> members;
 
 	public RecipientDTO() {
 		super();
-		this.children = new ArrayList<>();
+		this.members = new ArrayList<>();
 	}
 
-	public RecipientDTO(String item_id, String name) {
+	public RecipientDTO(String recipient_id, String name) {
 		super();
-		this.item_id = item_id;
+		this.recipient_id = recipient_id;
 		this.name = name;
-		this.children = new ArrayList<>();
+		this.members = new ArrayList<>();
 	}
 
-	public String getItem_id() {
-		return item_id;
+	public String getRecipient_id() {
+		return recipient_id;
 	}
 
-	public void setItem_id(String item_id) {
-		this.item_id = item_id;
-	}
-
-	public String getItem_type() {
-		return item_type;
-	}
-
-	public void setItem_type(String item_type) {
-		this.item_type = item_type;
+	public void setRecipient_id(String recipient) {
+		this.recipient_id = recipient;
 	}
 
 	public String getName() {
@@ -49,18 +41,26 @@ public class RecipientDTO {
 		this.name = name;
 	}
 
-	public List<RecipientDTO> getChildren() {
-		return children;
+	public String getItem_type() {
+		return item_type;
 	}
 
-	public void setChildren(List<RecipientDTO> children) {
-		this.children = children;
+	public void setItem_type(String item_type) {
+		this.item_type = item_type;
+	}
+
+	public List<RecipientDTO> getMembers() {
+		return members;
+	}
+
+	public void setMembers(List<RecipientDTO> members) {
+		this.members = members;
 	}
 
 	@Override
 	public String toString() {
-		return "RecipientDTO [item_id=" + item_id + ", item_type=" + item_type + ", name=" + name + ", children="
-				+ children + "]";
+		return "RecipientDTO [item_id=" + recipient_id + ", item_type=" + item_type + ", name=" + name + ", members="
+				+ members + "]";
 	}
 	
 }

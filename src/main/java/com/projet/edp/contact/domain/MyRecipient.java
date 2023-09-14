@@ -3,19 +3,22 @@ package com.projet.edp.contact.domain;
 import java.io.Serializable;
 
 import jakarta.persistence.Column;
+import jakarta.persistence.DiscriminatorColumn;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.Inheritance;
+import jakarta.persistence.InheritanceType;
 
 @Entity
-@Table(name = "recipient")
+@Inheritance(strategy = InheritanceType.JOINED)
+@DiscriminatorColumn(name = "recipient_type")
 public class MyRecipient implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private Long item_id;
+	private Long recipient_id;
 	
 	@Column(name = "name")
 	private String name;
@@ -32,12 +35,12 @@ public class MyRecipient implements Serializable {
 		this.name = name;
 	}
 
-	public Long getItem_id() {
-		return item_id;
+	public Long getRecipient_id() {
+		return recipient_id;
 	}
 
-	public void setItem_id(Long item_id) {
-		this.item_id = item_id;
+	public void setRecipient_id(Long recipient_id) {
+		this.recipient_id = recipient_id;
 	}
 
 	public String getName() {
@@ -58,7 +61,7 @@ public class MyRecipient implements Serializable {
 
 	@Override
 	public String toString() {
-		return "Recipient [item_id=" + item_id + ", name=" + name + ", item_type=" + item_type + "]";
+		return "Recipient [recipient_id=" + recipient_id + ", name=" + name + ", item_type=" + item_type + "]";
 	}
 	
 	
