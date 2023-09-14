@@ -1,4 +1,4 @@
-package com.projet.edp.group.dto;
+package com.projet.edp.contact.dto;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -9,12 +9,12 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import com.projet.edp.contact.domain.MyGroup;
+import com.projet.edp.contact.domain.MyUser;
 import com.projet.edp.fileTree.domain.Directory;
 import com.projet.edp.fileTree.domain.FileTreeItem;
 import com.projet.edp.fileViewer.domain.FileContent;
 import com.projet.edp.fileViewer.domain.MyFile;
-import com.projet.edp.group.domain.MyGroup;
-import com.projet.edp.user.domain.MyUser;
 
 class GroupEntityToDTOConversionTest {
 
@@ -46,16 +46,16 @@ class GroupEntityToDTOConversionTest {
 	void setUp() throws Exception {
 		//Given an empty group
 		myGroup = new MyGroup("famille");
-		myGroup.setGroup_id(1L);
+		myGroup.setRecipient_id(1L);
 		//Given a root directory
 		rootDir = new Directory("home","/home");
 		rootDir.setItem_id(1L);
 		//Given member 1 and its empty root directory
-		member1 = new MyUser("Natacha", "natacha@mail.me", rootDir);
-		member1.setUser_id(1L);
+		member1 = new MyUser("Natacha", "natacha@mail.me", "ncamugli", "seecret", rootDir);
+		member1.setRecipient_id(2L);
 		//Given member 2 and its empty root directory
-		member2 = new MyUser("Robert", "robert@mail.me", rootDir);
-		member2.setUser_id(2L);
+		member2 = new MyUser("Robert", "robert@mail.me", "rcamugli", "secret", rootDir);
+		member2.setRecipient_id(3L);
 		//Create a file binary content 
 		fileContent = new FileContent();
 		byte[] binaryArray = fileContent.convertInputFileToBinaryArray("C:/Users/Natacha/Documents/cnam/GLG204 - 2023/DANS MON ILE.pdf");
@@ -88,7 +88,7 @@ class GroupEntityToDTOConversionTest {
 		//then return a group DTO
 		//group_id
 		assertNotNull(groupDTO.getGroup_id());
-		assertEquals(myGroup.getGroup_id(), Long.valueOf(groupDTO.getGroup_id()));
+		assertEquals(myGroup.getRecipient_id(), Long.valueOf(groupDTO.getGroup_id()));
 		//name
 		assertNotNull(groupDTO.getName());
 		assertEquals(myGroup.getName(),groupDTO.getName());
@@ -113,7 +113,7 @@ class GroupEntityToDTOConversionTest {
 		//then return a group DTO
 		//group_id
 		assertNotNull(groupDTO.getGroup_id());
-		assertEquals(myGroup.getGroup_id(), Long.valueOf(groupDTO.getGroup_id()));
+		assertEquals(myGroup.getRecipient_id(), Long.valueOf(groupDTO.getGroup_id()));
 		//name
 		assertNotNull(groupDTO.getName());
 		assertEquals(myGroup.getName(),groupDTO.getName());
@@ -122,64 +122,17 @@ class GroupEntityToDTOConversionTest {
 		assertEquals(myGroup.getItem_type(),groupDTO.getItem_type());
 		//member1
 		//user_id
-		assertNotNull(groupDTO.getMembers().get(0).getUser_id());
-		assertEquals(myGroup.getMembers().get(0).getUser_id(), Long.valueOf(groupDTO.getMembers().get(0).getUser_id()));
+		assertNotNull(groupDTO.getMembers().get(0).getRecipient_id());
+		assertEquals(myGroup.getMembers().get(0).getRecipient_id(), Long.valueOf(groupDTO.getMembers().get(0).getRecipient_id()));
 		//name
 		assertNotNull(groupDTO.getMembers().get(0).getName());
 		assertEquals(myGroup.getMembers().get(0).getName(), groupDTO.getMembers().get(0).getName());
-		//mail
-		assertNotNull(groupDTO.getMembers().get(0).getMail());
-		assertEquals(myGroup.getMembers().get(0).getMail(), groupDTO.getMembers().get(0).getMail());
 		//item_type
 		assertNotNull(groupDTO.getMembers().get(0).getItem_type());
 		assertEquals(myGroup.getMembers().get(0).getItem_type(), groupDTO.getMembers().get(0).getItem_type());
 		//root
-		assertNotNull(myGroup.getMembers().get(0).getRoot());
+		assertNotNull(((MyUser) myGroup.getMembers().get(0)).getRoot());
 
-		//root directory
-		//item_id
-		assertNotNull(groupDTO.getMembers().get(0).getRoot().getItem_id());
-		assertEquals(myGroup.getMembers().get(0).getRoot().getItem_id(), Long.valueOf(groupDTO.getMembers().get(0).getRoot().getItem_id()));
-		//name
-		assertNotNull(groupDTO.getMembers().get(0).getRoot().getName());
-		assertEquals(myGroup.getMembers().get(0).getRoot().getName(), groupDTO.getMembers().get(0).getRoot().getName());
-		//item_local_path
-		assertNotNull(groupDTO.getMembers().get(0).getRoot().getItem_local_path());
-		assertEquals(myGroup.getMembers().get(0).getRoot().getItem_local_path(), groupDTO.getMembers().get(0).getRoot().getItem_local_path());
-		//children
-		assertNotNull(groupDTO.getMembers().get(0).getRoot().getChildren());
-		assertEquals(myGroup.getMembers().get(0).getRoot().getChildren().size(), groupDTO.getMembers().get(0).getRoot().getChildren().size());
-		//item_type
-		assertNotNull(groupDTO.getMembers().get(0).getRoot().getItem_type());
-		assertEquals(myGroup.getMembers().get(0).getRoot().getItem_type(), groupDTO.getMembers().get(0).getRoot().getItem_type());
-		
-		//child directory
-		//item_id
-		assertNotNull(groupDTO.getMembers().get(0).getRoot().getChildren().get(0).getItem_id());
-		assertEquals(myGroup.getMembers().get(0).getRoot().getChildren().get(0).getItem_id(), Long.valueOf(groupDTO.getMembers().get(0).getRoot().getChildren().get(0).getItem_id()));
-		//name
-		assertNotNull(groupDTO.getMembers().get(0).getRoot().getChildren().get(0).getName());
-		assertEquals(myGroup.getMembers().get(0).getRoot().getChildren().get(0).getName(), groupDTO.getMembers().get(0).getRoot().getChildren().get(0).getName());
-		//item_local_path
-		assertNotNull(groupDTO.getMembers().get(0).getRoot().getChildren().get(0).getItem_local_path());
-		assertEquals(myGroup.getMembers().get(0).getRoot().getChildren().get(0).getItem_local_path(), groupDTO.getMembers().get(0).getRoot().getChildren().get(0).getItem_local_path());
-		//children
-		assertNotNull(groupDTO.getMembers().get(0).getRoot().getChildren().get(0).getChildren());
-		assertEquals(((Directory) myGroup.getMembers().get(0).getRoot().getChildren().get(0)).getChildren().size(), groupDTO.getMembers().get(0).getRoot().getChildren().get(0).getChildren().size());
-		//item_type
-		assertNotNull(groupDTO.getMembers().get(0).getRoot().getChildren().get(0).getItem_type());
-		assertEquals(myGroup.getMembers().get(0).getRoot().getChildren().get(0).getItem_type(), groupDTO.getMembers().get(0).getRoot().getChildren().get(0).getItem_type());
-		
-		//file
-		//item_id
-		assertNotNull(groupDTO.getMembers().get(0).getRoot().getChildren().get(1).getItem_id());
-		assertEquals(myGroup.getMembers().get(0).getRoot().getChildren().get(1).getItem_id(), Long.valueOf(groupDTO.getMembers().get(0).getRoot().getChildren().get(1).getItem_id()));
-		//item_name
-		assertNotNull(groupDTO.getMembers().get(0).getRoot().getChildren().get(1).getName());
-		assertEquals(myGroup.getMembers().get(0).getRoot().getChildren().get(1).getName(), groupDTO.getMembers().get(0).getRoot().getChildren().get(1).getName());
-		//item_type
-		assertNotNull(groupDTO.getMembers().get(0).getRoot().getChildren().get(1).getItem_type());
-		assertEquals(myGroup.getMembers().get(0).getRoot().getChildren().get(1).getItem_type(), groupDTO.getMembers().get(0).getRoot().getChildren().get(1).getItem_type());	
 	}
 
 	@Test
@@ -195,7 +148,7 @@ class GroupEntityToDTOConversionTest {
 		//then return a group DTO
 		//group_id
 		assertNotNull(groupDTO.getGroup_id());
-		assertEquals(myGroup.getGroup_id(), Long.valueOf(groupDTO.getGroup_id()));
+		assertEquals(myGroup.getRecipient_id(), Long.valueOf(groupDTO.getGroup_id()));
 		//name
 		assertNotNull(groupDTO.getName());
 		assertEquals(myGroup.getName(),groupDTO.getName());
@@ -205,64 +158,16 @@ class GroupEntityToDTOConversionTest {
 		
 		//member1
 		//user_id
-		assertNotNull(groupDTO.getMembers().get(0).getUser_id());
-		assertEquals(myGroup.getMembers().get(0).getUser_id(), Long.valueOf(groupDTO.getMembers().get(0).getUser_id()));
+		assertNotNull(groupDTO.getMembers().get(0).getRecipient_id());
+		assertEquals(myGroup.getMembers().get(0).getRecipient_id(), Long.valueOf(groupDTO.getMembers().get(0).getRecipient_id()));
 		//name
 		assertNotNull(groupDTO.getMembers().get(0).getName());
 		assertEquals(myGroup.getMembers().get(0).getName(), groupDTO.getMembers().get(0).getName());
-		//mail
-		assertNotNull(groupDTO.getMembers().get(0).getMail());
-		assertEquals(myGroup.getMembers().get(0).getMail(), groupDTO.getMembers().get(0).getMail());
 		//item_type
 		assertNotNull(groupDTO.getMembers().get(0).getItem_type());
 		assertEquals(myGroup.getMembers().get(0).getItem_type(), groupDTO.getMembers().get(0).getItem_type());
 		//root
-		assertNotNull(myGroup.getMembers().get(0).getRoot());
-
-		//root directory
-		//item_id
-		assertNotNull(groupDTO.getMembers().get(0).getRoot().getItem_id());
-		assertEquals(myGroup.getMembers().get(0).getRoot().getItem_id(), Long.valueOf(groupDTO.getMembers().get(0).getRoot().getItem_id()));
-		//name
-		assertNotNull(groupDTO.getMembers().get(0).getRoot().getName());
-		assertEquals(myGroup.getMembers().get(0).getRoot().getName(), groupDTO.getMembers().get(0).getRoot().getName());
-		//item_local_path
-		assertNotNull(groupDTO.getMembers().get(0).getRoot().getItem_local_path());
-		assertEquals(myGroup.getMembers().get(0).getRoot().getItem_local_path(), groupDTO.getMembers().get(0).getRoot().getItem_local_path());
-		//children
-		assertNotNull(groupDTO.getMembers().get(0).getRoot().getChildren());
-		assertEquals(myGroup.getMembers().get(0).getRoot().getChildren().size(), groupDTO.getMembers().get(0).getRoot().getChildren().size());
-		//item_type
-		assertNotNull(groupDTO.getMembers().get(0).getRoot().getItem_type());
-		assertEquals(myGroup.getMembers().get(0).getRoot().getItem_type(), groupDTO.getMembers().get(0).getRoot().getItem_type());
-		
-		//child directory
-		//item_id
-		assertNotNull(groupDTO.getMembers().get(0).getRoot().getChildren().get(0).getItem_id());
-		assertEquals(myGroup.getMembers().get(0).getRoot().getChildren().get(0).getItem_id(), Long.valueOf(groupDTO.getMembers().get(0).getRoot().getChildren().get(0).getItem_id()));
-		//name
-		assertNotNull(groupDTO.getMembers().get(0).getRoot().getChildren().get(0).getName());
-		assertEquals(myGroup.getMembers().get(0).getRoot().getChildren().get(0).getName(), groupDTO.getMembers().get(0).getRoot().getChildren().get(0).getName());
-		//item_local_path
-		assertNotNull(groupDTO.getMembers().get(0).getRoot().getChildren().get(0).getItem_local_path());
-		assertEquals(myGroup.getMembers().get(0).getRoot().getChildren().get(0).getItem_local_path(), groupDTO.getMembers().get(0).getRoot().getChildren().get(0).getItem_local_path());
-		//children
-		assertNotNull(groupDTO.getMembers().get(0).getRoot().getChildren().get(0).getChildren());
-		assertEquals(((Directory) myGroup.getMembers().get(0).getRoot().getChildren().get(0)).getChildren().size(), groupDTO.getMembers().get(0).getRoot().getChildren().get(0).getChildren().size());
-		//item_type
-		assertNotNull(groupDTO.getMembers().get(0).getRoot().getChildren().get(0).getItem_type());
-		assertEquals( myGroup.getMembers().get(0).getRoot().getChildren().get(0).getItem_type(), groupDTO.getMembers().get(0).getRoot().getChildren().get(0).getItem_type());
-		
-		//file
-		//item_id
-		assertNotNull(groupDTO.getMembers().get(0).getRoot().getChildren().get(0).getChildren().get(0).getItem_id());
-		assertEquals(((Directory) myGroup.getMembers().get(0).getRoot().getChildren().get(0)).getChildren().get(0).getItem_id(), Long.valueOf(groupDTO.getMembers().get(0).getRoot().getChildren().get(0).getChildren().get(0).getItem_id()));
-		//item_name
-		assertNotNull(groupDTO.getMembers().get(0).getRoot().getChildren().get(0).getChildren().get(0).getName());
-		assertEquals(((Directory) myGroup.getMembers().get(0).getRoot().getChildren().get(0)).getChildren().get(0).getName(), groupDTO.getMembers().get(0).getRoot().getChildren().get(0).getChildren().get(0).getName());
-		//item_type
-		assertNotNull(groupDTO.getMembers().get(0).getRoot().getChildren().get(0).getChildren().get(0).getItem_type());
-		assertEquals(((Directory) myGroup.getMembers().get(0).getRoot().getChildren().get(0)).getChildren().get(0).getItem_type(), groupDTO.getMembers().get(0).getRoot().getChildren().get(0).getChildren().get(0).getItem_type());	
-	}
+		assertNotNull(((MyUser) myGroup.getMembers().get(0)).getRoot());
+}
 
 }

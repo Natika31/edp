@@ -1,4 +1,4 @@
-package com.projet.edp.group.dto;
+package com.projet.edp.contact.dto;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -7,31 +7,32 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 
-import com.projet.edp.group.domain.MyGroup;
-import com.projet.edp.user.domain.MyUser;
-import com.projet.edp.user.dto.UserDTO;
-import com.projet.edp.user.dto.UserDTOConversion;
+import com.projet.edp.contact.domain.MyGroup;
+import com.projet.edp.contact.domain.MyRecipient;
 
 
 public class GroupDTOConversion {
-	public static final String GROUP_TYPE = "group";
-
-	public static final String MEMBER_TYPE = "user";
 
 	@Autowired
 	private ModelMapper modelMapper;
 
-	private UserDTOConversion userDTOConversion;
+	private RecipientDTOConversion recipientDTOConversion;
 
 	public GroupDTOConversion() {
 		super();
 		this.modelMapper = new ModelMapper();
-		this.userDTOConversion = new UserDTOConversion();
+		this.recipientDTOConversion = new  RecipientDTOConversion();
 	}
 
 	@Bean
 	public GroupDTO convertEntityToDTO(MyGroup myGroup) {
 		GroupDTO groupDTO = this.modelMapper.map(myGroup, GroupDTO.class);
+		List<RecipientDTO> membersDTO = new ArrayList<>();
+		for (MyRecipient child : myGroup.getMembers()) {
+			RecipientDTO childDTO = recipientDTOConversion.convertEntityToDTO(child);
+			membersDTO.add(childDTO);			
+		}
+		groupDTO.setMembers(membersDTO);		
 		return groupDTO;
 	}
 	
@@ -49,17 +50,5 @@ public class GroupDTOConversion {
 		MyGroup myGroup = modelMapper.map(groupDTO, MyGroup.class);
 		return myGroup;
 	}
-
-	@Bean
-	public List<MyUser> convertDTOtoEntitiesMembers(GroupDTO groupDTO){
-		List<MyUser> newMembers = new ArrayList<>();
-		for (UserDTO userDTO : groupDTO.getMembers()) {
-			MyUser member = userDTOConversion.convertDTOtoEntities(userDTO);
-			newMembers.add(member);
-		}
-		return newMembers;
-	}
-
-
 
 }

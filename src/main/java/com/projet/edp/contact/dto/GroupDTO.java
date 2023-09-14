@@ -1,9 +1,7 @@
-package com.projet.edp.group.dto;
+package com.projet.edp.contact.dto;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import com.projet.edp.user.dto.UserDTO;
 
 public class GroupDTO {
 		
@@ -13,7 +11,7 @@ public class GroupDTO {
 
 	private String item_type;
 
-	private List<UserDTO> members;
+	private List<RecipientDTO> members;
 
 	public GroupDTO() {
 		super();
@@ -51,19 +49,19 @@ public class GroupDTO {
 		this.name = name;
 	}
 
-	public List<UserDTO> getMembers() {
+	public List<RecipientDTO> getMembers() {
 		return members;
 	}
 
-	public void setMembers(List<UserDTO> members) {
-		this.members = members;
+	public void setMembers(List<RecipientDTO> membersDTO) {
+		this.members = membersDTO;
 	}
 	
-	public void addMember(UserDTO user) {
+	public void addMember(RecipientDTO user) {
 		this.members.add(user);
 	}
 
-	public void removeMember(UserDTO user) {
+	public void removeMember(RecipientDTO user) {
 		this.members.remove(user);
 	}
 

@@ -1,4 +1,4 @@
-package com.projet.edp.group.ui;
+package com.projet.edp.contact.ui;
 
 import java.util.List;
 
@@ -11,10 +11,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.projet.edp.group.domain.MyGroup;
-import com.projet.edp.group.dto.GroupDTO;
-import com.projet.edp.group.dto.GroupDTOConversion;
-import com.projet.edp.group.service.GroupService;
+import com.projet.edp.contact.domain.MyGroup;
+import com.projet.edp.contact.dto.GroupDTO;
+import com.projet.edp.contact.dto.GroupDTOConversion;
+import com.projet.edp.contact.service.GroupService;
 
 @RestController
 public class GroupController {
@@ -33,8 +33,7 @@ public class GroupController {
 	public ResponseEntity<GroupDTO> create(@RequestBody GroupDTO groupDTO) {
 		MyGroup postRequest = groupDTOConversion.convertDTOtoEntities(groupDTO);
 		MyGroup group = groupService.save(postRequest);
-		GroupDTO postResponse = groupDTOConversion.convertEntityToDTO(group);
-		return new ResponseEntity<GroupDTO>(postResponse, HttpStatus.CREATED);
+		return new ResponseEntity<GroupDTO>(groupDTO, HttpStatus.CREATED);
 	}
 	
 	@GetMapping("/api/group")
