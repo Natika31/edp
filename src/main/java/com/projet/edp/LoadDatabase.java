@@ -6,16 +6,18 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import com.projet.edp.contact.domain.MyGroup;
+import com.projet.edp.contact.domain.MyUser;
+import com.projet.edp.contact.service.GroupService;
+import com.projet.edp.contact.service.RecipientService;
+import com.projet.edp.contact.service.UserService;
 import com.projet.edp.fileTree.domain.Directory;
 import com.projet.edp.fileTree.service.DirectoryService;
+import com.projet.edp.fileTree.service.FileTreeService;
 import com.projet.edp.fileViewer.domain.FileContent;
 import com.projet.edp.fileViewer.domain.MyFile;
 import com.projet.edp.fileViewer.service.FileContentService;
 import com.projet.edp.fileViewer.service.FileService;
-import com.projet.edp.group.domain.MyGroup;
-import com.projet.edp.group.service.GroupService;
-import com.projet.edp.user.domain.MyUser;
-import com.projet.edp.user.service.UserService;
 
 
 @Configuration
@@ -24,7 +26,7 @@ public class LoadDatabase {
 	private static final Logger log = LoggerFactory.getLogger(LoadDatabase.class);
 
 	@Bean
-	CommandLineRunner initDatabase(FileService fileService,FileContentService fileContentService, DirectoryService directoryService,UserService userService, GroupService groupService) {
+	CommandLineRunner initDatabase(FileService fileService,FileContentService fileContentService, DirectoryService directoryService,UserService userService, GroupService groupService,RecipientService recipientService, FileTreeService fileTreeService) {
 
 		return args -> {
 			log.info("clean database ");
@@ -32,6 +34,8 @@ public class LoadDatabase {
 			directoryService.deleteAll();
 			userService.deleteAll();
 			groupService.deleteAll();
+			recipientService.deleteAll();
+			fileTreeService.deleteAll();
 
 			//toto account
 			//get an input file binary content 
@@ -74,7 +78,7 @@ public class LoadDatabase {
 
 			log.info("Preloading " + directoryService.save(rootDirectory));
 			//Create an user 
-			MyUser myUser1 = new MyUser("toto", "toto@me", rootDirectory);
+			MyUser myUser1 = new MyUser("toto", "loginAToto", "secret", "toto@me", rootDirectory);
 			log.info("Preloading " + userService.save(myUser1));
 
 			//tata account
@@ -118,7 +122,7 @@ public class LoadDatabase {
 
 			log.info("Preloading " + directoryService.save(rootDirectory1));
 			//Create an user 
-			MyUser myUser2 = new MyUser("tata", "tata@me", rootDirectory1);
+			MyUser myUser2 = new MyUser("tata", "loginATata", "secret","tata@me", rootDirectory1);
 			log.info("Preloading " + userService.save(myUser2));
 			
 			//create  groups
