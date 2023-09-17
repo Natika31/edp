@@ -5,9 +5,11 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -16,6 +18,8 @@ import com.projet.edp.contact.dto.GroupDTO;
 import com.projet.edp.contact.dto.GroupDTOConversion;
 import com.projet.edp.contact.service.GroupService;
 
+@CrossOrigin(origins = "*")
+@RequestMapping("/api/v1")
 @RestController
 public class GroupController {
 
@@ -29,21 +33,21 @@ public class GroupController {
 		this.groupDTOConversion = new GroupDTOConversion();
 	}
 	
-	@PostMapping("/api/group/save")
+	@PostMapping("/group/save")
 	public ResponseEntity<GroupDTO> create(@RequestBody GroupDTO groupDTO) {
 		MyGroup postRequest = groupDTOConversion.convertDTOtoEntities(groupDTO);
 		MyGroup group = groupService.save(postRequest);
 		return new ResponseEntity<GroupDTO>(groupDTO, HttpStatus.CREATED);
 	}
 	
-	@GetMapping("/api/group")
+	@GetMapping("/group")
 	public ResponseEntity<GroupDTO> getGroupById(@RequestParam Long group_id) {
 		MyGroup group = groupService.findGroupById(group_id).get();
 		GroupDTO groupDTO = groupDTOConversion.convertEntityToDTO(group);
 		return ResponseEntity.ok(groupDTO);
 	}
 	
-	@GetMapping("/api/groups")
+	@GetMapping("/groups")
 	public ResponseEntity<List<GroupDTO>> getAllGroups() {
 		List<MyGroup> groups = groupService.findAll();
 		List<GroupDTO> groupDTOs = groupDTOConversion.convertEntityToDTO(groups);

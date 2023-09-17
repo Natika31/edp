@@ -5,9 +5,11 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -16,6 +18,8 @@ import com.projet.edp.contact.dto.RecipientDTO;
 import com.projet.edp.contact.dto.RecipientDTOConversion;
 import com.projet.edp.contact.service.RecipientService;
 
+@CrossOrigin(origins = "http://localhost:4200")
+@RequestMapping("/api/v1")
 @RestController
 public class RecipientController {
 	
@@ -29,14 +33,14 @@ public class RecipientController {
 		this.recipientDTOConversion = new RecipientDTOConversion();
 	}
 	
-	@PostMapping("/api/recipient/save")
+	@PostMapping("/recipient/save")
 	public ResponseEntity<RecipientDTO> create(@RequestBody RecipientDTO recipientDTO) {
 		MyRecipient recipient = recipientDTOConversion.convertDTOtoEntities(recipientDTO);
 		recipientService.save(recipient);
 		return new ResponseEntity<RecipientDTO>(recipientDTO, HttpStatus.CREATED);
 	}
 
-	@GetMapping("/api/recipient")
+	@GetMapping("/recipient")
 	public ResponseEntity<RecipientDTO> getRecipientById(@RequestParam String recipient_id) {
 		MyRecipient recipient = recipientService.findRecipientById(Long.valueOf(recipient_id)).get();
 		RecipientDTO recipientDTO = recipientDTOConversion.convertEntityToDTO(recipient);
@@ -44,7 +48,7 @@ public class RecipientController {
 	}
 	
 
-	@GetMapping("/api/recipients")
+	@GetMapping("/recipients")
 	public ResponseEntity<List<RecipientDTO>> getAllRecipients() {
 		List<MyRecipient> recipients = recipientService.findAll();
 		List<RecipientDTO> recipientDTOs = recipientDTOConversion.convertEntityToDTO(recipients);

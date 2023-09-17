@@ -1,6 +1,7 @@
 package com.projet.edp.fileTree.ui;
 
 import static org.hamcrest.CoreMatchers.containsString;
+
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
@@ -19,6 +20,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -29,6 +31,7 @@ import com.projet.edp.fileTree.service.DirectoryService;
 import com.projet.edp.fileViewer.domain.FileContent;
 import com.projet.edp.fileViewer.domain.MyFile;
 
+@WithMockUser(value = "toto")
 @WebMvcTest(DirectoryController.class)
 class DirectoryControllerTest {
 
@@ -88,7 +91,7 @@ class DirectoryControllerTest {
 		
 		String jsonDirectoryDTO = mapperJSON.writeValueAsString(directoryDTOConversion.convertEntityToDTO(rootDirectory));
 
-		this.mockMvc.perform(get("/api/directory?directory_id=1")).andDo(print())
+		this.mockMvc.perform(get("/api/v1/directory?directory_id=1")).andDo(print())
 		.andExpect(status().isOk())
 		.andExpect(content().string(containsString(jsonDirectoryDTO)))
 		;
@@ -102,7 +105,7 @@ class DirectoryControllerTest {
 		String jsonDirectoryDTO = mapperJSON.writeValueAsString(directoryDTOConversion.convertEntityToDTO(rootDirectory));
 		
 		when(directoryService.findDirectoryById(1L)).thenReturn(Optional.of(rootDirectory));
-		this.mockMvc.perform(get("/api/directory?directory_id=1"))
+		this.mockMvc.perform(get("/api/v1/directory?directory_id=1"))
 		.andDo(print()).andExpect(status().isOk())
 		.andExpect(content().string(containsString(jsonDirectoryDTO)))
 		;

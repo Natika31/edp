@@ -17,6 +17,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -61,14 +62,15 @@ class RecipientControllerTest {
 	void tearDown() throws Exception {
 		recipient=null;
 	}
-
+	
+    @WithMockUser(value = "toto")
 	@Test
 	void test() throws Exception {
 		when(recipientService.findRecipientById(1L)).thenReturn(Optional.of(recipient));
 
 		String jsonRecipientDTO = mapperJSON.writeValueAsString(recipientDTOConversion.convertEntityToDTO(recipient));
 
-		this.mockMvc.perform(get("/api/recipient?recipient_id=1")).andDo(print())
+		this.mockMvc.perform(get("/api/v1/recipient?recipient_id=1")).andDo(print())
 		.andExpect(status().isOk())
 		.andExpect(content().string(containsString(jsonRecipientDTO)));	
 	}

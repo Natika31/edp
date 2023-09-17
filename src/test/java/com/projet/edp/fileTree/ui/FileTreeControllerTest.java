@@ -18,6 +18,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -28,6 +29,7 @@ import com.projet.edp.fileTree.service.FileTreeService;
 import com.projet.edp.fileViewer.domain.FileContent;
 import com.projet.edp.fileViewer.domain.MyFile;
 
+@WithMockUser(value = "toto")
 @WebMvcTest(FileTreeController.class)
 class FileTreeControllerTest {
 
@@ -93,7 +95,7 @@ class FileTreeControllerTest {
 
 		String jsonItemDTO = mapperJSON.writeValueAsString(treeDTOConversion.convertEntityToDTO(rootDirectory));
 
-		this.mockMvc.perform(get("/api/file-tree?item_id=1")).andDo(print())
+		this.mockMvc.perform(get("/api/v1/file-tree?item_id=1")).andDo(print())
 		.andExpect(status().isOk())
 		.andExpect(content().string(containsString(jsonItemDTO)));
 	}
@@ -106,7 +108,7 @@ class FileTreeControllerTest {
 		String jsonItemDTO = mapperJSON.writeValueAsString(treeDTOConversion.convertEntityToDTO(rootDirectory));
 
 		when(fileTreeService.findFileTreeItemById(1L)).thenReturn(Optional.of(rootDirectory));
-		this.mockMvc.perform(get("/api/file-tree?item_id=1")).andDo(print())
+		this.mockMvc.perform(get("/api/v1/file-tree?item_id=1")).andDo(print())
 		.andExpect(status().isOk())
 		.andExpect(content().string(containsString(jsonItemDTO)))
 		;
@@ -121,7 +123,7 @@ class FileTreeControllerTest {
 		String jsonItemDTO = mapperJSON.writeValueAsString(treeDTOConversion.convertEntityToDTO(rootDirectory));
 
 		when(fileTreeService.findFileTreeItemById(1L)).thenReturn(Optional.of(rootDirectory));
-		this.mockMvc.perform(get("/api/file-tree?item_id=1")).andDo(print()).andExpect(status().isOk())
+		this.mockMvc.perform(get("/api/v1/file-tree?item_id=1")).andDo(print()).andExpect(status().isOk())
 		.andExpect(content().string(containsString(jsonItemDTO)));
 	}
 
@@ -135,7 +137,7 @@ class FileTreeControllerTest {
 
 		String jsonItemDTO = mapperJSON.writeValueAsString(treeDTOConversion.convertEntityToDTO(rootDirectory));
 
-		this.mockMvc.perform(get("/api/file-tree?item_id=1")).andDo(print()).andExpect(status().isOk())
+		this.mockMvc.perform(get("/api/v1/file-tree?item_id=1")).andDo(print()).andExpect(status().isOk())
 		.andExpect(content().string(containsString(jsonItemDTO)));
 	}
 

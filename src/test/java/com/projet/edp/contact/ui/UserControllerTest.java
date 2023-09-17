@@ -19,6 +19,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -30,6 +31,7 @@ import com.projet.edp.fileTree.domain.FileTreeItem;
 import com.projet.edp.fileViewer.domain.FileContent;
 import com.projet.edp.fileViewer.domain.MyFile;
 
+@WithMockUser(value = "toto")
 @WebMvcTest(UserController.class)
 class UserControllerTest {
 
@@ -95,43 +97,46 @@ class UserControllerTest {
 		childFile = null;
 	}
 
+    @WithMockUser(value = "toto")
 	@Test
-	public void testGetUserById_EmptyRootDirectory() throws Exception {
+	public void testGetUserByName_EmptyRootDirectory() throws Exception {
 
-		when(userService.findUserById(1L)).thenReturn(Optional.of(user));
+		when(userService.findUserByName("toto")).thenReturn(Optional.of(user));
 
 		String jsonUserDTO = mapperJSON.writeValueAsString(userDTOConversion.convertEntityToDTO(user));
 
-		this.mockMvc.perform(get("/api/user?user_id=1")).andDo(print())
+		this.mockMvc.perform(get("/api/v1/user?name=toto")).andDo(print())
 		.andExpect(status().isOk())
 		.andExpect(content().string(containsString(jsonUserDTO)));
 	}
 
+    @WithMockUser(value = "toto")
 	@Test
-	public void testGetUserById_RootDirectoryContainsDirectoryContainsFile() throws Exception {
+	public void testGetUserByName_RootDirectoryContainsDirectoryContainsFile() throws Exception {
 
 		childDirectory.addChildren(childFile);
 		rootDirectory.addChildren(childDirectory);
 
-		when(userService.findUserById(1L)).thenReturn(Optional.of(user));
+		when(userService.findUserByName("toto")).thenReturn(Optional.of(user));
 
 		String jsonUserDTO = mapperJSON.writeValueAsString(userDTOConversion.convertEntityToDTO(user));
 
-		this.mockMvc.perform(get("/api/user?user_id=1")).andDo(print()).andExpect(status().isOk())
+		this.mockMvc.perform(get("/api/v1/user?name=toto")).andDo(print()).andExpect(status().isOk())
 		.andExpect(content().string(containsString(jsonUserDTO)));	
 	}
 
+    @WithMockUser(value = "toto")
 	@Test
-	public void testGetUserById_RootDirectoryContainsDirectoryAndFile() throws Exception {
+	public void testGetUserByName_RootDirectoryContainsDirectoryAndFile() throws Exception {
 
 		rootDirectory.addChildren(childFile);
 		rootDirectory.addChildren(childDirectory);
 
-		when(userService.findUserById(1L)).thenReturn(Optional.of(user));
+		when(userService.findUserByName("toto")).thenReturn(Optional.of(user));
 
 		String jsonUserDTO = mapperJSON.writeValueAsString(userDTOConversion.convertEntityToDTO(user));
 
-		this.mockMvc.perform(get("/api/user?user_id=1")).andDo(print()).andExpect(status().isOk())
+		this.mockMvc.perform(get("/api/v1/user?name=toto")).andDo(print()).andExpect(status().isOk())
 		.andExpect(content().string(containsString(jsonUserDTO)));	
 	}
 
