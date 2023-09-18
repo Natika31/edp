@@ -3,6 +3,8 @@ package com.projet.edp.contact.dto;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.projet.edp.accessRight.domain.AccessRight;
+
 public class RecipientDTO {
 
 	private String recipient_id;
@@ -12,10 +14,13 @@ public class RecipientDTO {
 	private String item_type;
 
 	private List<RecipientDTO> members;
+	
+	private List<AccessRight> accessRights;
 
 	public RecipientDTO() {
 		super();
 		this.members = new ArrayList<>();
+		this.accessRights = new ArrayList<>();
 	}
 
 	public RecipientDTO(String recipient_id, String name) {
@@ -23,6 +28,8 @@ public class RecipientDTO {
 		this.recipient_id = recipient_id;
 		this.name = name;
 		this.members = new ArrayList<>();
+		this.accessRights = new ArrayList<>();
+
 	}
 
 	public String getRecipient_id() {
@@ -57,10 +64,20 @@ public class RecipientDTO {
 		this.members = members;
 	}
 
+	public List<AccessRight> getAccessRights() {
+		return accessRights;
+	}
+
+	public void setAccessRights(List<AccessRight> accessRights) {
+		this.accessRights = accessRights;
+	}
+
 	@Override
 	public String toString() {
-		return "RecipientDTO [item_id=" + recipient_id + ", item_type=" + item_type + ", name=" + name + ", members="
-				+ members + "]";
+		return "RecipientDTO [recipient_id=" + recipient_id + ", name=" + name + ", item_type=" + item_type
+				+ ", members=" + members + ", accessRights=" + accessRights + "]";
 	}
+
+
 	
 }

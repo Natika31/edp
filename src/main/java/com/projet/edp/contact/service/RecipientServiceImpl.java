@@ -17,11 +17,16 @@ public class RecipientServiceImpl implements RecipientService {
 	
 	@Override
 	public Optional<MyRecipient> findRecipientById(Long item_id) throws BusinessResourceException {
-		Optional<MyRecipient> itemFound =  recipientDAO.findById(item_id);
-		if (Boolean.FALSE.equals(itemFound.isPresent())) {
+		Optional<MyRecipient> recipientFound =  recipientDAO.findById(item_id);
+		if (Boolean.FALSE.equals(recipientFound.isPresent())) {
 			throw new BusinessResourceException("Item Not Found", "Le destinataire avec cet id n'existe pas :" + item_id);
 		}
-		return itemFound;
+		return recipientFound;
+	}
+	
+	@Override
+	public List<MyRecipient> findAll() {
+		return recipientDAO.findAll();
 	}
 
 	@Override
@@ -32,11 +37,6 @@ public class RecipientServiceImpl implements RecipientService {
 	@Override
 	public void deleteAll() {
 		recipientDAO.deleteAll();
-	}
-
-	@Override
-	public List<MyRecipient> findAll() {
-		return recipientDAO.findAll();
 	}
 
 }

@@ -1,6 +1,10 @@
 package com.projet.edp.fileTree.domain;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
+
+import com.projet.edp.accessRight.domain.AccessRight;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.DiscriminatorColumn;
@@ -10,6 +14,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Inheritance;
 import jakarta.persistence.InheritanceType;
+import jakarta.persistence.OneToMany;
 
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
@@ -28,6 +33,9 @@ public class FileTreeItem implements Serializable {
 	private String item_local_path;
 	
 	private String item_type;
+	
+	@OneToMany
+	private List<AccessRight> accessRights;
 
 	public FileTreeItem() {
 		super();
@@ -38,6 +46,7 @@ public class FileTreeItem implements Serializable {
 		super();
 		this.item_local_path = item_local_path;
 		this.name = name;
+		this.accessRights = new ArrayList<>();
 	}
 
 	public Long getItem_id() {
@@ -71,11 +80,27 @@ public class FileTreeItem implements Serializable {
 	public void setItem_type(String item_type) {
 		this.item_type = item_type;
 	}
+	
+	public List<AccessRight> getAccessRights() {
+		return accessRights;
+	}
+
+	public void setAccessRights(List<AccessRight> accessRights) {
+		this.accessRights = accessRights;
+	}
+	
+	public void addAccessRight(AccessRight accessRight) {
+		this.accessRights.add(accessRight);
+	}
+
+	public void removeAccessRight(AccessRight accessRight) {
+		this.accessRights.remove(accessRight);
+	}
 
 	@Override
 	public String toString() {
 		return "FileTreeItem [item_id=" + item_id + ", name=" + name + ", item_local_path=" + item_local_path
-				+ ", item_type=" + item_type + "]";
+				+ ", item_type=" + item_type + ", accessRights=" + accessRights + "]";
 	}
 
 }

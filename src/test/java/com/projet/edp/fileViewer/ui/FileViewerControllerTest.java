@@ -29,7 +29,7 @@ import com.projet.edp.fileViewer.dto.FileDTOConversion;
 import com.projet.edp.fileViewer.service.FileContentService;
 import com.projet.edp.fileViewer.service.FileService;
 
-@WithMockUser(value = "toto")
+@WithMockUser(value = "admin")
 @WebMvcTest(FileViewerController.class)
 class FileRestControllerTest {
 

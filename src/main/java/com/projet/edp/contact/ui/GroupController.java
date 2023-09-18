@@ -34,10 +34,11 @@ public class GroupController {
 	}
 	
 	@PostMapping("/group/save")
-	public ResponseEntity<GroupDTO> create(@RequestBody GroupDTO groupDTO) {
-		MyGroup postRequest = groupDTOConversion.convertDTOtoEntities(groupDTO);
+	public ResponseEntity<GroupDTO> create(@RequestBody GroupDTO inGroupDTO) {
+		MyGroup postRequest = groupDTOConversion.convertDTOtoEntities(inGroupDTO);
 		MyGroup group = groupService.save(postRequest);
-		return new ResponseEntity<GroupDTO>(groupDTO, HttpStatus.CREATED);
+		GroupDTO outGroupDTO = groupDTOConversion.convertEntityToDTO(group);
+		return new ResponseEntity<GroupDTO>(outGroupDTO, HttpStatus.CREATED);
 	}
 	
 	@GetMapping("/group")

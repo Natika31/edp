@@ -1,6 +1,10 @@
 package com.projet.edp.contact.domain;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
+
+import com.projet.edp.accessRight.domain.AccessRight;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.DiscriminatorColumn;
@@ -10,6 +14,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Inheritance;
 import jakarta.persistence.InheritanceType;
+import jakarta.persistence.OneToMany;
 
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
@@ -24,6 +29,9 @@ public class MyRecipient implements Serializable {
 	private String name;
 
 	private String item_type;
+	
+	@OneToMany
+	private List<AccessRight> accessRights;
 
 	public MyRecipient() {
 		super();
@@ -33,6 +41,7 @@ public class MyRecipient implements Serializable {
 	public MyRecipient(String name) {
 		super();
 		this.name = name;
+		this.accessRights = new ArrayList<>();
 	}
 
 	public Long getRecipient_id() {
@@ -59,10 +68,26 @@ public class MyRecipient implements Serializable {
 		this.item_type = item_type;
 	}
 
-	@Override
-	public String toString() {
-		return "Recipient [recipient_id=" + recipient_id + ", name=" + name + ", item_type=" + item_type + "]";
+	public List<AccessRight> getAccessRights() {
+		return accessRights;
+	}
+
+	public void setAccessRights(List<AccessRight> accessRights) {
+		this.accessRights = accessRights;
 	}
 	
-	
+	public void addAccessRight(AccessRight accessRight) {
+		this.accessRights.add(accessRight);
+	}
+
+	public void removeAccessRight(AccessRight accessRight) {
+		this.accessRights.remove(accessRight);
+	}
+
+	@Override
+	public String toString() {
+		return "MyRecipient [recipient_id=" + recipient_id + ", name=" + name + ", item_type=" + item_type
+				+ ", accessRights=" + accessRights + "]";
+	}
+
 }

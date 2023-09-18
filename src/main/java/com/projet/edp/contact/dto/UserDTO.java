@@ -1,5 +1,9 @@
 package com.projet.edp.contact.dto;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import com.projet.edp.accessRight.domain.AccessRight;
 import com.projet.edp.fileTree.dto.DirectoryDTO;
 
 public class UserDTO {
@@ -12,11 +16,16 @@ public class UserDTO {
 	
 	private String mail;
 	
+	private List<AccessRight> accessRights;
+
+	
 	private DirectoryDTO root;
 
 	public UserDTO() {
 		super();
 		this.root = new DirectoryDTO(null,"home","/home");
+		this.accessRights = new ArrayList<>();
+
 	}
 
 	public UserDTO(String user_id, String name, String mail, String item_type) {
@@ -26,6 +35,8 @@ public class UserDTO {
 		this.mail = mail;
 		this.item_type = item_type;
 		this.root = new DirectoryDTO(null,"home","/home");
+		this.accessRights = new ArrayList<>();
+
 	}
 
 	public String getUser_id() {
@@ -68,11 +79,18 @@ public class UserDTO {
 		this.root = rootDTO;
 	}
 
+	public List<AccessRight> getAccessRights() {
+		return accessRights;
+	}
+
+	public void setAccessRights(List<AccessRight> accessRights) {
+		this.accessRights = accessRights;
+	}
+
 	@Override
 	public String toString() {
 		return "UserDTO [user_id=" + user_id + ", item_type=" + item_type + ", name=" + name + ", mail=" + mail
-				+ ", root=" + root + "]";
+				+ ", accessRights=" + accessRights + ", root=" + root + "]";
 	}
-	
 	
 }

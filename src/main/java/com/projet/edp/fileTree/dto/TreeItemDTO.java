@@ -3,6 +3,8 @@ package com.projet.edp.fileTree.dto;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.projet.edp.accessRight.domain.AccessRight;
+
 public class TreeItemDTO {
 		
 	private String item_id;
@@ -14,6 +16,9 @@ public class TreeItemDTO {
 	private String item_local_path;
 
 	private List<TreeItemDTO> children;
+	
+	private List<AccessRight> accessRights;
+
 
 	public TreeItemDTO() {
 		super();
@@ -26,6 +31,8 @@ public class TreeItemDTO {
 		this.item_local_path = item_local_path;
 		this.name = name;
 		this.children = new ArrayList<>();
+		this.accessRights = new ArrayList<>();
+
 	}
 
 	public String getItem_id() {
@@ -68,10 +75,20 @@ public class TreeItemDTO {
 		this.children = children;
 	}
 
+	public List<AccessRight> getAccessRights() {
+		return accessRights;
+	}
+
+	public void setAccessRights(List<AccessRight> accessRights) {
+		this.accessRights = accessRights;
+	}
+
 	@Override
 	public String toString() {
 		return "TreeItemDTO [item_id=" + item_id + ", item_type=" + item_type + ", name=" + name + ", item_local_path="
-				+ item_local_path + ", children=" + children + "]";
+				+ item_local_path + ", children=" + children + ", accessRights=" + accessRights + "]";
 	}
+
+
 
 }
