@@ -31,7 +31,7 @@ import com.projet.edp.fileTree.service.DirectoryService;
 import com.projet.edp.fileViewer.domain.FileContent;
 import com.projet.edp.fileViewer.domain.MyFile;
 
-@WithMockUser(value = "toto")
+@WithMockUser(value = "admin")
 @WebMvcTest(DirectoryController.class)
 class DirectoryControllerTest {
 

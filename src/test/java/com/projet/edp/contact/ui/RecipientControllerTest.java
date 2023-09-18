@@ -26,6 +26,7 @@ import com.projet.edp.contact.dto.RecipientDTOConversion;
 import com.projet.edp.contact.service.RecipientService;
 
 @WebMvcTest(RecipientController.class)
+@WithMockUser(value = "admin")
 class RecipientControllerTest {
 
 	@Autowired
@@ -63,7 +64,6 @@ class RecipientControllerTest {
 		recipient=null;
 	}
 	
-    @WithMockUser(value = "toto")
 	@Test
 	void test() throws Exception {
 		when(recipientService.findRecipientById(1L)).thenReturn(Optional.of(recipient));

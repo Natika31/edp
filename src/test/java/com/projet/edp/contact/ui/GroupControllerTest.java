@@ -34,6 +34,7 @@ import com.projet.edp.fileViewer.domain.FileContent;
 import com.projet.edp.fileViewer.domain.MyFile;
 
 @WebMvcTest(GroupController.class)
+@WithMockUser(value = "admin")
 class GroupControllerTest {
 
 	@Autowired
@@ -137,7 +138,6 @@ class GroupControllerTest {
 		group2 = null;
 	}
 	
-    @WithMockUser(value = "toto")
 	@Test
 	void testGetGroupById_EmptyGroup() throws Exception {
 		when(groupService.findGroupById(1L)).thenReturn(Optional.of(group1));
@@ -149,7 +149,6 @@ class GroupControllerTest {
 		.andExpect(content().string(containsString(jsonGroupDTO)));	
 	}
     
-    @WithMockUser(value = "toto")
 	@Test
 	void testGetGroupById_GroupWithOneUser() throws Exception {
 		group1.addMember(user1);
@@ -162,7 +161,6 @@ class GroupControllerTest {
 		.andExpect(content().string(containsString(jsonGroupDTO)));	
 	}
     
-    @WithMockUser(value = "toto")
 	@Test
 	void testGetGroupById_addMembers() throws Exception {
 		group1.addMember(user1);
@@ -177,7 +175,6 @@ class GroupControllerTest {
 		.andExpect(content().string(containsString(jsonGroupDTO)));	
 	}
     
-    @WithMockUser(value = "toto")
 	@Test
 	void testGetAllGroups() throws Exception {
 		group1.addMember(user1);

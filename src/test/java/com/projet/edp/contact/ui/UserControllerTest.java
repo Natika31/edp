@@ -31,7 +31,7 @@ import com.projet.edp.fileTree.domain.FileTreeItem;
 import com.projet.edp.fileViewer.domain.FileContent;
 import com.projet.edp.fileViewer.domain.MyFile;
 
-@WithMockUser(value = "toto")
+@WithMockUser(value = "admin")
 @WebMvcTest(UserController.class)
 class UserControllerTest {
 
@@ -97,7 +97,6 @@ class UserControllerTest {
 		childFile = null;
 	}
 
-    @WithMockUser(value = "toto")
 	@Test
 	public void testGetUserByName_EmptyRootDirectory() throws Exception {
 
@@ -110,7 +109,6 @@ class UserControllerTest {
 		.andExpect(content().string(containsString(jsonUserDTO)));
 	}
 
-    @WithMockUser(value = "toto")
 	@Test
 	public void testGetUserByName_RootDirectoryContainsDirectoryContainsFile() throws Exception {
 
@@ -125,7 +123,6 @@ class UserControllerTest {
 		.andExpect(content().string(containsString(jsonUserDTO)));	
 	}
 
-    @WithMockUser(value = "toto")
 	@Test
 	public void testGetUserByName_RootDirectoryContainsDirectoryAndFile() throws Exception {
 
